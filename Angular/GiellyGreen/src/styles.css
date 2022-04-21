@@ -702,3 +702,19 @@ body{
     }
 }
 
+.ant-table-column-sorters {
+    justify-content: flex-start !important;
+    flex: inherit !important;
+}
+
+.ant-table-column-title {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    white-space: nowrap;
+    margin-right: 5px;
+}
+
+.ant-table-column-sorters::after {
+    position: relative;
+}
