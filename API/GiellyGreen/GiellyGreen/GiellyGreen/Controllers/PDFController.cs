@@ -1,7 +1,10 @@
 ﻿using GiellyGreen.Classes;
 using GiellyGreen.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -32,8 +35,31 @@ namespace GiellyGreen.Controllers
                     Pdfs.Add(res);
                 }
 
+                Byte[] MergedPDF = null;
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    var document = new Document(PageSize.A4);
+                    PdfCopy writer = new PdfCopy(document, memoryStream);
+                    document.Open();
+                    foreach (var pdf in Pdfs)
+                    {
+                        PdfReader reader = new PdfReader(pdf);
+                        reader.ConsolidateNamedDestinations();
+                        for (int i = 1; i <= reader.NumberOfPages; i++)
+                        {
+                            PdfImportedPage page = writer.GetImportedPage(reader, i);
+                            writer.AddPage(page);
+                        }
+                        reader.Close();
+                    }
+                    writer.Close();
+                    document.Close();
+                    MergedPDF = memoryStream.ToArray();
+                }
+
                 response.Message = "Pdfs Generated";
-                response.Result = Pdfs;
+                response.Result = MergedPDF;
             }
             catch(Exception ex)
             {
