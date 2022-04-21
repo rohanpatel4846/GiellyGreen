@@ -7,6 +7,8 @@ import { SuppliersService } from 'src/app/Services/Suppliers/suppliers.service';
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { EmailService } from 'src/app/Services/Email/email.service';
+import Swal from 'sweetalert2';
 
 
 
@@ -54,7 +56,7 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  constructor(public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
+  constructor(public Email:EmailService, public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
 
   ngOnInit(): void {
     this.SessionManagement.updateIsLoggedIn();
@@ -522,6 +524,26 @@ export class InvoiceComponent implements OnInit {
         });
       }, 2000);
     });
+  }
+
+  sendEmailToSelected(){
+    this.FullPageLoading = true;
+    let body:any = [];
+    this.getCheckedInvoices().forEach((invoice:any) => {
+      body.push(invoice.id);
+    });
+
+    this.Email.sendEmail(body)
+    .subscribe((data:any) => { this.EmailSuccess(data) }, (error) => { console.log(error) });
+  }
+
+  EmailSuccess(data:any){
+    this.FullPageLoading = false;
+    Swal.fire({
+      icon: 'success',
+      title: 'Email Sent',
+      showConfirmButton: false,
+    })
   }
 }
 
