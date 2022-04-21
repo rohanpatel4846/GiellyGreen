@@ -5,14 +5,11 @@ import { MonthInvoiceService } from 'src/app/Services/MonthInvoice/month-invoice
 import { SessionManagementService } from 'src/app/Services/SessionManagement/session-management.service';
 import { SuppliersService } from 'src/app/Services/Suppliers/suppliers.service';
 
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import { EmailService } from 'src/app/Services/Email/email.service';
 import Swal from 'sweetalert2';
 import { PdfService } from 'src/app/Services/PDF/pdf.service';
 import { saveAs } from 'file-saver'
-
-
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-invoice',
@@ -375,9 +372,22 @@ export class InvoiceComponent implements OnInit {
 
   AfterCombineAPISuccess(data:any){
     let fileContent = data.Result;
-    const file = new Blob([content], {type: 'text/plain'});
-    FileSaver.saveAs(file, "test.txt");
+    var byteArray = this.base64ToArrayBuffer(fileContent);
+    console.log(byteArray);
+    const file = new Blob([byteArray], {type:"application/pdf"});
+    FileSaver.saveAs(file, "Combined Invoice.pdf");
+    this.FullPageLoading = false;
   }
+
+  base64ToArrayBuffer(base64:any):ArrayBuffer {
+    var binary_string =  window.atob(base64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array( len );
+    for (var i = 0; i < len; i++)        {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes.buffer;
+}
 
   sendEmailToSelected(){
     this.FullPageLoading = true;

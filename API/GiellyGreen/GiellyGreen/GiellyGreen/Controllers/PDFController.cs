@@ -57,9 +57,9 @@ namespace GiellyGreen.Controllers
                     document.Close();
                     MergedPDF = memoryStream.ToArray();
                 }
-
+                string pdfBase64 = Convert.ToBase64String(MergedPDF);
                 response.Message = "Pdfs Generated";
-                response.Result = MergedPDF;
+                response.Result = pdfBase64;
             }
             catch(Exception ex)
             {
