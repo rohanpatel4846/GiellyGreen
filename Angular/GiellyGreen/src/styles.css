@@ -112,7 +112,7 @@ body{
 }
 
 .searchTextBox{
-    height: 100%;
+    width: 100%;
 }
 
 .suppliersSearch{
@@ -456,6 +456,11 @@ body{
     background: #fafafa4a;
     z-index: 121;
     height: 100%;
+}
+
+.btnIconsInvoice{
+    width: 20px;
+    margin-right: 5px;
 }
 
 /* -------------------------------------------------------------------- */
