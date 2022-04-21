@@ -66,7 +66,7 @@ namespace GiellyGreen.Classes
                 string imgPath = Path.Combine(path, imageName);
                 imageBase64 = Convert.ToBase64String(File.ReadAllBytes(imgPath));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 imageBase64 = "";
             }

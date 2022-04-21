@@ -273,6 +273,14 @@ export class InvoiceComponent implements OnInit {
     });
     toUpdateORAdd = toUpdateORAddFinal;
 
+    this.listOfInvoices.forEach((invoice:any) => {
+      if(invoice.id == 0 && (this.getNet(invoice) > 0 || invoice.AdvancePay > 0)){
+        toUpdateORAdd.push(invoice);
+      }
+    });
+
+    console.log(toUpdateORAdd);
+
     let totalApiCalls = toUpdateORAdd.length;
     let completedApis = 0;
 
@@ -332,7 +340,9 @@ export class InvoiceComponent implements OnInit {
     invoiceArray[index].Custom5 = invoiceArray[index].Custom5 <= 0 ? 0 : invoiceArray[index].Custom5;
     invoiceArray[index].AdvancePay = invoiceArray[index].AdvancePay <= 0 ? 0 : invoiceArray[index].AdvancePay;
     this.listOfInvoices = invoiceArray;
-    this.changedInvoices.push(id);
+    if(id != 0){
+      this.changedInvoices.push(id);
+    }
   }
 
   getCheckedInvoices(){
