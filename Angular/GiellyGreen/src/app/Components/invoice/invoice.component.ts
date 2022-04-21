@@ -8,7 +8,6 @@ import { SuppliersService } from 'src/app/Services/Suppliers/suppliers.service';
 import { EmailService } from 'src/app/Services/Email/email.service';
 import Swal from 'sweetalert2';
 import { PdfService } from 'src/app/Services/PDF/pdf.service';
-import { saveAs } from 'file-saver'
 import * as FileSaver from 'file-saver';
 
 @Component({
@@ -35,10 +34,11 @@ export class InvoiceComponent implements OnInit {
   GlobalVAT = 20;
   currentID = 0;
   invoiceTableLoading = false;
-  invoiceFromDataBase:any = [];
   FullPageLoading = false;
+  changedInvoices:any = [];
 
   listOfInvoices: InvoiceItem[] = [];
+  listOfInvoicesBackup: InvoiceItem[] = [];
 
   getNet(data:any){
     let total = data.HairService + data.BeautyService + data.Custom1 + data.Custom2 + data.Custom3 + data.Custom4 + data.Custom5;
@@ -107,16 +107,19 @@ export class InvoiceComponent implements OnInit {
         "InvoiceReferenceNumber": this.invoiceReference
       }
 
+      this.FullPageLoading=true;
       this.MonthInvoice.postMonthInvoice(MonthInvoiceBody)
         .subscribe((data:any) => {
           if(data.Result == 1){
             this.MonthSelectedChanged();
+            this.FullPageLoading=false;
           }
         });
     }
   }
 
   MonthInvoiceGenerated(id:any){
+    this.FullPageLoading=true;
     this.MonthInvoice.getMonthInvoiceById(id)
     .subscribe((data:any) => {
       let result = data.Result[0];
@@ -128,7 +131,7 @@ export class InvoiceComponent implements OnInit {
       this.selectedDate = result.InvoiceDate;
       this.GlobalVAT = result.VAT;
       this.invoiceReference = result.InvoiceReferenceNumber;
-
+      this.FullPageLoading=false;
       //---------------------------------
 
       this.GetInvoices();
@@ -160,7 +163,6 @@ export class InvoiceComponent implements OnInit {
               SupplierID: invoice.SupplierId
             }
             tableData.push(invoiceOBJ);
-            this.invoiceFromDataBase.push(invoiceOBJ);
           });
           
           this.invoiceTableLoading = true;
@@ -184,8 +186,9 @@ export class InvoiceComponent implements OnInit {
                   SupplierID: supplier.id
                 }
   
-                if(tableData.findIndex( x => x.SupplierID == supplier.id) == -1)
+                if(tableData.findIndex( x => x.SupplierID == supplier.id) == -1){
                   tableData.push(invoiceOBJ);
+                }
               });
               this.listOfInvoices = tableData;
             });
@@ -255,11 +258,19 @@ export class InvoiceComponent implements OnInit {
 
   saveButtonClicked(){
     let toUpdateORAdd:any = [];
-    this.listOfInvoices.forEach((invoice:any) => {
-      if((this.getNet(invoice) != 0 || invoice.AdvancePay != 0 || this.invoiceFromDataBase.findIndex((x:any) =>x.id == invoice.id) != -1) && !invoice.isApproved){
-        toUpdateORAdd.push(invoice);
+    let toUpdateORAddFinal:any = [];
+    this.changedInvoices = this.changedInvoices.filter((item:any, i:any, ar:any) => ar.indexOf(item) === i);
+
+    this.changedInvoices.forEach((id:any) => {
+      toUpdateORAdd.push(this.listOfInvoices.find((x:any) => x.id == id));
+    });
+
+    toUpdateORAdd.forEach((invoice:any) => {
+      if(invoice.id != 0 || this.getNet(invoice) != 0 || invoice.AdvancePay != 0){
+        toUpdateORAddFinal.push(invoice);
       }
     });
+    toUpdateORAdd = toUpdateORAddFinal;
 
     let totalApiCalls = toUpdateORAdd.length;
     let completedApis = 0;
@@ -300,26 +311,27 @@ export class InvoiceComponent implements OnInit {
           });
       }
     });
-
-    this.invoiceFromDataBase = [];
   }
 
   AfterAllPostPut(){
+    this.changedInvoices = [];
     this.GetInvoices();
     this.FullPageLoading = false;
   }
 
-  valueChanged(){
-    this.listOfInvoices.forEach((invoice:any) => {
-      invoice.HairService = invoice.HairService == "" ? 0 : invoice.HairService;
-      invoice.BeautyService = invoice.BeautyService == "" ? 0 : invoice.BeautyService;
-      invoice.Custom1 = invoice.Custom1 == "" ? 0 : invoice.Custom1;
-      invoice.Custom2 = invoice.Custom2 == "" ? 0 : invoice.Custom2;
-      invoice.Custom3 = invoice.Custom3 == "" ? 0 : invoice.Custom3;
-      invoice.Custom4 = invoice.Custom4 == "" ? 0 : invoice.Custom4;
-      invoice.Custom5 = invoice.Custom5 == "" ? 0 : invoice.Custom5;
-      invoice.AdvancePay = invoice.AdvancePay == "" ? 0 : invoice.AdvancePay;
-    });
+  valueChanged(id:any, event:any){
+    let invoiceArray = this.listOfInvoices;
+    let index = invoiceArray.findIndex(x=>x.id == id);
+    invoiceArray[index].HairService = invoiceArray[index].HairService <= 0 ? 0 : invoiceArray[index].HairService;
+    invoiceArray[index].BeautyService = invoiceArray[index].BeautyService <= 0 ? 0 : invoiceArray[index].BeautyService;
+    invoiceArray[index].Custom1 = invoiceArray[index].Custom1 <= 0 ? 0 : invoiceArray[index].Custom1;
+    invoiceArray[index].Custom2 = invoiceArray[index].Custom2 <= 0 ? 0 : invoiceArray[index].Custom2;
+    invoiceArray[index].Custom3 = invoiceArray[index].Custom3 <= 0 ? 0 : invoiceArray[index].Custom3;
+    invoiceArray[index].Custom4 = invoiceArray[index].Custom4 <= 0 ? 0 : invoiceArray[index].Custom4;
+    invoiceArray[index].Custom5 = invoiceArray[index].Custom5 <= 0 ? 0 : invoiceArray[index].Custom5;
+    invoiceArray[index].AdvancePay = invoiceArray[index].AdvancePay <= 0 ? 0 : invoiceArray[index].AdvancePay;
+    this.listOfInvoices = invoiceArray;
+    this.changedInvoices.push(id);
   }
 
   getCheckedInvoices(){
@@ -335,12 +347,23 @@ export class InvoiceComponent implements OnInit {
   approveSelectedClicked(){
     let checked:any = this.getCheckedInvoices();
     this.listOfInvoices.forEach((invoice:any) => {
-      console.log(checked.findIndex((x:any) => x.SupplierID == invoice.SupplierID));
       if(checked.findIndex((x:any) => x.SupplierID == invoice.SupplierID) != -1){
-        invoice.isApproved = true;
+        if(this.getNet(invoice) != 0){
+          invoice.isApproved = true;
+          this.changedInvoices.push(invoice.id);
+        }
+        else{
+          // this.notification.create(
+          //   'error',
+          //   'Net Cannot Be Zero',
+          //   'for Supplier - ' + invoice.SupplierName
+          // );
+        }
+        
       }
     });
 
+    
     this.allChecked = false;
     this.allCheckedChanged();
   }
@@ -360,14 +383,23 @@ export class InvoiceComponent implements OnInit {
   }
 
   combineAndSave(){
-    this.FullPageLoading = true;
-    let body:any = [];
-    this.getCheckedInvoices().forEach((invoice:any) => {
-      body.push(invoice.id);
-    });
-
-    this.Pdf.getPDF(body)
-    .subscribe((data:any) => { this.AfterCombineAPISuccess(data) }, (error) => { console.log(error) });
+    if(this.changedInvoices.length > 0){
+      Swal.fire(
+        'Error',
+        'Invoices are not saved!',
+        'error'
+      )
+    }
+    else if(this.getCheckedInvoices().length > 0){
+      this.FullPageLoading = true;
+      let body:any = [];
+      this.getCheckedInvoices().forEach((invoice:any) => {
+        body.push(invoice.id);
+      });
+  
+      this.Pdf.getPDF(body)
+      .subscribe((data:any) => { this.AfterCombineAPISuccess(data) }, (error) => { console.log(error) });
+    }
   }
 
   AfterCombineAPISuccess(data:any){
@@ -387,17 +419,26 @@ export class InvoiceComponent implements OnInit {
         bytes[i] = binary_string.charCodeAt(i);
     }
     return bytes.buffer;
-}
+  }
 
   sendEmailToSelected(){
-    this.FullPageLoading = true;
-    let body:any = [];
-    this.getCheckedInvoices().forEach((invoice:any) => {
-      body.push(invoice.id);
-    });
+    if(this.changedInvoices.length > 0){
+      Swal.fire(
+        'Error',
+        'Invoices are not saved!',
+        'error'
+      )
+    }
+    else if(this.getCheckedInvoices().length > 0){
+      this.FullPageLoading = true;
+      let body:any = [];
+      this.getCheckedInvoices().forEach((invoice:any) => {
+        body.push(invoice.id);
+      });
 
-    this.Email.sendEmail(body)
-    .subscribe((data:any) => { this.EmailSuccess(data) }, (error) => { console.log(error) });
+      this.Email.sendEmail(body)
+      .subscribe((data:any) => { this.EmailSuccess(data) }, (error) => { console.log(error) });
+    }
   }
 
   EmailSuccess(data:any){

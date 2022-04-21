@@ -63,17 +63,17 @@
                               <!-- <label nz-checkbox [(ngModel)]="data.isChecked"></label> -->
                             </td>
                             <td nzEllipsis >{{ data.SupplierName }}</td>
-                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.HairService" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
-                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.BeautyService" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
-                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom1" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
-                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom2" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
-                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom3" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
-                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom4" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
-                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom5" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.HairService" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.BeautyService" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom1" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom2" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom3" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom4" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom5" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
                             <td nzEllipsis >{{ getNet(data) }}</td>
                             <td nzEllipsis >{{ getVAT(getNet(data)) }}</td>
                             <td nzEllipsis >{{ getNet(data) + getVAT(getNet(data)) }}</td>
-                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.AdvancePay" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.AdvancePay" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
                             <td nzEllipsis >{{ getNet(data) + getVAT(getNet(data)) - data.AdvancePay }}</td>
                             <td nzEllipsis  nzRight>
                               <input type="checkbox" disabled [ngModel]="data.isApproved" class="custom_checkbox2">
