@@ -10,6 +10,7 @@ import html2canvas from 'html2canvas';
 import { EmailService } from 'src/app/Services/Email/email.service';
 import Swal from 'sweetalert2';
 import { PdfService } from 'src/app/Services/PDF/pdf.service';
+import { saveAs } from 'file-saver'
 
 
 
@@ -369,7 +370,13 @@ export class InvoiceComponent implements OnInit {
     });
 
     this.Pdf.getPDF(body)
-    .subscribe((data:any) => { console.log(data) }, (error) => { console.log(error) });
+    .subscribe((data:any) => { this.AfterCombineAPISuccess(data) }, (error) => { console.log(error) });
+  }
+
+  AfterCombineAPISuccess(data:any){
+    let fileContent = data.Result;
+    const file = new Blob([content], {type: 'text/plain'});
+    FileSaver.saveAs(file, "test.txt");
   }
 
   sendEmailToSelected(){
