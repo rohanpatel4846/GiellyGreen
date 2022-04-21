@@ -1,0 +1,165 @@
+combineAndSave(){
+    let checked = this.getCheckedInvoices();
+    let pdf = new jsPDF('p', 'mm', 'a4');
+    let AllInvoices:any = [];
+
+    checked.forEach((invoice:any) => {
+      let pdfSupAddress = "Address " + invoice.SupplierName;
+      let pdfTaxReference = "TAX" + invoice.SupplierName;
+      let pdfVATNumber = "VAT" + invoice.SupplierName;
+      let pdfHair = invoice.HairService;
+      let pdfBeauty = invoice.BeautyService;
+      let pdfCustom1 = invoice.Custom1;
+      let pdfCustom2 = invoice.Custom2;
+      let pdfCustom3 = invoice.Custom3;
+      let pdfCustom4 = invoice.Custom4;
+      let pdfCustom5 = invoice.Custom5;
+      let pdfAdvancePay = invoice.AdvancePay;
+
+      let pdfNET = pdfHair + pdfBeauty + pdfCustom1 + pdfCustom2 + pdfCustom3 + pdfCustom4 + pdfCustom5;
+      let pdfVAT = ((pdfNET * this.GlobalVAT ) / 100);
+      let pdfDue = (pdfNET + pdfVAT) - pdfAdvancePay;
+      
+      //#region AllInvoices HTML String
+      AllInvoices.push( `
+        <div class="paDivConatiner">
+          <div class="PdfDIV" id="pdfDiv">
+            <div class="pdfLogoHead">
+              <div class="pdfLogo">
+                <img src="https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?cs=srgb&dl=pexels-pixabay-60597.jpg&fm=jpg" width="200" height="200">
+              </div>
+              <div class="pdfHead">
+                <p class="pdfHeadIn">Self-Billed Invoice</p>
+              </div>
+            </div>
+            <div class="SecondRow">
+              <div class="AddressOut">
+                <div class="Address">
+                  `+pdfSupAddress+`
+                </div>
+              </div>
+              <div class="OtherSecordRow">
+                <div class="invoiceDets">
+                  <div>Invoice Date : `+this.selectedDate+`</div>
+                  <div>Invoice Reference : `+this.invoiceReference+`</div>
+                </div>
+                <div class="companyDets">
+                  <div>Tax Reference : `+pdfTaxReference+`</div>
+                  <div>VAT Number : `+pdfVATNumber+`</div>
+                </div>
+              </div>
+            </div>
+            <div class="ThirdRow">
+              <div class="toAddressTO">
+                To : 
+              </div>
+              <div class="toAddress">
+                ADK Consultancy
+                Dummy Address
+                Dummy Address
+                Dummy Address
+              </div>
+            </div>
+            <div class="TableConatiner">
+              <table class="pdfTable">
+                <thead>
+                  <th></th>
+                  <th width="25%"></th>
+                  <th width="25%"></th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="rightNoBorder">Description</td>
+                    <td class="rightNoBorder leftNoBorder"></td>
+                    <td class="leftNoBorder">Amount (GBP)</td>
+                  </tr>
+                  <tr>
+                    <td>Hair Services</td>
+                    <td></td>
+                    <td>`+pdfHair+`</td>
+                  </tr>
+                  <tr>
+                    <td>Beauty Services</td>
+                    <td></td>
+                    <td>`+pdfBeauty+`</td>
+                  </tr>
+                  <tr>
+                    <td>Custom 1</td>
+                    <td></td>
+                    <td>`+pdfCustom1+`</td>
+                  </tr>
+                  <tr>
+                    <td>Custom 2</td>
+                    <td></td>
+                    <td>`+pdfCustom2+`</td>
+                  </tr>
+                  <tr>
+                    <td>Custom 3</td>
+                    <td></td>
+                    <td>`+pdfCustom3+`</td>
+                  </tr>
+                  <tr>
+                    <td>Custom 4</td>
+                    <td></td>
+                    <td>`+pdfCustom4+`</td>
+                  </tr>
+                  <tr>
+                    <td>Custom 5</td>
+                    <td></td>
+                    <td>`+pdfCustom5+`</td>
+                  </tr>
+                  <tr>
+                    <td class="noBorder"></td>
+                    <td class="pdfText-Right noBorder">Subtotal(Net)</td>
+                    <td>`+pdfNET+`</td>
+                  </tr>
+                  <tr>
+                    <td class="noBorder"></td>
+                    <td class="pdfText-Right noBorder">VAT</td>
+                    <td>`+pdfVAT+`</td>
+                  </tr>
+                  <tr>
+                    <td class="noBorder"></td>
+                    <td class="pdfText-Right noBorder">Advance Paid</td>
+                    <td>`+pdfAdvancePay+`</td>
+                  </tr>
+                  <tr>
+                    <td class="noBorder"></td>
+                    <td class="pdfText-Right noBorder">Balance Due</td>
+                    <td>`+pdfDue+`</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `);
+      //#endregion
+    });
+
+    let totalInvoices = AllInvoices.length;
+    let completedInvoices = 0;
+    this.FullPageLoading = true;
+    AllInvoices.forEach((invoice:any) => {
+      setTimeout(() =>{
+        let finalPDFData = document.getElementById('FinalPDFData') || document.createElement('div');
+        finalPDFData.innerHTML = invoice;
+        let data = document.getElementById('pdfDiv') || document.createElement('div');
+        html2canvas(data,{useCORS:true}).then(canvas => {
+          var imgWidth = 208;
+          var imgHeight = canvas.width * imgWidth / canvas.height;
+          const contentDataURL = canvas.toDataURL('image/png');
+          var position = 0;
+          pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+          completedInvoices++;
+          pdf.addPage();
+
+          if(completedInvoices >= totalInvoices){
+            pdf.save('newPDF.pdf');
+            this.FullPageLoading = false;
+            finalPDFData.innerHTML = "";
+          }
+        });
+      }, 2000);
+    });
+  }
