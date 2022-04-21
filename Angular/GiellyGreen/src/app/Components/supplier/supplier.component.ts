@@ -66,10 +66,10 @@ export class SupplierComponent implements OnInit {
       businessAddress: [null],
       emailAddress: [null, [Validators.email,Validators.required]],
       phoneNumber: [null],
-      companyRegisteedNumber: [null],
+      CompanyRegisterNumber: [null],
       vatNumber: [null],
       taxReference: [null],
-      companyRegisteredAddress: [null],
+      CompanyRegisteredAddress: [null],
       isActive: [false],
       id: 0
     });
@@ -90,10 +90,10 @@ export class SupplierComponent implements OnInit {
       businessAddress: null,
       emailAddress: null,
       phoneNumber: null,
-      companyRegisteedNumber: null,
+      CompanyRegisterNumber: null,
       vatNumber: null,
       taxReference: null,
-      companyRegisteredAddress: null,
+      CompanyRegisteredAddress: null,
       isActive: false,
       id: 0
     })
@@ -112,8 +112,8 @@ export class SupplierComponent implements OnInit {
           result.forEach((supplier:any) => {
             let supplierOBJ:SupplierTable = {
               BusinessAddress: supplier.BusinessAddress,
-              CompanyRegisterNumber: supplier.companyRegisteedNumber,
-              CompanyRegisteredAddress: supplier.companyRegisteedNumber,
+              CompanyRegisterNumber: supplier.CompanyRegisterNumber,
+              CompanyRegisteredAddress: supplier.CompanyRegisteredAddress,
               EmailAddress: supplier.EmailAddress,
               ImageId: supplier.ImageId,
               PhoneNumber: supplier.PhoneNumber,
@@ -124,6 +124,7 @@ export class SupplierComponent implements OnInit {
               id: supplier.id,
               isActive: supplier.isActive
             };
+            console.log(supplierOBJ);
             tableData.push(supplierOBJ);
           });
           this.listOfData = tableData;
@@ -199,8 +200,8 @@ export class SupplierComponent implements OnInit {
   saveForm(imageID:any){
     let SupplierTableOBJ = {
       BusinessAddress: this.SupplierForm.value['businessAddress'],
-      CompanyRegisterNumber: this.SupplierForm.value['companyRegisteedNumber'],
-      CompanyRegisteredAddress: this.SupplierForm.value['companyRegisteredAddress'],
+      CompanyRegisterNumber: this.SupplierForm.value['CompanyRegisterNumber'],
+      CompanyRegisteredAddress: this.SupplierForm.value['CompanyRegisteredAddress'],
       EmailAddress: this.SupplierForm.value['emailAddress'],
       ImageId: imageID,
       PhoneNumber: this.SupplierForm.value['phoneNumber'],
@@ -244,16 +245,17 @@ export class SupplierComponent implements OnInit {
   }
 
   EditClicked(data:any){
+    console.log(data);
     this.SupplierForm.patchValue({
       supplierName: data.SupplierName,
       supplierReference: data.SupplierReferenceNumber,
       businessAddress: data.BusinessAddress,
       emailAddress: data.EmailAddress,
       phoneNumber: data.PhoneNumber,
-      companyRegisteedNumber: data.CompanyRegisterNumber,
+      CompanyRegisterNumber: data.CompanyRegisterNumber,
       vatNumber: data.VATNumber,
       taxReference: data.TAXReference,
-      companyRegisteredAddress: data.CompanyRegisteredAddress,
+      CompanyRegisteredAddress: data.CompanyRegisteredAddress,
       isActive: data.isActive,
       id: data.id
     })

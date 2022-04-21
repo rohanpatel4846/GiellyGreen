@@ -130,7 +130,7 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="24" nzFor="companyRegisteedNumber">Company Registered Number</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorCompanyRegisteredNumber">
-                          <input nz-input type="email" formControlName="companyRegisteedNumber" id="companyRegisteedNumber" />
+                          <input nz-input type="email" formControlName="CompanyRegisterNumber" id="companyRegisteedNumber" />
                           <ng-template #errorCompanyRegisteredNumber let-control>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Company Registered Number</ng-container>
                           </ng-template>
@@ -163,7 +163,7 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="24" nzFor="companyRegisteredAddress">Company Registered Address</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorCompanyRegisteredAddress">
-                            <textarea rows="3" nz-input formControlName="companyRegisteredAddress" id="companyRegisteredAddress"></textarea>
+                            <textarea rows="3" nz-input formControlName="CompanyRegisteredAddress" id="companyRegisteredAddress"></textarea>
                             <ng-template #errorCompanyRegisteredAddress let-control>
                                 <ng-container *ngIf="control.hasError('required')">Please Enter Company Registered Address</ng-container>
                             </ng-template>

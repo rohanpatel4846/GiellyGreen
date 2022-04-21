@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0db94753b30e4c178da12f96eb3295d3" Name="Diagram1">
+      <Diagram DiagramId="6c5b4d591aba43c69f93deb0ee713f32" Name="Diagram1">
         <EntityTypeShape EntityType="GiellyGreen_RohanModel.image" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="GiellyGreen_RohanModel.Invoice" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="GiellyGreen_RohanModel.MonthInvoice" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="GiellyGreen_RohanModel.Supplier" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="GiellyGreen_RohanModel.FK__Suppliers__Image__7D439ABD" ManuallyRouted="false" />
-        <AssociationConnector Association="GiellyGreen_RohanModel.FK__Invoice__MonthId__00200768" ManuallyRouted="false" />
-        <AssociationConnector Association="GiellyGreen_RohanModel.FK__Invoice__Supplie__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="GiellyGreen_RohanModel.FK__Suppliers__Image__367C1819" ManuallyRouted="false" />
+        <AssociationConnector Association="GiellyGreen_RohanModel.FK__Invoice__MonthId__395884C4" ManuallyRouted="false" />
+        <AssociationConnector Association="GiellyGreen_RohanModel.FK__Invoice__Supplie__3A4CA8FD" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

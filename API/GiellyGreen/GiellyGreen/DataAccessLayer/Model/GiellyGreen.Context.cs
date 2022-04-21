@@ -32,6 +32,19 @@ namespace DataAccessLayer.Model
         public virtual DbSet<MonthInvoice> MonthInvoices { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
     
+        public virtual int DeleteSupplier(Nullable<int> id, Nullable<int> count)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var countParameter = count.HasValue ?
+                new ObjectParameter("count", count) :
+                new ObjectParameter("count", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteSupplier", idParameter, countParameter);
+        }
+    
         public virtual ObjectResult<GetImage_Result> GetImage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -74,6 +87,19 @@ namespace DataAccessLayer.Model
                 new ObjectParameter("onlyActive", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GETSuppliers_Result>("GETSuppliers", idParameter, onlyActiveParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> InsertUpdateImage(Nullable<int> id, string url)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertUpdateImage", idParameter, urlParameter);
         }
     
         public virtual int InsertUpdateInvoice(Nullable<int> id, Nullable<int> monthId, Nullable<int> supplierId, Nullable<decimal> hairService, Nullable<decimal> beautyService, Nullable<decimal> custom1, Nullable<decimal> custom2, Nullable<decimal> custom3, Nullable<decimal> custom4, Nullable<decimal> custom5, Nullable<decimal> advancePay, Nullable<bool> isApproved)
@@ -178,7 +204,7 @@ namespace DataAccessLayer.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUpdateMonthInvoice", idParameter, monthNUMParameter, yearNUMParameter, custom1_NameParameter, custom2_NameParameter, custom3_NameParameter, custom4_NameParameter, custom5_NameParameter, invoiceDateParameter, vATParameter, invoiceReferenceNumberParameter);
         }
     
-        public virtual int InsertUpdateSupplier(Nullable<int> id, string supplierName, string supplierReferenceNumber, string businessAddress, string emailAddress, Nullable<decimal> phoneNumber, Nullable<decimal> companyRegisterNumber, Nullable<decimal> vATNumber, string tAXReference, string companyRegisteredAddress, Nullable<bool> isActive, Nullable<int> imageId)
+        public virtual int InsertUpdateSupplier(Nullable<int> id, string supplierName, string supplierReferenceNumber, string businessAddress, string emailAddress, Nullable<decimal> phoneNumber, Nullable<decimal> companyRegisterNumber, string vATNumber, string tAXReference, string companyRegisteredAddress, Nullable<bool> isActive, Nullable<int> imageId)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -208,9 +234,9 @@ namespace DataAccessLayer.Model
                 new ObjectParameter("CompanyRegisterNumber", companyRegisterNumber) :
                 new ObjectParameter("CompanyRegisterNumber", typeof(decimal));
     
-            var vATNumberParameter = vATNumber.HasValue ?
+            var vATNumberParameter = vATNumber != null ?
                 new ObjectParameter("VATNumber", vATNumber) :
-                new ObjectParameter("VATNumber", typeof(decimal));
+                new ObjectParameter("VATNumber", typeof(string));
     
             var tAXReferenceParameter = tAXReference != null ?
                 new ObjectParameter("TAXReference", tAXReference) :
@@ -242,32 +268,6 @@ namespace DataAccessLayer.Model
                 new ObjectParameter("isActive", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PatchActiveSupplier", idParameter, isActiveParameter);
-        }
-    
-        public virtual int DeleteSupplier(Nullable<int> id, Nullable<int> count)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var countParameter = count.HasValue ?
-                new ObjectParameter("count", count) :
-                new ObjectParameter("count", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteSupplier", idParameter, countParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> InsertUpdateImage(Nullable<int> id, string url)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var urlParameter = url != null ?
-                new ObjectParameter("url", url) :
-                new ObjectParameter("url", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertUpdateImage", idParameter, urlParameter);
         }
     }
 }

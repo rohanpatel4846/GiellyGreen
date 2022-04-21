@@ -27,7 +27,7 @@ namespace DataAccessLayer.Model
         public string EmailAddress { get; set; }
         public Nullable<decimal> PhoneNumber { get; set; }
         public Nullable<decimal> CompanyRegisterNumber { get; set; }
-        public Nullable<decimal> VATNumber { get; set; }
+        public string VATNumber { get; set; }
         public string TAXReference { get; set; }
         public string CompanyRegisteredAddress { get; set; }
         public Nullable<bool> isActive { get; set; }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="GiellyGreen_RohanModelStoreContainer" CdmEntityContainer="GiellyGreen_RohanEntities1">
+  <EntityContainerMapping StorageEntityContainer="GiellyGreen_RohanModelStoreContainer" CdmEntityContainer="GiellyGreen_RohanEntities3">
     <EntitySetMapping Name="images">
       <EntityTypeMapping TypeName="GiellyGreen_RohanModel.image">
         <MappingFragment StoreEntitySet="images">
@@ -62,6 +62,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="DeleteSupplier" FunctionName="GiellyGreen_RohanModel.Store.DeleteSupplier" />
     <FunctionImportMapping FunctionImportName="GetImage" FunctionName="GiellyGreen_RohanModel.Store.GetImage">
       <ResultMapping>
         <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GetImage_Result">
@@ -123,11 +124,10 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InsertUpdateImage" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateImage" />
     <FunctionImportMapping FunctionImportName="InsertUpdateInvoice" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateInvoice" />
     <FunctionImportMapping FunctionImportName="InsertUpdateMonthInvoice" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateMonthInvoice" />
     <FunctionImportMapping FunctionImportName="InsertUpdateSupplier" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateSupplier" />
     <FunctionImportMapping FunctionImportName="PatchActiveSupplier" FunctionName="GiellyGreen_RohanModel.Store.PatchActiveSupplier" />
-    <FunctionImportMapping FunctionImportName="DeleteSupplier" FunctionName="GiellyGreen_RohanModel.Store.DeleteSupplier" />
-    <FunctionImportMapping FunctionImportName="InsertUpdateImage" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateImage" />
   </EntityContainerMapping>
 </Mapping>

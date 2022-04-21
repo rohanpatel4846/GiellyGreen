@@ -56,13 +56,13 @@
           <Property Name="EmailAddress" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="PhoneNumber" Type="decimal" Precision="15" Scale="0" />
           <Property Name="CompanyRegisterNumber" Type="decimal" Precision="15" Scale="0" />
-          <Property Name="VATNumber" Type="decimal" Precision="15" Scale="0" />
+          <Property Name="VATNumber" Type="varchar" MaxLength="15" />
           <Property Name="TAXReference" Type="varchar" MaxLength="15" />
           <Property Name="CompanyRegisteredAddress" Type="varchar" MaxLength="150" />
           <Property Name="isActive" Type="bit" />
           <Property Name="ImageId" Type="int" />
         </EntityType>
-        <Association Name="FK__Invoice__MonthId__00200768">
+        <Association Name="FK__Invoice__MonthId__395884C4">
           <End Role="MonthInvoice" Type="Self.MonthInvoice" Multiplicity="0..1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
@@ -74,7 +74,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Invoice__Supplie__01142BA1">
+        <Association Name="FK__Invoice__Supplie__3A4CA8FD">
           <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
@@ -86,7 +86,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Suppliers__Image__7D439ABD">
+        <Association Name="FK__Suppliers__Image__367C1819">
           <End Role="images" Type="Self.images" Multiplicity="0..1" />
           <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -155,7 +155,7 @@
           <Parameter Name="EmailAddress" Type="varchar" Mode="In" />
           <Parameter Name="PhoneNumber" Type="decimal" Mode="In" />
           <Parameter Name="CompanyRegisterNumber" Type="decimal" Mode="In" />
-          <Parameter Name="VATNumber" Type="decimal" Mode="In" />
+          <Parameter Name="VATNumber" Type="varchar" Mode="In" />
           <Parameter Name="TAXReference" Type="varchar" Mode="In" />
           <Parameter Name="CompanyRegisteredAddress" Type="varchar" Mode="In" />
           <Parameter Name="isActive" Type="bit" Mode="In" />
@@ -170,15 +170,15 @@
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonthInvoice" EntityType="Self.MonthInvoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Invoice__MonthId__00200768" Association="Self.FK__Invoice__MonthId__00200768">
+          <AssociationSet Name="FK__Invoice__MonthId__395884C4" Association="Self.FK__Invoice__MonthId__395884C4">
             <End Role="MonthInvoice" EntitySet="MonthInvoice" />
             <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
-          <AssociationSet Name="FK__Invoice__Supplie__01142BA1" Association="Self.FK__Invoice__Supplie__01142BA1">
+          <AssociationSet Name="FK__Invoice__Supplie__3A4CA8FD" Association="Self.FK__Invoice__Supplie__3A4CA8FD">
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
-          <AssociationSet Name="FK__Suppliers__Image__7D439ABD" Association="Self.FK__Suppliers__Image__7D439ABD">
+          <AssociationSet Name="FK__Suppliers__Image__367C1819" Association="Self.FK__Suppliers__Image__367C1819">
             <End Role="images" EntitySet="images" />
             <End Role="Suppliers" EntitySet="Suppliers" />
           </AssociationSet>
@@ -193,7 +193,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="url" Type="String" MaxLength="2083" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Suppliers" Relationship="Self.FK__Suppliers__Image__7D439ABD" FromRole="images" ToRole="Suppliers" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK__Suppliers__Image__367C1819" FromRole="images" ToRole="Suppliers" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -211,8 +211,8 @@
           <Property Name="Custom5" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="AdvancePay" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="isApproved" Type="Boolean" />
-          <NavigationProperty Name="MonthInvoice" Relationship="Self.FK__Invoice__MonthId__00200768" FromRole="Invoice" ToRole="MonthInvoice" />
-          <NavigationProperty Name="Supplier" Relationship="Self.FK__Invoice__Supplie__01142BA1" FromRole="Invoice" ToRole="Suppliers" />
+          <NavigationProperty Name="MonthInvoice" Relationship="Self.FK__Invoice__MonthId__395884C4" FromRole="Invoice" ToRole="MonthInvoice" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK__Invoice__Supplie__3A4CA8FD" FromRole="Invoice" ToRole="Suppliers" />
         </EntityType>
         <EntityType Name="MonthInvoice">
           <Key>
@@ -229,7 +229,7 @@
           <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="VAT" Type="Int32" Nullable="false" />
           <Property Name="InvoiceReferenceNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Invoices" Relationship="Self.FK__Invoice__MonthId__00200768" FromRole="MonthInvoice" ToRole="Invoice" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK__Invoice__MonthId__395884C4" FromRole="MonthInvoice" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -242,15 +242,15 @@
           <Property Name="EmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PhoneNumber" Type="Decimal" Precision="15" Scale="0" />
           <Property Name="CompanyRegisterNumber" Type="Decimal" Precision="15" Scale="0" />
-          <Property Name="VATNumber" Type="Decimal" Precision="15" Scale="0" />
+          <Property Name="VATNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="TAXReference" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="CompanyRegisteredAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="isActive" Type="Boolean" />
           <Property Name="ImageId" Type="Int32" />
-          <NavigationProperty Name="image" Relationship="Self.FK__Suppliers__Image__7D439ABD" FromRole="Suppliers" ToRole="images" />
-          <NavigationProperty Name="Invoices" Relationship="Self.FK__Invoice__Supplie__01142BA1" FromRole="Suppliers" ToRole="Invoice" />
+          <NavigationProperty Name="image" Relationship="Self.FK__Suppliers__Image__367C1819" FromRole="Suppliers" ToRole="images" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK__Invoice__Supplie__3A4CA8FD" FromRole="Suppliers" ToRole="Invoice" />
         </EntityType>
-        <Association Name="FK__Suppliers__Image__7D439ABD">
+        <Association Name="FK__Suppliers__Image__367C1819">
           <End Role="images" Type="Self.image" Multiplicity="0..1" />
           <End Role="Suppliers" Type="Self.Supplier" Multiplicity="*" />
           <ReferentialConstraint>
@@ -262,7 +262,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Invoice__MonthId__00200768">
+        <Association Name="FK__Invoice__MonthId__395884C4">
           <End Role="MonthInvoice" Type="Self.MonthInvoice" Multiplicity="0..1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
@@ -274,7 +274,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Invoice__Supplie__01142BA1">
+        <Association Name="FK__Invoice__Supplie__3A4CA8FD">
           <End Role="Suppliers" Type="Self.Supplier" Multiplicity="0..1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
@@ -286,23 +286,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GiellyGreen_RohanEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="GiellyGreen_RohanEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="images" EntityType="Self.image" />
           <EntitySet Name="Invoices" EntityType="Self.Invoice" />
           <EntitySet Name="MonthInvoices" EntityType="Self.MonthInvoice" />
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
-          <AssociationSet Name="FK__Suppliers__Image__7D439ABD" Association="Self.FK__Suppliers__Image__7D439ABD">
+          <AssociationSet Name="FK__Suppliers__Image__367C1819" Association="Self.FK__Suppliers__Image__367C1819">
             <End Role="images" EntitySet="images" />
             <End Role="Suppliers" EntitySet="Suppliers" />
           </AssociationSet>
-          <AssociationSet Name="FK__Invoice__MonthId__00200768" Association="Self.FK__Invoice__MonthId__00200768">
+          <AssociationSet Name="FK__Invoice__MonthId__395884C4" Association="Self.FK__Invoice__MonthId__395884C4">
             <End Role="MonthInvoice" EntitySet="MonthInvoices" />
             <End Role="Invoice" EntitySet="Invoices" />
           </AssociationSet>
-          <AssociationSet Name="FK__Invoice__Supplie__01142BA1" Association="Self.FK__Invoice__Supplie__01142BA1">
+          <AssociationSet Name="FK__Invoice__Supplie__3A4CA8FD" Association="Self.FK__Invoice__Supplie__3A4CA8FD">
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="Invoice" EntitySet="Invoices" />
           </AssociationSet>
+          <FunctionImport Name="DeleteSupplier">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="count" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="GetImage" ReturnType="Collection(GiellyGreen_RohanModel.GetImage_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -316,6 +320,10 @@
           <FunctionImport Name="GETSuppliers" ReturnType="Collection(GiellyGreen_RohanModel.GETSuppliers_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="onlyActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="InsertUpdateImage" ReturnType="Collection(Int32)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="url" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertUpdateInvoice">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -352,7 +360,7 @@
             <Parameter Name="EmailAddress" Mode="In" Type="String" />
             <Parameter Name="PhoneNumber" Mode="In" Type="Decimal" />
             <Parameter Name="CompanyRegisterNumber" Mode="In" Type="Decimal" />
-            <Parameter Name="VATNumber" Mode="In" Type="Decimal" />
+            <Parameter Name="VATNumber" Mode="In" Type="String" />
             <Parameter Name="TAXReference" Mode="In" Type="String" />
             <Parameter Name="CompanyRegisteredAddress" Mode="In" Type="String" />
             <Parameter Name="isActive" Mode="In" Type="Boolean" />
@@ -361,14 +369,6 @@
           <FunctionImport Name="PatchActiveSupplier">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="isActive" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="DeleteSupplier">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="count" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="InsertUpdateImage" ReturnType="Collection(Int32)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="url" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetImage_Result">
@@ -410,7 +410,7 @@
           <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="255" />
           <Property Type="Decimal" Name="PhoneNumber" Nullable="true" Precision="15" Scale="0" />
           <Property Type="Decimal" Name="CompanyRegisterNumber" Nullable="true" Precision="15" Scale="0" />
-          <Property Type="Decimal" Name="VATNumber" Nullable="true" Precision="15" Scale="0" />
+          <Property Type="String" Name="VATNumber" Nullable="true" MaxLength="15" />
           <Property Type="String" Name="TAXReference" Nullable="true" MaxLength="15" />
           <Property Type="String" Name="CompanyRegisteredAddress" Nullable="true" MaxLength="150" />
           <Property Type="Boolean" Name="isActive" Nullable="true" />
@@ -421,7 +421,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GiellyGreen_RohanModelStoreContainer" CdmEntityContainer="GiellyGreen_RohanEntities1">
+        <EntityContainerMapping StorageEntityContainer="GiellyGreen_RohanModelStoreContainer" CdmEntityContainer="GiellyGreen_RohanEntities3">
           <EntitySetMapping Name="images">
             <EntityTypeMapping TypeName="GiellyGreen_RohanModel.image">
               <MappingFragment StoreEntitySet="images">
@@ -483,6 +483,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DeleteSupplier" FunctionName="GiellyGreen_RohanModel.Store.DeleteSupplier" />
           <FunctionImportMapping FunctionImportName="GetImage" FunctionName="GiellyGreen_RohanModel.Store.GetImage">
             <ResultMapping>
               <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GetImage_Result">
@@ -544,12 +545,11 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertUpdateImage" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateImage" />
           <FunctionImportMapping FunctionImportName="InsertUpdateInvoice" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateInvoice" />
           <FunctionImportMapping FunctionImportName="InsertUpdateMonthInvoice" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateMonthInvoice" />
           <FunctionImportMapping FunctionImportName="InsertUpdateSupplier" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateSupplier" />
           <FunctionImportMapping FunctionImportName="PatchActiveSupplier" FunctionName="GiellyGreen_RohanModel.Store.PatchActiveSupplier" />
-          <FunctionImportMapping FunctionImportName="DeleteSupplier" FunctionName="GiellyGreen_RohanModel.Store.DeleteSupplier" />
-          <FunctionImportMapping FunctionImportName="InsertUpdateImage" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateImage" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

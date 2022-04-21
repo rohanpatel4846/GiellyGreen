@@ -51,13 +51,13 @@
     <Property Name="EmailAddress" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="PhoneNumber" Type="decimal" Precision="15" Scale="0" />
     <Property Name="CompanyRegisterNumber" Type="decimal" Precision="15" Scale="0" />
-    <Property Name="VATNumber" Type="decimal" Precision="15" Scale="0" />
+    <Property Name="VATNumber" Type="varchar" MaxLength="15" />
     <Property Name="TAXReference" Type="varchar" MaxLength="15" />
     <Property Name="CompanyRegisteredAddress" Type="varchar" MaxLength="150" />
     <Property Name="isActive" Type="bit" />
     <Property Name="ImageId" Type="int" />
   </EntityType>
-  <Association Name="FK__Invoice__MonthId__00200768">
+  <Association Name="FK__Invoice__MonthId__395884C4">
     <End Role="MonthInvoice" Type="Self.MonthInvoice" Multiplicity="0..1" />
     <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
     <ReferentialConstraint>
@@ -69,7 +69,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Invoice__Supplie__01142BA1">
+  <Association Name="FK__Invoice__Supplie__3A4CA8FD">
     <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
     <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
     <ReferentialConstraint>
@@ -81,7 +81,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Suppliers__Image__7D439ABD">
+  <Association Name="FK__Suppliers__Image__367C1819">
     <End Role="images" Type="Self.images" Multiplicity="0..1" />
     <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="*" />
     <ReferentialConstraint>
@@ -150,7 +150,7 @@
     <Parameter Name="EmailAddress" Type="varchar" Mode="In" />
     <Parameter Name="PhoneNumber" Type="decimal" Mode="In" />
     <Parameter Name="CompanyRegisterNumber" Type="decimal" Mode="In" />
-    <Parameter Name="VATNumber" Type="decimal" Mode="In" />
+    <Parameter Name="VATNumber" Type="varchar" Mode="In" />
     <Parameter Name="TAXReference" Type="varchar" Mode="In" />
     <Parameter Name="CompanyRegisteredAddress" Type="varchar" Mode="In" />
     <Parameter Name="isActive" Type="bit" Mode="In" />
@@ -165,15 +165,15 @@
     <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MonthInvoice" EntityType="Self.MonthInvoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Invoice__MonthId__00200768" Association="Self.FK__Invoice__MonthId__00200768">
+    <AssociationSet Name="FK__Invoice__MonthId__395884C4" Association="Self.FK__Invoice__MonthId__395884C4">
       <End Role="MonthInvoice" EntitySet="MonthInvoice" />
       <End Role="Invoice" EntitySet="Invoice" />
     </AssociationSet>
-    <AssociationSet Name="FK__Invoice__Supplie__01142BA1" Association="Self.FK__Invoice__Supplie__01142BA1">
+    <AssociationSet Name="FK__Invoice__Supplie__3A4CA8FD" Association="Self.FK__Invoice__Supplie__3A4CA8FD">
       <End Role="Suppliers" EntitySet="Suppliers" />
       <End Role="Invoice" EntitySet="Invoice" />
     </AssociationSet>
-    <AssociationSet Name="FK__Suppliers__Image__7D439ABD" Association="Self.FK__Suppliers__Image__7D439ABD">
+    <AssociationSet Name="FK__Suppliers__Image__367C1819" Association="Self.FK__Suppliers__Image__367C1819">
       <End Role="images" EntitySet="images" />
       <End Role="Suppliers" EntitySet="Suppliers" />
     </AssociationSet>
