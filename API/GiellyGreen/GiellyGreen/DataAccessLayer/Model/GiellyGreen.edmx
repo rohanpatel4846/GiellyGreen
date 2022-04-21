@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GiellyGreen_RohanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="images">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="2083" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MonthId" Type="int" />
+          <Property Name="SupplierId" Type="int" />
+          <Property Name="HairService" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="BeautyService" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Custom1" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Custom2" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Custom3" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Custom4" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Custom5" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="AdvancePay" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="isApproved" Type="bit" />
+        </EntityType>
+        <EntityType Name="MonthInvoice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="monthNUM" Type="int" Nullable="false" />
+          <Property Name="yearNUM" Type="int" Nullable="false" />
+          <Property Name="Custom1_Name" Type="varchar" MaxLength="100" />
+          <Property Name="Custom2_Name" Type="varchar" MaxLength="100" />
+          <Property Name="Custom3_Name" Type="varchar" MaxLength="100" />
+          <Property Name="Custom4_Name" Type="varchar" MaxLength="100" />
+          <Property Name="Custom5_Name" Type="varchar" MaxLength="100" />
+          <Property Name="InvoiceDate" Type="date" Nullable="false" />
+          <Property Name="VAT" Type="int" Nullable="false" />
+          <Property Name="InvoiceReferenceNumber" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupplierName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SupplierReferenceNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="BusinessAddress" Type="varchar" MaxLength="150" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PhoneNumber" Type="decimal" Precision="15" Scale="0" />
+          <Property Name="CompanyRegisterNumber" Type="decimal" Precision="15" Scale="0" />
+          <Property Name="VATNumber" Type="decimal" Precision="15" Scale="0" />
+          <Property Name="TAXReference" Type="varchar" MaxLength="15" />
+          <Property Name="CompanyRegisteredAddress" Type="varchar" MaxLength="150" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="ImageId" Type="int" />
+        </EntityType>
+        <Association Name="FK__Invoice__MonthId__00200768">
+          <End Role="MonthInvoice" Type="Self.MonthInvoice" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthInvoice">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="MonthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Invoice__Supplie__01142BA1">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Suppliers__Image__7D439ABD">
+          <End Role="images" Type="Self.images" Multiplicity="0..1" />
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="images">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Suppliers">
+              <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DeleteSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="count" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetImage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GETInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="MonthInvoiceId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GETMonthInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GETSuppliers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="onlyActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="InsertUpdateImage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="url" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InsertUpdateInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="MonthId" Type="int" Mode="In" />
+          <Parameter Name="SupplierId" Type="int" Mode="In" />
+          <Parameter Name="HairService" Type="decimal" Mode="In" />
+          <Parameter Name="BeautyService" Type="decimal" Mode="In" />
+          <Parameter Name="Custom1" Type="decimal" Mode="In" />
+          <Parameter Name="Custom2" Type="decimal" Mode="In" />
+          <Parameter Name="Custom3" Type="decimal" Mode="In" />
+          <Parameter Name="Custom4" Type="decimal" Mode="In" />
+          <Parameter Name="Custom5" Type="decimal" Mode="In" />
+          <Parameter Name="AdvancePay" Type="decimal" Mode="In" />
+          <Parameter Name="isApproved" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="InsertUpdateMonthInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="monthNUM" Type="int" Mode="In" />
+          <Parameter Name="yearNUM" Type="int" Mode="In" />
+          <Parameter Name="Custom1_Name" Type="varchar" Mode="In" />
+          <Parameter Name="Custom2_Name" Type="varchar" Mode="In" />
+          <Parameter Name="Custom3_Name" Type="varchar" Mode="In" />
+          <Parameter Name="Custom4_Name" Type="varchar" Mode="In" />
+          <Parameter Name="Custom5_Name" Type="varchar" Mode="In" />
+          <Parameter Name="InvoiceDate" Type="date" Mode="In" />
+          <Parameter Name="VAT" Type="int" Mode="In" />
+          <Parameter Name="InvoiceReferenceNumber" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InsertUpdateSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="SupplierName" Type="varchar" Mode="In" />
+          <Parameter Name="SupplierReferenceNumber" Type="varchar" Mode="In" />
+          <Parameter Name="BusinessAddress" Type="varchar" Mode="In" />
+          <Parameter Name="EmailAddress" Type="varchar" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="decimal" Mode="In" />
+          <Parameter Name="CompanyRegisterNumber" Type="decimal" Mode="In" />
+          <Parameter Name="VATNumber" Type="decimal" Mode="In" />
+          <Parameter Name="TAXReference" Type="varchar" Mode="In" />
+          <Parameter Name="CompanyRegisteredAddress" Type="varchar" Mode="In" />
+          <Parameter Name="isActive" Type="bit" Mode="In" />
+          <Parameter Name="ImageId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PatchActiveSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="isActive" Type="bit" Mode="In" />
+        </Function>
+        <EntityContainer Name="GiellyGreen_RohanModelStoreContainer">
+          <EntitySet Name="images" EntityType="Self.images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthInvoice" EntityType="Self.MonthInvoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Invoice__MonthId__00200768" Association="Self.FK__Invoice__MonthId__00200768">
+            <End Role="MonthInvoice" EntitySet="MonthInvoice" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Invoice__Supplie__01142BA1" Association="Self.FK__Invoice__Supplie__01142BA1">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Suppliers__Image__7D439ABD" Association="Self.FK__Suppliers__Image__7D439ABD">
+            <End Role="images" EntitySet="images" />
+            <End Role="Suppliers" EntitySet="Suppliers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GiellyGreen_RohanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="image">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="String" MaxLength="2083" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK__Suppliers__Image__7D439ABD" FromRole="images" ToRole="Suppliers" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="SupplierId" Type="Int32" />
+          <Property Name="HairService" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="BeautyService" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Custom1" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Custom2" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Custom3" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Custom4" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Custom5" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="AdvancePay" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="isApproved" Type="Boolean" />
+          <NavigationProperty Name="MonthInvoice" Relationship="Self.FK__Invoice__MonthId__00200768" FromRole="Invoice" ToRole="MonthInvoice" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK__Invoice__Supplie__01142BA1" FromRole="Invoice" ToRole="Suppliers" />
+        </EntityType>
+        <EntityType Name="MonthInvoice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="monthNUM" Type="Int32" Nullable="false" />
+          <Property Name="yearNUM" Type="Int32" Nullable="false" />
+          <Property Name="Custom1_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Custom2_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Custom3_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Custom4_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Custom5_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="VAT" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceReferenceNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK__Invoice__MonthId__00200768" FromRole="MonthInvoice" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplierName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SupplierReferenceNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BusinessAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="Decimal" Precision="15" Scale="0" />
+          <Property Name="CompanyRegisterNumber" Type="Decimal" Precision="15" Scale="0" />
+          <Property Name="VATNumber" Type="Decimal" Precision="15" Scale="0" />
+          <Property Name="TAXReference" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyRegisteredAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="ImageId" Type="Int32" />
+          <NavigationProperty Name="image" Relationship="Self.FK__Suppliers__Image__7D439ABD" FromRole="Suppliers" ToRole="images" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK__Invoice__Supplie__01142BA1" FromRole="Suppliers" ToRole="Invoice" />
+        </EntityType>
+        <Association Name="FK__Suppliers__Image__7D439ABD">
+          <End Role="images" Type="Self.image" Multiplicity="0..1" />
+          <End Role="Suppliers" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="images">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Suppliers">
+              <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Invoice__MonthId__00200768">
+          <End Role="MonthInvoice" Type="Self.MonthInvoice" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthInvoice">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="MonthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Invoice__Supplie__01142BA1">
+          <End Role="Suppliers" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GiellyGreen_RohanEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="images" EntityType="Self.image" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="MonthInvoices" EntityType="Self.MonthInvoice" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <AssociationSet Name="FK__Suppliers__Image__7D439ABD" Association="Self.FK__Suppliers__Image__7D439ABD">
+            <End Role="images" EntitySet="images" />
+            <End Role="Suppliers" EntitySet="Suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Invoice__MonthId__00200768" Association="Self.FK__Invoice__MonthId__00200768">
+            <End Role="MonthInvoice" EntitySet="MonthInvoices" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Invoice__Supplie__01142BA1" Association="Self.FK__Invoice__Supplie__01142BA1">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <FunctionImport Name="GetImage" ReturnType="Collection(GiellyGreen_RohanModel.GetImage_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GETInvoice" ReturnType="Collection(GiellyGreen_RohanModel.GETInvoice_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="MonthInvoiceId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GETMonthInvoice" ReturnType="Collection(GiellyGreen_RohanModel.GETMonthInvoice_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GETSuppliers" ReturnType="Collection(GiellyGreen_RohanModel.GETSuppliers_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="onlyActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="InsertUpdateInvoice">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="MonthId" Mode="In" Type="Int32" />
+            <Parameter Name="SupplierId" Mode="In" Type="Int32" />
+            <Parameter Name="HairService" Mode="In" Type="Decimal" />
+            <Parameter Name="BeautyService" Mode="In" Type="Decimal" />
+            <Parameter Name="Custom1" Mode="In" Type="Decimal" />
+            <Parameter Name="Custom2" Mode="In" Type="Decimal" />
+            <Parameter Name="Custom3" Mode="In" Type="Decimal" />
+            <Parameter Name="Custom4" Mode="In" Type="Decimal" />
+            <Parameter Name="Custom5" Mode="In" Type="Decimal" />
+            <Parameter Name="AdvancePay" Mode="In" Type="Decimal" />
+            <Parameter Name="isApproved" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="InsertUpdateMonthInvoice">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="monthNUM" Mode="In" Type="Int32" />
+            <Parameter Name="yearNUM" Mode="In" Type="Int32" />
+            <Parameter Name="Custom1_Name" Mode="In" Type="String" />
+            <Parameter Name="Custom2_Name" Mode="In" Type="String" />
+            <Parameter Name="Custom3_Name" Mode="In" Type="String" />
+            <Parameter Name="Custom4_Name" Mode="In" Type="String" />
+            <Parameter Name="Custom5_Name" Mode="In" Type="String" />
+            <Parameter Name="InvoiceDate" Mode="In" Type="DateTime" />
+            <Parameter Name="VAT" Mode="In" Type="Int32" />
+            <Parameter Name="InvoiceReferenceNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertUpdateSupplier">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="SupplierName" Mode="In" Type="String" />
+            <Parameter Name="SupplierReferenceNumber" Mode="In" Type="String" />
+            <Parameter Name="BusinessAddress" Mode="In" Type="String" />
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="Decimal" />
+            <Parameter Name="CompanyRegisterNumber" Mode="In" Type="Decimal" />
+            <Parameter Name="VATNumber" Mode="In" Type="Decimal" />
+            <Parameter Name="TAXReference" Mode="In" Type="String" />
+            <Parameter Name="CompanyRegisteredAddress" Mode="In" Type="String" />
+            <Parameter Name="isActive" Mode="In" Type="Boolean" />
+            <Parameter Name="ImageId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PatchActiveSupplier">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="isActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteSupplier">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="count" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertUpdateImage" ReturnType="Collection(Int32)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="url" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetImage_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="url" Nullable="false" MaxLength="2083" />
+        </ComplexType>
+        <ComplexType Name="GETInvoice_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="MonthId" Nullable="true" />
+          <Property Type="Int32" Name="SupplierId" Nullable="true" />
+          <Property Type="Decimal" Name="HairService" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="BeautyService" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="Custom1" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="Custom2" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="Custom3" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="Custom4" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="Custom5" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="AdvancePay" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Boolean" Name="isApproved" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GETMonthInvoice_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="monthNUM" Nullable="false" />
+          <Property Type="Int32" Name="yearNUM" Nullable="false" />
+          <Property Type="String" Name="Custom1_Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Custom2_Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Custom3_Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Custom4_Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Custom5_Name" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="InvoiceDate" Nullable="false" />
+          <Property Type="Int32" Name="VAT" Nullable="false" />
+          <Property Type="String" Name="InvoiceReferenceNumber" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="GETSuppliers_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="SupplierName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="SupplierReferenceNumber" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="BusinessAddress" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="255" />
+          <Property Type="Decimal" Name="PhoneNumber" Nullable="true" Precision="15" Scale="0" />
+          <Property Type="Decimal" Name="CompanyRegisterNumber" Nullable="true" Precision="15" Scale="0" />
+          <Property Type="Decimal" Name="VATNumber" Nullable="true" Precision="15" Scale="0" />
+          <Property Type="String" Name="TAXReference" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="CompanyRegisteredAddress" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="isActive" Nullable="true" />
+          <Property Type="Int32" Name="ImageId" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GiellyGreen_RohanModelStoreContainer" CdmEntityContainer="GiellyGreen_RohanEntities1">
+          <EntitySetMapping Name="images">
+            <EntityTypeMapping TypeName="GiellyGreen_RohanModel.image">
+              <MappingFragment StoreEntitySet="images">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="url" ColumnName="url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="GiellyGreen_RohanModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="HairService" ColumnName="HairService" />
+                <ScalarProperty Name="BeautyService" ColumnName="BeautyService" />
+                <ScalarProperty Name="Custom1" ColumnName="Custom1" />
+                <ScalarProperty Name="Custom2" ColumnName="Custom2" />
+                <ScalarProperty Name="Custom3" ColumnName="Custom3" />
+                <ScalarProperty Name="Custom4" ColumnName="Custom4" />
+                <ScalarProperty Name="Custom5" ColumnName="Custom5" />
+                <ScalarProperty Name="AdvancePay" ColumnName="AdvancePay" />
+                <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthInvoices">
+            <EntityTypeMapping TypeName="GiellyGreen_RohanModel.MonthInvoice">
+              <MappingFragment StoreEntitySet="MonthInvoice">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="monthNUM" ColumnName="monthNUM" />
+                <ScalarProperty Name="yearNUM" ColumnName="yearNUM" />
+                <ScalarProperty Name="Custom1_Name" ColumnName="Custom1_Name" />
+                <ScalarProperty Name="Custom2_Name" ColumnName="Custom2_Name" />
+                <ScalarProperty Name="Custom3_Name" ColumnName="Custom3_Name" />
+                <ScalarProperty Name="Custom4_Name" ColumnName="Custom4_Name" />
+                <ScalarProperty Name="Custom5_Name" ColumnName="Custom5_Name" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="InvoiceReferenceNumber" ColumnName="InvoiceReferenceNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="GiellyGreen_RohanModel.Supplier">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierReferenceNumber" ColumnName="SupplierReferenceNumber" />
+                <ScalarProperty Name="BusinessAddress" ColumnName="BusinessAddress" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CompanyRegisterNumber" ColumnName="CompanyRegisterNumber" />
+                <ScalarProperty Name="VATNumber" ColumnName="VATNumber" />
+                <ScalarProperty Name="TAXReference" ColumnName="TAXReference" />
+                <ScalarProperty Name="CompanyRegisteredAddress" ColumnName="CompanyRegisteredAddress" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetImage" FunctionName="GiellyGreen_RohanModel.Store.GetImage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GetImage_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="url" ColumnName="url" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GETInvoice" FunctionName="GiellyGreen_RohanModel.Store.GETInvoice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GETInvoice_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="HairService" ColumnName="HairService" />
+                <ScalarProperty Name="BeautyService" ColumnName="BeautyService" />
+                <ScalarProperty Name="Custom1" ColumnName="Custom1" />
+                <ScalarProperty Name="Custom2" ColumnName="Custom2" />
+                <ScalarProperty Name="Custom3" ColumnName="Custom3" />
+                <ScalarProperty Name="Custom4" ColumnName="Custom4" />
+                <ScalarProperty Name="Custom5" ColumnName="Custom5" />
+                <ScalarProperty Name="AdvancePay" ColumnName="AdvancePay" />
+                <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GETMonthInvoice" FunctionName="GiellyGreen_RohanModel.Store.GETMonthInvoice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GETMonthInvoice_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="monthNUM" ColumnName="monthNUM" />
+                <ScalarProperty Name="yearNUM" ColumnName="yearNUM" />
+                <ScalarProperty Name="Custom1_Name" ColumnName="Custom1_Name" />
+                <ScalarProperty Name="Custom2_Name" ColumnName="Custom2_Name" />
+                <ScalarProperty Name="Custom3_Name" ColumnName="Custom3_Name" />
+                <ScalarProperty Name="Custom4_Name" ColumnName="Custom4_Name" />
+                <ScalarProperty Name="Custom5_Name" ColumnName="Custom5_Name" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="InvoiceReferenceNumber" ColumnName="InvoiceReferenceNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GETSuppliers" FunctionName="GiellyGreen_RohanModel.Store.GETSuppliers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GETSuppliers_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierReferenceNumber" ColumnName="SupplierReferenceNumber" />
+                <ScalarProperty Name="BusinessAddress" ColumnName="BusinessAddress" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CompanyRegisterNumber" ColumnName="CompanyRegisterNumber" />
+                <ScalarProperty Name="VATNumber" ColumnName="VATNumber" />
+                <ScalarProperty Name="TAXReference" ColumnName="TAXReference" />
+                <ScalarProperty Name="CompanyRegisteredAddress" ColumnName="CompanyRegisteredAddress" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertUpdateInvoice" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateInvoice" />
+          <FunctionImportMapping FunctionImportName="InsertUpdateMonthInvoice" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateMonthInvoice" />
+          <FunctionImportMapping FunctionImportName="InsertUpdateSupplier" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateSupplier" />
+          <FunctionImportMapping FunctionImportName="PatchActiveSupplier" FunctionName="GiellyGreen_RohanModel.Store.PatchActiveSupplier" />
+          <FunctionImportMapping FunctionImportName="DeleteSupplier" FunctionName="GiellyGreen_RohanModel.Store.DeleteSupplier" />
+          <FunctionImportMapping FunctionImportName="InsertUpdateImage" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateImage" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

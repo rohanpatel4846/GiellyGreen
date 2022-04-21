@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="cssFormat.css" />
+</head>
+<body>
+    <table class="pdfTable1">
+        <thead>
+            <tr>
+                <th></th>
+                <th width="70%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><img src="https://images.pexels.com/photos/302743/pexels-photo-302743.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" width="200" height="200" /></td>
+                <td class="f-25 textRight">Self-Billed Invoice</td>
+            </tr>
+            <tr>
+                <td rowspan="5" class="f-20 pd-5 verti-bottom">
+                    {{pdfAddress1}}
+                </td>
+                <td class="f-20 textRight pd-5">Invoice Date : {{pdfInvoiceDate}}</td>
+            </tr>
+            <tr>
+                <td class="f-20 textRight pd-5">Invoice Reference : {{pdfInvoiceReference}}</td>
+            </tr>
+            <tr>
+                <td class="pd-5"><br /><br /></td>
+            </tr>
+            <tr>
+                <td class="f-20 textRight pd-5">Tax Reference : {{pdfTaxReference}}</td>
+            </tr>
+            <tr>
+                <td class="f-20 textRight pd-5">VAT Number : {{pdfVatNumber}}</td>
+            </tr>
+            <tr>
+                <td class="f-20 pd-5 verti-bottom">
+                    {{pdfAddress2}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="pdfTable2">
+        <thead>
+            <tr>
+                <th class="f-20 font-bold noRightBorder">Description</th>
+                <th width="20%" class="noLeftBorder noRightBorder"></th>
+                <th width="20%" class="noLeftBorder f-20 textRight font-bold">Amount(GBP)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="f-20">Hair Services</td>
+                <td></td>
+                <td class="f-20 textRight">{{pdfHairService}}</td>
+            </tr>
+            <tr>
+                <td class="f-20">Beauty Services</td>
+                <td></td>
+                <td class="f-20 textRight">{{pdfBeautyService}}</td>
+            </tr>
+            <tr>
+                <td class="f-20">{{Custom1_Head}}</td>
+                <td></td>
+                <td class="f-20 textRight">{{pdfCustom1}}</td>
+            </tr>
+            <tr>
+                <td class="f-20">{{Custom2_Head}}</td>
+                <td></td>
+                <td class="f-20 textRight">{{pdfCustom2}}</td>
+            </tr>
+            <tr>
+                <td class="f-20">{{Custom3_Head}}</td>
+                <td></td>
+                <td class="f-20 textRight">{{pdfCustom3}}</td>
+            </tr>
+            <tr>
+                <td class="f-20">{{Custom4_Head}}</td>
+                <td></td>
+                <td class="f-20 textRight">{{pdfCustom4}}</td>
+            </tr>
+            <tr>
+                <td class="f-20">{{Custom5_Head}}</td>
+                <td></td>
+                <td class="f-20 textRight">{{pdfCustom5}}</td>
+            </tr>
+            <tr>
+                <td class="noBorders"></td>
+                <td class="f-20 textRight">Subtotal(Net)</td>
+                <td class="f-20 textRight">{{pdfSubtotal}}</td>
+            </tr>
+            <tr>
+                <td class="noBorders"></td>
+                <td class="f-20 textRight">VAT</td>
+                <td class="f-20 textRight">{{pdfVatTotal}}</td>
+            </tr>
+            <tr>
+                <td class="noBorders"></td>
+                <td class="f-20 textRight">Advance Paid</td>
+                <td class="f-20 textRight">{{pdfAdvancePaid}}</td>
+            </tr>
+            <tr>
+                <td class="noBorders"></td>
+                <td class="f-20 textRight">Balance Due</td>
+                <td class="f-20 textRight">{{pdfBalanceDue}}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

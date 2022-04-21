@@ -1,0 +1,64 @@
+<div class="loginPageContainer">
+  <div class="backgroundImageSection">
+    <div class="full-wh pos-relative background-transparent-black logoOnBackground">
+      <img src="../assets/images/giellyGreenLogo.png" class="w-30Per center-all">
+    </div>
+  </div>
+  <div class="loginSection">
+    <form nz-form [formGroup]="loginForm">
+      <div class="center-all loginForm">
+        <div nz-row>
+          <div nz-col nzSpan="24">
+            <img src="../assets/images/giellyGreenLogoGold.png" class="w-85Per">
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="24">WELCOME LETS GET STARTED</div>
+        </div>
+        <div class="mart-40">
+          <nz-form-item>
+            <label for="emailLogin">EMAIL ADDRESS</label>
+            <div class="loginEmailContainer w-100">
+              <nz-form-control [nzErrorTip]="errorTplEmail" [nzXs]="24">
+                <nz-input-group [nzSuffix]="emailSuffix">
+                  <input type='text' nz-input  class="loginInput" id="emailLogin" formControlName="emailLogin"/>
+                </nz-input-group>
+                <ng-template #emailSuffix></ng-template>
+                <ng-template #errorTplEmail let-control>
+                  <ng-container *ngIf="control.hasError('required')">Please enter your email!</ng-container>
+                  <ng-container *ngIf="control.hasError('email')">Please enter valid email!</ng-container>
+                </ng-template>
+              </nz-form-control>
+            </div>
+          </nz-form-item>
+        </div>
+        <div class="mart-20">
+          <nz-form-item>
+              <label for="passwordLogin">PASSWORD</label>
+              <div class="loginPasswordContainer w-100">
+                <nz-form-control [nzErrorTip]="errorTplPassword" class="w-100">
+                  <nz-input-group [nzSuffix]="passwordSuffix">
+                    <input [type]="passwordVisible ? 'text' : 'password'" nz-input  class="loginInput" id="passwordLogin" formControlName="passwordLogin"/>
+                  </nz-input-group>
+                  <ng-template #passwordSuffix>
+                    <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+                  </ng-template>
+                  <ng-template #errorTplPassword let-control>
+                    <ng-container *ngIf="control.hasError('required')">Please enter your password!</ng-container>
+                  </ng-template>
+                </nz-form-control>
+            </div>
+          </nz-form-item>
+        </div>
+        <div>
+          <span *ngIf="invalidLogin" class="errorMessage">The user name or password is incorrect.</span>
+        </div>
+        <div nz-row class="mart-40">
+          <div nz-col nzSpan="24">
+            <button class="loginButton" (click)="LoginClicked()">LOG IN</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GiellyGreen_RohanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="images">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="url" Type="varchar" MaxLength="2083" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MonthId" Type="int" />
+    <Property Name="SupplierId" Type="int" />
+    <Property Name="HairService" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="BeautyService" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Custom1" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Custom2" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Custom3" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Custom4" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Custom5" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="AdvancePay" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="isApproved" Type="bit" />
+  </EntityType>
+  <EntityType Name="MonthInvoice">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="monthNUM" Type="int" Nullable="false" />
+    <Property Name="yearNUM" Type="int" Nullable="false" />
+    <Property Name="Custom1_Name" Type="varchar" MaxLength="100" />
+    <Property Name="Custom2_Name" Type="varchar" MaxLength="100" />
+    <Property Name="Custom3_Name" Type="varchar" MaxLength="100" />
+    <Property Name="Custom4_Name" Type="varchar" MaxLength="100" />
+    <Property Name="Custom5_Name" Type="varchar" MaxLength="100" />
+    <Property Name="InvoiceDate" Type="date" Nullable="false" />
+    <Property Name="VAT" Type="int" Nullable="false" />
+    <Property Name="InvoiceReferenceNumber" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Suppliers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="SupplierReferenceNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="BusinessAddress" Type="varchar" MaxLength="150" />
+    <Property Name="EmailAddress" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="PhoneNumber" Type="decimal" Precision="15" Scale="0" />
+    <Property Name="CompanyRegisterNumber" Type="decimal" Precision="15" Scale="0" />
+    <Property Name="VATNumber" Type="decimal" Precision="15" Scale="0" />
+    <Property Name="TAXReference" Type="varchar" MaxLength="15" />
+    <Property Name="CompanyRegisteredAddress" Type="varchar" MaxLength="150" />
+    <Property Name="isActive" Type="bit" />
+    <Property Name="ImageId" Type="int" />
+  </EntityType>
+  <Association Name="FK__Invoice__MonthId__00200768">
+    <End Role="MonthInvoice" Type="Self.MonthInvoice" Multiplicity="0..1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonthInvoice">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="MonthId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Invoice__Supplie__01142BA1">
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Suppliers__Image__7D439ABD">
+    <End Role="images" Type="Self.images" Multiplicity="0..1" />
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="images">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Suppliers">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="DeleteSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="count" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetImage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GETInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="MonthInvoiceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GETMonthInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GETSuppliers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="onlyActive" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="InsertUpdateImage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="url" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="InsertUpdateInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="MonthId" Type="int" Mode="In" />
+    <Parameter Name="SupplierId" Type="int" Mode="In" />
+    <Parameter Name="HairService" Type="decimal" Mode="In" />
+    <Parameter Name="BeautyService" Type="decimal" Mode="In" />
+    <Parameter Name="Custom1" Type="decimal" Mode="In" />
+    <Parameter Name="Custom2" Type="decimal" Mode="In" />
+    <Parameter Name="Custom3" Type="decimal" Mode="In" />
+    <Parameter Name="Custom4" Type="decimal" Mode="In" />
+    <Parameter Name="Custom5" Type="decimal" Mode="In" />
+    <Parameter Name="AdvancePay" Type="decimal" Mode="In" />
+    <Parameter Name="isApproved" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="InsertUpdateMonthInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="monthNUM" Type="int" Mode="In" />
+    <Parameter Name="yearNUM" Type="int" Mode="In" />
+    <Parameter Name="Custom1_Name" Type="varchar" Mode="In" />
+    <Parameter Name="Custom2_Name" Type="varchar" Mode="In" />
+    <Parameter Name="Custom3_Name" Type="varchar" Mode="In" />
+    <Parameter Name="Custom4_Name" Type="varchar" Mode="In" />
+    <Parameter Name="Custom5_Name" Type="varchar" Mode="In" />
+    <Parameter Name="InvoiceDate" Type="date" Mode="In" />
+    <Parameter Name="VAT" Type="int" Mode="In" />
+    <Parameter Name="InvoiceReferenceNumber" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="InsertUpdateSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="SupplierName" Type="varchar" Mode="In" />
+    <Parameter Name="SupplierReferenceNumber" Type="varchar" Mode="In" />
+    <Parameter Name="BusinessAddress" Type="varchar" Mode="In" />
+    <Parameter Name="EmailAddress" Type="varchar" Mode="In" />
+    <Parameter Name="PhoneNumber" Type="decimal" Mode="In" />
+    <Parameter Name="CompanyRegisterNumber" Type="decimal" Mode="In" />
+    <Parameter Name="VATNumber" Type="decimal" Mode="In" />
+    <Parameter Name="TAXReference" Type="varchar" Mode="In" />
+    <Parameter Name="CompanyRegisteredAddress" Type="varchar" Mode="In" />
+    <Parameter Name="isActive" Type="bit" Mode="In" />
+    <Parameter Name="ImageId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="PatchActiveSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="isActive" Type="bit" Mode="In" />
+  </Function>
+  <EntityContainer Name="GiellyGreen_RohanModelStoreContainer">
+    <EntitySet Name="images" EntityType="Self.images" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MonthInvoice" EntityType="Self.MonthInvoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Invoice__MonthId__00200768" Association="Self.FK__Invoice__MonthId__00200768">
+      <End Role="MonthInvoice" EntitySet="MonthInvoice" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Invoice__Supplie__01142BA1" Association="Self.FK__Invoice__Supplie__01142BA1">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Suppliers__Image__7D439ABD" Association="Self.FK__Suppliers__Image__7D439ABD">
+      <End Role="images" EntitySet="images" />
+      <End Role="Suppliers" EntitySet="Suppliers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,151 @@
+.fullSize{
+    height: 100vh;
+    width: 100%;
+}
+
+.h-100p{
+    height: 100%;
+}
+
+.w-60p{
+    width: 60%;
+}
+
+.w-40p{
+    width: 40%;
+}
+
+.d-inline-block{
+    display: inline-block;
+}
+
+.d-g-flex{
+    display: flex;
+}
+
+.loginInput{
+    width: 100%;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    height: 35px;
+    padding: 10px;
+}
+
+.loginButton{
+    width: 100%;
+    background-color: #C99D4A;
+    color: white;
+    border: 0px;
+    border-radius: 5px;
+    height: 35px;
+    border: 1px solid #dbdbdb;
+    cursor: pointer;
+}
+
+.loginButton:hover{
+    background-color: #f8bd4e;
+}
+
+.pad-60{
+    padding: 60px;
+}
+
+.mart-40{
+    margin-top: 40px;
+}
+
+.mart-20{
+    margin-top: 20px;
+}
+
+.center-all{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.pos-relative{
+    position: relative;
+}
+
+.full-height{
+    height: 100vh;
+    overflow: hidden;
+}
+
+.full-wh{
+    height: 100%;
+    width: 100%;
+}
+
+.w-30Per{
+    width: 30%;
+}
+
+.backgroundImageSection{
+    height: 100%;
+    width: 60%;
+    background-image: url(../../../assets/images/hairSalonBG.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logoOnBackground{
+    display: block;
+}
+
+.loginPageContainer{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+}
+
+.loginSection{
+    height: 100%;
+    width: 40%;
+    position: relative;
+}
+
+.loginForm{
+    padding: 60px;
+    width: 100%;
+    font-size: 20px;
+    min-width: 350px;
+}
+
+.w-85Per{
+    width: 85%;
+}
+
+@media screen and (max-width: 1023px) {
+    .logoOnBackground{
+        display: none;
+    }
+
+    .backgroundImageSection{
+        width: 100%;
+    }
+
+    .loginPageContainer{
+        display: block;
+        position: relative;
+    }
+
+    .loginSection{
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        max-width: 100%;
+    }
+
+    .loginForm{
+        background-color: white;
+        border-radius: 15px;
+    }
+}

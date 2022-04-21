@@ -1,0 +1,54 @@
+﻿.lool {
+    color: red;
+}
+
+.pdfTable1 {
+    width: 100%;
+}
+
+.f-25 {
+    font-size: 25px;
+}
+
+.f-20 {
+    font-size: 20px;
+}
+
+.pd-5 {
+    padding: 5px;
+}
+
+.verti-bottom {
+    vertical-align: bottom;
+}
+
+.textRight {
+    text-align: right;
+}
+
+.pdfTable2 {
+    margin-top: 30px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .pdfTable2 th, .pdfTable2 td {
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+.font-bold {
+    font-weight: bold;
+}
+
+.noBorders {
+    border: 0px !important;
+}
+
+.noLeftBorder {
+    border-left: 0px !important;
+}
+
+.noRightBorder {
+    border-right: 0px !important;
+}

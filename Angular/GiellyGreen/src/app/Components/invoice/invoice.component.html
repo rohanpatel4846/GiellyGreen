@@ -1,0 +1,183 @@
+<div class="supplierContainer">
+    <div class="nav-section-mobile">
+        <div class="nav-mobile-logo">
+            <img src="../assets/images/giellyGreenLogoGold.png" class="nav-mobile-logo-image">
+            <i nz-icon nzType="menu" nzTheme="outline" class="nav-mobile-menu" (click)="menuOpened = !menuOpened"></i>
+        </div>
+    </div>
+    <div class="nav-section" [ngClass]="{'openedNavMenu': menuOpened}">
+        <div class="nav-logo">
+            <img src="../assets/images/giellyGreenLogoGold.png" class="nav-logo-image">
+        </div>
+        <div class="nav-links">
+            <a class="nav-link" href="/Invoice">MONTHLY INVOICE</a>
+            <a class="nav-link" href="/Supplier">SUPPLIERS LIST</a>
+        </div>
+    </div>
+    <div class="table-section">
+        <div class="content-container">
+            <div nz-row nzAlign="middle">
+                <div nz-col nzSpan="24" nzxs="24" nzSm="10" nzMd="8" class="pageHeader p-y-5">Monthly Invoice</div>
+                <div nz-col nzSpan="24" nzxs="24" nzSm="13" nzMd="10" class="p-y-5">
+                    <span class="invoiceLabels">Choose Month</span> <nz-date-picker [(ngModel)]="selectedMonth" (ngModelChange)="MonthSelectedChanged()" nzMode="month" [nzFormat]="monthFormat"></nz-date-picker>
+                </div>
+                <div nz-col nzSpan="24" nzxs="24" nzSm="24" nzMd="6" class="p-y-5 text-right-g" *ngIf="monthSelected">
+                    <button class="printReportButton" (click)="printClicked()">PRINT REPORT</button>
+                </div>
+                <div nz-col nzSpan="24" nzxs="24" nzSm="12" nzMd="6" class="p-y-5" *ngIf="monthSelected">
+                    <span class="invoiceLabels">Date</span><nz-date-picker [(ngModel)]="selectedDate" (ngModelChange)="UpdateMonthInvoice()"></nz-date-picker>
+                </div>
+                <div nz-col nzSpan="24" nzxs="24" nzSm="12" nzMd="18" class="p-y-5" *ngIf="monthSelected">
+                    <span class="invoiceLabels">Invoice Reference</span><input [(ngModel)]="invoiceReference" (change)="UpdateMonthInvoice()" class=invoiceReferenceInput/>
+                </div>
+            </div>
+
+            <div class="table-container" *ngIf="monthSelected">
+                <nz-table [nzLoading]="invoiceTableLoading" #sortTable nzOuterBordered [nzScroll]="{ x: '1620px'}" [nzData]="listOfInvoices" nzTableLayout="fixed" class="supplierTable invoiceTable">
+                    <thead>
+                        <tr class="supplierHeader invoiceExtra">
+                            <th nzLeft width="50px">
+                              <input type="checkbox" [(ngModel)]="allChecked" (ngModelChange)="allCheckedChanged()" class="custom_checkbox">
+                              <!-- <label nz-checkbox [(ngModel)]="allChecked"></label> -->
+                            </th>
+                            <th width="150px">Supplier Name</th>
+                            <th width="120px">Hair Service</th>
+                            <th width="150px">Beauty Service</th>
+                            <th width="120px"><input nz-input [(ngModel)]="Custom1Head" (change)="UpdateMonthInvoice()" type="text"/></th>
+                            <th width="120px"><input nz-input [(ngModel)]="Custom2Head" (change)="UpdateMonthInvoice()" type="text"/></th>
+                            <th width="120px"><input nz-input [(ngModel)]="Custom3Head" (change)="UpdateMonthInvoice()" type="text"/></th>
+                            <th width="120px"><input nz-input [(ngModel)]="Custom4Head" (change)="UpdateMonthInvoice()" type="text"/></th>
+                            <th width="120px"><input nz-input [(ngModel)]="Custom5Head" (change)="UpdateMonthInvoice()" type="text"/></th>
+                            <th width="80px">NET</th>
+                            <th width="80px">VAT</th>
+                            <th width="80px">Gross</th>
+                            <th width="120px">Advance Pay</th>
+                            <th width="120px">Balance Due</th>
+                            <th nzRight width="120px">Approved</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of sortTable.data">
+                            <td nzLeft>
+                              <input type="checkbox" [(ngModel)]="data.isChecked" class="custom_checkbox">
+                              <!-- <label nz-checkbox [(ngModel)]="data.isChecked"></label> -->
+                            </td>
+                            <td nzEllipsis >{{ data.SupplierName }}</td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.HairService" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.BeautyService" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom1" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom2" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom3" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom4" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.Custom5" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
+                            <td nzEllipsis >{{ getNet(data) }}</td>
+                            <td nzEllipsis >{{ getVAT(getNet(data)) }}</td>
+                            <td nzEllipsis >{{ getNet(data) + getVAT(getNet(data)) }}</td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [(ngModel)]="data.AdvancePay" [nzMin]="0" [nzStep]="1" (change)="valueChanged()"></nz-input-number></td>
+                            <td nzEllipsis >{{ getNet(data) + getVAT(getNet(data)) - data.AdvancePay }}</td>
+                            <td nzEllipsis  nzRight>
+                              <input type="checkbox" disabled [ngModel]="data.isApproved" class="custom_checkbox2">
+                              <!-- <label nz-checkbox nzDisabled [ngModel]="data.isApproved"></label> -->
+                            </td>
+                        </tr>
+                        <tr class="g-bold">
+                          <td nzLeft></td>
+                          <td [colSpan]="8">
+                            TOTAL
+                          </td>
+                          <td>{{totalNet() | number : '1.2-2'}}</td>
+                          <td>{{totalVat() | number : '1.2-2'}}</td>
+                          <td>{{totalGross() | number : '1.2-2'}}</td>
+                          <td>{{totalAdvancePaid() | number : '1.2-2'}}</td>
+                          <td>{{totalBalanceDue() | number : '1.2-2'}}</td>
+                          <td nzRight></td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+
+                <div class="buttons-invoice-container">
+                  <div class="button-group-black">
+                    <div class="btnContainerBlack">
+                      <button class="blackBDBTN" (click)="approveSelectedClicked()">APPROVE SELECTED INVOICES</button>
+                    </div>
+                    <div class="btnContainerBlack">
+                      <button class="blackBDBTN" (click)="combineAndSave()">COMBINE & DOWNLOAD SELECTED INVOICES</button>
+                    </div>
+                    <div class="btnContainerBlack">
+                      <button class="blackBDBTN">EMAIL SELECTED INVOICES</button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="btnContainerBlack text-g-right">
+                      <button class="saveBTN" (click)="saveButtonClicked()">SAVE</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="FullPageLoading" class="loader-container">
+  <nz-spin nzSimple class="loader"></nz-spin>
+</div>
+
+<div class="displayNone">
+  <div class="PrintingDIV" id="toPrintDIV">
+    <div class="printHeader">Monthly Invoice</div>
+    <div class="subHeader">
+      <span class="printDate font-24">Date : {{selectedDate | date : 'dd/m/yyyy'}}</span><span class="printMonth font-24">Month : {{selectedMonthMONTH}}/{{selectedMonthYEAR}}</span><span class="printInvoiceReference font-24">Invoice Reference : {{invoiceReference}}</span>
+    </div>
+    <div class="prtintTableContainer">
+      <table class="printTable">
+        <thead>
+          <th class="printText-left">Supplier Name</th>
+          <th>Hair Services</th>
+          <th>Beauty Services</th>
+          <th>{{Custom1Head}}</th>
+          <th>{{Custom2Head}}</th>
+          <th>{{Custom3Head}}</th>
+          <th>{{Custom4Head}}</th>
+          <th>{{Custom5Head}}</th>
+          <th>Net</th>
+          <th>VAT</th>
+          <th>Gross</th>
+          <th>Advannce Paid</th>
+          <th>Balance Due</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of listOfInvoices">
+            <td class="printText-left">{{data.SupplierName}}</td>
+            <td>{{data.HairService | number : '1.2-2'}}</td>
+            <td>{{data.BeautyService | number : '1.2-2'}}</td>
+            <td>{{data.Custom1 | number : '1.2-2'}}</td>
+            <td>{{data.Custom2 | number : '1.2-2'}}</td>
+            <td>{{data.Custom3 | number : '1.2-2'}}</td>
+            <td>{{data.Custom4 | number : '1.2-2'}}</td>
+            <td>{{data.Custom5 | number : '1.2-2'}}</td>
+            <td>{{ getNet(data) | number : '1.2-2' }}</td>
+            <td>{{ getVAT(getNet(data)) | number : '1.2-2' }}</td>
+            <td>{{ getNet(data) + getVAT(getNet(data)) | number : '1.2-2' }}</td>
+            <td>{{data.AdvancePay | number : '1.2-2'}}</td>
+            <td>{{ getNet(data) + getVAT(getNet(data)) - data.AdvancePay | number : '1.2-2' }}</td>
+          </tr>
+          <tr class="g-bold">
+            <td [colSpan]="8">
+              TOTAL
+            </td>
+            <td>{{totalNet() | number : '1.2-2'}}</td>
+            <td>{{totalVat() | number : '1.2-2'}}</td>
+            <td>{{totalGross() | number : '1.2-2'}}</td>
+            <td>{{totalAdvancePaid() | number : '1.2-2'}}</td>
+            <td>{{totalBalanceDue() | number : '1.2-2'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="FinalPDFData">
+
+</div>

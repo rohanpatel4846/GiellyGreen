@@ -1,0 +1,193 @@
+<div class="supplierContainer">
+    <div class="nav-section-mobile">
+        <div class="nav-mobile-logo">
+            <img src="../assets/images/giellyGreenLogoGold.png" class="nav-mobile-logo-image">
+            <i nz-icon nzType="menu" nzTheme="outline" class="nav-mobile-menu" (click)="menuOpened = !menuOpened"></i>
+        </div>
+    </div>
+    <div class="nav-section" [ngClass]="{'openedNavMenu': menuOpened}">
+        <div class="nav-logo">
+            <img src="../assets/images/giellyGreenLogoGold.png" class="nav-logo-image">
+        </div>
+        <div class="nav-links">
+            <a class="nav-link" href="/Invoice">MONTHLY INVOICE</a>
+            <a class="nav-link" href="/Supplier">SUPPLIERS LIST</a>
+        </div>
+    </div>
+    <div class="table-section">
+        <div class="content-container">
+            <div nz-row nzAlign="middle">
+                <div nz-col nzSpan="24" nzxs="24" nzSm="24" nzMd="11" class="pageHeader">Suppliers List</div>
+                <div nz-col nzSpan="24" nzxs="24" nzSm="24" nzMd="9" class="suppliersSearch">
+                    <nz-input-group [nzPrefix]="searchPrefix">
+                        <input type="text" nz-input class="searchTextBox" id="passwordLogin" placeholder="Search here..."/>
+                    </nz-input-group>
+                    <ng-template #searchPrefix>
+                        <i nz-icon nzType="search" class="searchIcon"></i>
+                    </ng-template>
+                </div>
+                <div nz-col nzSpan="24" nzxs="24" nzSm="24" nzMd="4" class="supplierAddButtonDiv">
+                    <button class="supplierAddButton" (click)="showModalSupplier()">
+                        <i nz-icon nzType="plus" nzTheme="outline"></i>
+                        Add Supplier
+                    </button>
+                </div>
+            </div>
+            <div class="table-container">
+                <nz-table [nzLoading]="supplierTableLoading" #sortTable nzOuterBordered [nzData]="listOfData" nzTableLayout="fixed" class="supplierTable">
+                    <thead>
+                        <tr class="supplierHeader">
+                            <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+                                {{ column.title }}
+                            </th>
+                            <th width="20%">Status</th>
+                            <th width="20%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of sortTable.data">
+                            <td nzEllipsis>{{ data.SupplierReferenceNumber }}</td>
+                            <td nzEllipsis>{{ data.SupplierName }}</td>
+                            <td nzEllipsis><nz-switch [(ngModel)]="data.isActive" (ngModelChange)="SwitchChanged(data)"></nz-switch></td>
+                            <td nzEllipsis>
+                                <div class="actionIcons">
+                                    <img src="./../../../assets/SVGs/editIcon.svg" class="actionIcon" (click)="EditClicked(data)">
+                                    <img src="./../../../assets/SVGs/deleteIcon.svg" class="pl-5 actionIcon" (click)="DeleteClicked(data)">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nz-modal nzCentered [(nzVisible)]="isVisibleSupplierModal" (nzOnCancel)="handleCancelSupplierModal()" nzWidth="700px">
+    <form nz-form [formGroup]="SupplierForm" (ngSubmit)="submitForm()">
+        <ng-container *nzModalTitle>
+            {{SupplierModalTitle}}
+        </ng-container>
+        <ng-container *nzModalContent>
+            <div nz-row class="form-container">
+                <div nz-col nzSpan="24" nzSm="12" nzMd="12" nzLg="12" nzXl="12" class="form-input-container">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="supplierName">Supplier Name</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorSupplierName">
+                          <input nz-input type="text" formControlName="supplierName" id="supplierName" />
+                          <ng-template #errorSupplierName let-control>
+                            <ng-container *ngIf="control.hasError('required')">Please Enter Supplier Name</ng-container>
+                          </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="24" nzSm="12" nzMd="12" nzLg="12" nzXl="12" class="form-input-container">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="supplierReference">Supplier Reference</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorSupplierReference">
+                          <input nz-input type="text" formControlName="supplierReference" id="supplierReference" />
+                          <ng-template #errorSupplierReference let-control>
+                            <ng-container *ngIf="control.hasError('required')">Please Enter Supplier Reference</ng-container>
+                          </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="24" class="form-input-container">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="businessAddress">Business Address</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorBusinessAddress">
+                            <textarea rows="3" nz-input formControlName="businessAddress" id="businessAddress"></textarea>
+                            <ng-template #errorBusinessAddress let-control>
+                                <ng-container *ngIf="control.hasError('required')">Please Enter Business Address</ng-container>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="24" nzSm="12" nzMd="12" nzLg="12" nzXl="12" class="form-input-container">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="emailAddress">Email Address</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorEmailAddress">
+                          <input nz-input type="email" formControlName="emailAddress" id="emailAddress" />
+                          <ng-template #errorEmailAddress let-control>
+                            <ng-container *ngIf="control.hasError('email')">Please Enter valid Email Address</ng-container>
+                            <ng-container *ngIf="control.hasError('required')">Please Enter Email Address</ng-container>
+                          </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="24" nzSm="12" nzMd="12" nzLg="12" nzXl="12" class="form-input-container">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="phoneNumber">Phone Number</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorPhoneNumber">
+                          <input nz-input type="tel" formControlName="phoneNumber" id="phoneNumber" />
+                          <ng-template #errorPhoneNumber let-control>
+                            <ng-container *ngIf="control.hasError('required')">Please Enter Phone Number</ng-container>
+                          </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="24" nzSm="12" nzMd="12" nzLg="12" nzXl="12" class="form-input-container">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="companyRegisteedNumber">Company Registered Number</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorCompanyRegisteredNumber">
+                          <input nz-input type="email" formControlName="companyRegisteedNumber" id="companyRegisteedNumber" />
+                          <ng-template #errorCompanyRegisteredNumber let-control>
+                            <ng-container *ngIf="control.hasError('required')">Please Enter Company Registered Number</ng-container>
+                          </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="24" nzSm="12" nzMd="12" nzLg="12" nzXl="12" class="form-input-container">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="vatNumber">Vat Number</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorVatNumber">
+                          <input nz-input type="tel" formControlName="vatNumber" id="vatNumber" />
+                          <ng-template #errorVatNumber let-control>
+                            <ng-container *ngIf="control.hasError('required')">Please Enter Vat Number</ng-container>
+                          </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="24" class="form-input-container">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="taxReference">Tax Reference</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorTaxReference">
+                          <input nz-input type="tel" formControlName="taxReference" id="taxReference" />
+                          <ng-template #errorTaxReference let-control>
+                            <ng-container *ngIf="control.hasError('required')">Please Enter Tax Reference</ng-container>
+                          </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="24" class="form-input-container">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="companyRegisteredAddress">Company Registered Address</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorCompanyRegisteredAddress">
+                            <textarea rows="3" nz-input formControlName="companyRegisteredAddress" id="companyRegisteredAddress"></textarea>
+                            <ng-template #errorCompanyRegisteredAddress let-control>
+                                <ng-container *ngIf="control.hasError('required')">Please Enter Company Registered Address</ng-container>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="12" class="form-input-container">
+                    <div>Upload invoice logo</div>
+                    <div>
+                        <i nz-icon nzType="upload" nzTheme="outline" class="uploadIcon"></i> <button class="UploadBTN"  (click)="logoFile.click()">Upload here</button>
+                    </div>
+                </div>
+                <div nz-col nzSpan="12" class="form-input-container">
+                    <span>Is Active? </span> <nz-switch formControlName="isActive"></nz-switch>
+                </div>
+                <div nz-col nzSpan="12" class="form-input-container">
+                    <img [src]="UploadedImage" width="100" height="100" *ngIf="isImageSelected">
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *nzModalFooter>
+            <span class="supplierSaveButtonContainer"><button class="supplierSaveButton" (click)="submitForm()">Save</button></span>
+            <span class="supplierCancelButtonContainer"><button class="supplierCancelButton" (click)="handleCancelSupplierModal()">Cancel</button></span>
+        </ng-container>
+    </form>
+    <input type="file" name="" id='input_file' hidden #logoFile accept="image/*" (change)="uploadedFileChanged($event)">
+</nz-modal>

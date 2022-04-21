@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GiellyGreen_RohanModelStoreContainer" CdmEntityContainer="GiellyGreen_RohanEntities1">
+    <EntitySetMapping Name="images">
+      <EntityTypeMapping TypeName="GiellyGreen_RohanModel.image">
+        <MappingFragment StoreEntitySet="images">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="url" ColumnName="url" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoices">
+      <EntityTypeMapping TypeName="GiellyGreen_RohanModel.Invoice">
+        <MappingFragment StoreEntitySet="Invoice">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="HairService" ColumnName="HairService" />
+          <ScalarProperty Name="BeautyService" ColumnName="BeautyService" />
+          <ScalarProperty Name="Custom1" ColumnName="Custom1" />
+          <ScalarProperty Name="Custom2" ColumnName="Custom2" />
+          <ScalarProperty Name="Custom3" ColumnName="Custom3" />
+          <ScalarProperty Name="Custom4" ColumnName="Custom4" />
+          <ScalarProperty Name="Custom5" ColumnName="Custom5" />
+          <ScalarProperty Name="AdvancePay" ColumnName="AdvancePay" />
+          <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MonthInvoices">
+      <EntityTypeMapping TypeName="GiellyGreen_RohanModel.MonthInvoice">
+        <MappingFragment StoreEntitySet="MonthInvoice">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="monthNUM" ColumnName="monthNUM" />
+          <ScalarProperty Name="yearNUM" ColumnName="yearNUM" />
+          <ScalarProperty Name="Custom1_Name" ColumnName="Custom1_Name" />
+          <ScalarProperty Name="Custom2_Name" ColumnName="Custom2_Name" />
+          <ScalarProperty Name="Custom3_Name" ColumnName="Custom3_Name" />
+          <ScalarProperty Name="Custom4_Name" ColumnName="Custom4_Name" />
+          <ScalarProperty Name="Custom5_Name" ColumnName="Custom5_Name" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="VAT" ColumnName="VAT" />
+          <ScalarProperty Name="InvoiceReferenceNumber" ColumnName="InvoiceReferenceNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="GiellyGreen_RohanModel.Supplier">
+        <MappingFragment StoreEntitySet="Suppliers">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="SupplierReferenceNumber" ColumnName="SupplierReferenceNumber" />
+          <ScalarProperty Name="BusinessAddress" ColumnName="BusinessAddress" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="CompanyRegisterNumber" ColumnName="CompanyRegisterNumber" />
+          <ScalarProperty Name="VATNumber" ColumnName="VATNumber" />
+          <ScalarProperty Name="TAXReference" ColumnName="TAXReference" />
+          <ScalarProperty Name="CompanyRegisteredAddress" ColumnName="CompanyRegisteredAddress" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetImage" FunctionName="GiellyGreen_RohanModel.Store.GetImage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GetImage_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="url" ColumnName="url" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GETInvoice" FunctionName="GiellyGreen_RohanModel.Store.GETInvoice">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GETInvoice_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="HairService" ColumnName="HairService" />
+          <ScalarProperty Name="BeautyService" ColumnName="BeautyService" />
+          <ScalarProperty Name="Custom1" ColumnName="Custom1" />
+          <ScalarProperty Name="Custom2" ColumnName="Custom2" />
+          <ScalarProperty Name="Custom3" ColumnName="Custom3" />
+          <ScalarProperty Name="Custom4" ColumnName="Custom4" />
+          <ScalarProperty Name="Custom5" ColumnName="Custom5" />
+          <ScalarProperty Name="AdvancePay" ColumnName="AdvancePay" />
+          <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GETMonthInvoice" FunctionName="GiellyGreen_RohanModel.Store.GETMonthInvoice">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GETMonthInvoice_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="monthNUM" ColumnName="monthNUM" />
+          <ScalarProperty Name="yearNUM" ColumnName="yearNUM" />
+          <ScalarProperty Name="Custom1_Name" ColumnName="Custom1_Name" />
+          <ScalarProperty Name="Custom2_Name" ColumnName="Custom2_Name" />
+          <ScalarProperty Name="Custom3_Name" ColumnName="Custom3_Name" />
+          <ScalarProperty Name="Custom4_Name" ColumnName="Custom4_Name" />
+          <ScalarProperty Name="Custom5_Name" ColumnName="Custom5_Name" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="VAT" ColumnName="VAT" />
+          <ScalarProperty Name="InvoiceReferenceNumber" ColumnName="InvoiceReferenceNumber" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GETSuppliers" FunctionName="GiellyGreen_RohanModel.Store.GETSuppliers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GETSuppliers_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="SupplierReferenceNumber" ColumnName="SupplierReferenceNumber" />
+          <ScalarProperty Name="BusinessAddress" ColumnName="BusinessAddress" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="CompanyRegisterNumber" ColumnName="CompanyRegisterNumber" />
+          <ScalarProperty Name="VATNumber" ColumnName="VATNumber" />
+          <ScalarProperty Name="TAXReference" ColumnName="TAXReference" />
+          <ScalarProperty Name="CompanyRegisteredAddress" ColumnName="CompanyRegisteredAddress" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InsertUpdateInvoice" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateInvoice" />
+    <FunctionImportMapping FunctionImportName="InsertUpdateMonthInvoice" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateMonthInvoice" />
+    <FunctionImportMapping FunctionImportName="InsertUpdateSupplier" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateSupplier" />
+    <FunctionImportMapping FunctionImportName="PatchActiveSupplier" FunctionName="GiellyGreen_RohanModel.Store.PatchActiveSupplier" />
+    <FunctionImportMapping FunctionImportName="DeleteSupplier" FunctionName="GiellyGreen_RohanModel.Store.DeleteSupplier" />
+    <FunctionImportMapping FunctionImportName="InsertUpdateImage" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateImage" />
+  </EntityContainerMapping>
+</Mapping>
