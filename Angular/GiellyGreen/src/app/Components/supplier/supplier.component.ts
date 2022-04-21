@@ -23,6 +23,7 @@ export class SupplierComponent implements OnInit {
   UploadedImage:any;
   UploadedImgInBase64:any;
   SelectedImgType:any;
+  searchTextBox:any;
 
   listOfColumn = [
     {
@@ -38,6 +39,18 @@ export class SupplierComponent implements OnInit {
   ];
 
   listOfData: SupplierTable[] = [];
+  listOfDataBackup: SupplierTable[] = []; 
+
+  SearchChanged(){
+    this.listOfData = this.listOfDataBackup;
+    let validData:any = [];
+    this.listOfData.forEach(data => {
+      if((data.SupplierName).toUpperCase().includes((this.searchTextBox).toUpperCase())){
+        validData.push(data);
+      }
+    });
+    this.listOfData = validData;
+  }
 
   constructor(public router:Router, private fb: FormBuilder, public Suppliers: SuppliersService, public ImageUploader: ImageUploaderService, public Image: ImageService, public SessionManagement: SessionManagementService) { }
 
@@ -108,6 +121,7 @@ export class SupplierComponent implements OnInit {
             tableData.push(supplierOBJ);
           });
           this.listOfData = tableData;
+          this.listOfDataBackup=tableData;
           this.supplierTableLoading = false;
         }
         catch(ex){

@@ -4,12 +4,12 @@
 @import "~ng-zorro-antd/button/style/index.min.css";  /* Import one component's styles */
 
 body{
-    font-family: muliFontCustom;
+    font-family: daxFontCustom !important;
 }
 
 @font-face {
-    font-family: muliFontCustom;
-    src: url(./assets/font/Muli.ttf);
+    font-family: daxFontCustom;
+    src: url(./assets/font/Dax.ttf);
 }
 
 .bg-red{

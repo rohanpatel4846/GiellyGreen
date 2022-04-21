@@ -20,7 +20,7 @@
                 <div nz-col nzSpan="24" nzxs="24" nzSm="24" nzMd="11" class="pageHeader">Suppliers List</div>
                 <div nz-col nzSpan="24" nzxs="24" nzSm="24" nzMd="9" class="suppliersSearch">
                     <nz-input-group [nzPrefix]="searchPrefix">
-                        <input type="text" nz-input class="searchTextBox" id="passwordLogin" placeholder="Search here..."/>
+                        <input type="text" (keyup)="SearchChanged()" [(ngModel)]="searchTextBox" nz-input class="searchTextBox" id="passwordLogin" placeholder="Search here..."/>
                     </nz-input-group>
                     <ng-template #searchPrefix>
                         <i nz-icon nzType="search" class="searchIcon"></i>
