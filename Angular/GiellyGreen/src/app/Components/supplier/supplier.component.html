@@ -180,7 +180,10 @@
                     <span>Is Active? </span> <nz-switch formControlName="isActive"></nz-switch>
                 </div>
                 <div nz-col nzSpan="12" class="form-input-container">
-                    <img [src]="UploadedImage" width="100" height="100" *ngIf="isImageSelected">
+                    <div class="imageContainer" *ngIf="isImageSelected">
+                        <i nz-icon nzType="close-circle" nzTheme="outline" class="closeIcon" (click)="RemoveImage()"></i>
+                        <img [src]="UploadedImage" width="100" height="100">
+                    </div>
                 </div>
             </div>
         </ng-container>

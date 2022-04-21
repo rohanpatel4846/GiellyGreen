@@ -463,6 +463,21 @@ body{
     margin-right: 5px;
 }
 
+.imageContainer{
+    position: relative;
+    width: max-content;
+    padding: 15px;
+    border: 1px solid black;
+}
+
+.imageContainer .closeIcon{
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    cursor: pointer;
+}
+
+
 /* -------------------------------------------------------------------- */
 
 .font-24{

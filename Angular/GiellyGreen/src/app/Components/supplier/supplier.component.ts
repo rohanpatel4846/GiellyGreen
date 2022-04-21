@@ -77,6 +77,12 @@ export class SupplierComponent implements OnInit {
     this.UpdateSupplierTable();
   }
 
+  RemoveImage(){
+    this.isImageSelected = false;
+    this.UploadedImgInBase64 = null;
+    this.SelectedImgType = null;
+  }
+
   resetForm(){
     this.SupplierForm.patchValue({
       supplierName: null,
