@@ -6,7 +6,7 @@ import { SessionManagementService } from '../SessionManagement/session-managemen
   providedIn: 'root'
 })
 export class PdfService {
-  PDF = "https://localhost:44389/api/Email";
+  PDF = "https://localhost:44389/api/PDF";
   constructor(private http: HttpClient, public SessionManagement: SessionManagementService) { }
 
   getOptions(){

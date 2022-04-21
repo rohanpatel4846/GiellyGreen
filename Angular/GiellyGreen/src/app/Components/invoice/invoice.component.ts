@@ -9,6 +9,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { EmailService } from 'src/app/Services/Email/email.service';
 import Swal from 'sweetalert2';
+import { PdfService } from 'src/app/Services/PDF/pdf.service';
 
 
 
@@ -56,7 +57,7 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  constructor(public Email:EmailService, public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
+  constructor(public Pdf:PdfService, public Email:EmailService, public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
 
   ngOnInit(): void {
     this.SessionManagement.updateIsLoggedIn();
@@ -366,6 +367,9 @@ export class InvoiceComponent implements OnInit {
     this.getCheckedInvoices().forEach((invoice:any) => {
       body.push(invoice.id);
     });
+
+    this.Pdf.getPDF(body)
+    .subscribe((data:any) => { console.log(data) }, (error) => { console.log(error) });
   }
 
   sendEmailToSelected(){
