@@ -294,6 +294,14 @@ body{
   align-items: flex-start;
 }
 
+.w-65Per{
+    width: 65%;
+}
+
+.mart-65{
+    margin-top: 65px;
+}
+
 .blackBDBTN:hover{
     background-color: #ebebeb;
 }

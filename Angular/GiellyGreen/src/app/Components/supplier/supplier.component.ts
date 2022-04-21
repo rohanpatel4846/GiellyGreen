@@ -124,7 +124,6 @@ export class SupplierComponent implements OnInit {
               id: supplier.id,
               isActive: supplier.isActive
             };
-            console.log(supplierOBJ);
             tableData.push(supplierOBJ);
           });
           this.listOfData = tableData;
