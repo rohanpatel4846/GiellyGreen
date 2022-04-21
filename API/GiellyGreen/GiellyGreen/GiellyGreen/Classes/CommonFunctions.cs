@@ -77,8 +77,6 @@ namespace GiellyGreen.Classes
             htmlStr = htmlStr.Replace("{{pdfLogo}}", imageBase64);
             htmlStr = htmlStr.Replace("{{pdfInvoiceDate}}", monthInvoice.InvoiceDate + "");
             htmlStr = htmlStr.Replace("{{pdfInvoiceReference}}", monthInvoice.InvoiceReferenceNumber + "");
-            htmlStr = htmlStr.Replace("{{pdfTaxReference}}", supplier.TAXReference + "");
-            htmlStr = htmlStr.Replace("{{pdfVatNumber}}", supplier.VATNumber + "");
             htmlStr = htmlStr.Replace("{{pdfAddress1}}", supplier.BusinessAddress + "");
             htmlStr = htmlStr.Replace("{{pdfAddress2}}", "Address");
             htmlStr = htmlStr.Replace("{{pdfHairService}}", invoice.HairService + "");
@@ -97,6 +95,24 @@ namespace GiellyGreen.Classes
             htmlStr = htmlStr.Replace("{{Custom3_Head}}", monthInvoice.Custom3_Name + "");
             htmlStr = htmlStr.Replace("{{Custom4_Head}}", monthInvoice.Custom4_Name + "");
             htmlStr = htmlStr.Replace("{{Custom5_Head}}", monthInvoice.Custom5_Name + "");
+
+            if(String.IsNullOrEmpty((supplier.TAXReference) + ""))
+            {
+                htmlStr = htmlStr.Replace("{{pdfTaxReference}}", "");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{pdfTaxReference}}", "Tax Reference : " + supplier.TAXReference + "");
+            }
+
+            if (String.IsNullOrEmpty((supplier.VATNumber) + ""))
+            {
+                htmlStr = htmlStr.Replace("{{pdfVatNumber}}", "");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{pdfVatNumber}}", "VAT Number : " + supplier.VATNumber + "");
+            }
             #endregion
 
             String cssStr = CommonFunctions.generateCSSpdfString();
