@@ -11,6 +11,7 @@ namespace GiellyGreen.Controllers
 {
     public class PDFController : ApiController
     {
+        [HttpPost]
         public JSONResponse GetPDF(int[] InvoiceIds)
         {
             var response = new JSONResponse();
