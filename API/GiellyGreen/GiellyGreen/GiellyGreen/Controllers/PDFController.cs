@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace GiellyGreen.Controllers
@@ -23,6 +24,9 @@ namespace GiellyGreen.Controllers
                 var Invoice = new InvoiceController();
                 var Supplier = new SupplierController();
                 var MonthInvoice = new MonthInvoiceController();
+                var Image = new ImageController();
+                String path = HttpContext.Current.Server.MapPath("~/SupplierLogos");
+
                 List<dynamic> Pdfs = new List<dynamic>();
 
                 foreach (var InvoiceId in InvoiceIds)
@@ -30,8 +34,9 @@ namespace GiellyGreen.Controllers
                     dynamic invoice = Invoice.Get(InvoiceId).Result[0];
                     dynamic monthInvoice = MonthInvoice.Get(invoice.MonthId).Result[0];
                     dynamic supplier = Supplier.ALL(invoice.SupplierId).Result[0];
+                    dynamic image = Image.Get(supplier.ImageId).Result[0];
 
-                    Byte[] res = CommonFunctions.generatePDF(invoice, monthInvoice, supplier);
+                    Byte[] res = CommonFunctions.generatePDF(invoice, monthInvoice, supplier, image);
                     Pdfs.Add(res);
                 }
 

@@ -9,6 +9,7 @@ import { EmailService } from 'src/app/Services/Email/email.service';
 import Swal from 'sweetalert2';
 import { PdfService } from 'src/app/Services/PDF/pdf.service';
 import * as FileSaver from 'file-saver';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-invoice',
@@ -55,7 +56,7 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  constructor(public Pdf:PdfService, public Email:EmailService, public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
+  constructor(private notification: NzNotificationService, public Pdf:PdfService, public Email:EmailService, public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
 
   ngOnInit(): void {
     this.SessionManagement.updateIsLoggedIn();
@@ -353,11 +354,11 @@ export class InvoiceComponent implements OnInit {
           this.changedInvoices.push(invoice.id);
         }
         else{
-          // this.notification.create(
-          //   'error',
-          //   'Net Cannot Be Zero',
-          //   'for Supplier - ' + invoice.SupplierName
-          // );
+          this.notification.create(
+            'error',
+            'Net Cannot Be Zero',
+            'for Supplier - ' + invoice.SupplierName
+          );
         }
         
       }

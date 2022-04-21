@@ -50,22 +50,37 @@ namespace GiellyGreen.Classes
             return cssSTR.ToString();
         }
 
-        public static Byte[] generatePDF(dynamic invoice, dynamic monthInvoice, dynamic supplier)
+        public static Byte[] generatePDF(dynamic invoice, dynamic monthInvoice, dynamic supplier, dynamic image)
         {
             Byte[] res = null;
 
-            decimal subtotal = invoice.Custom1 + invoice.Custom2 + invoice.Custom3 + invoice.Custom4 + invoice.Custom5;
+            decimal subtotal = invoice.HairService + invoice.BeautyService + invoice.Custom1 + invoice.Custom2 + invoice.Custom3 + invoice.Custom4 + invoice.Custom5;
             decimal vattotal = (subtotal * 20) / 100;
             decimal balanceDue = (subtotal + vattotal) - invoice.AdvancePay;
 
+            var imageName = image.url;
+            string imageBase64 = "";
+            try
+            {
+                String path = HttpContext.Current.Server.MapPath("~/SupplierLogos");
+                string imgPath = Path.Combine(path, imageName);
+                imageBase64 = Convert.ToBase64String(File.ReadAllBytes(imgPath));
+            }
+            catch (Exception ex)
+            {
+                imageBase64 = "";
+            }
+
             String htmlStr = CommonFunctions.generateHTMLpdfString();
 
+            #region dynamic values
+            htmlStr = htmlStr.Replace("{{pdfLogo}}", imageBase64);
             htmlStr = htmlStr.Replace("{{pdfInvoiceDate}}", monthInvoice.InvoiceDate + "");
             htmlStr = htmlStr.Replace("{{pdfInvoiceReference}}", monthInvoice.InvoiceReferenceNumber + "");
             htmlStr = htmlStr.Replace("{{pdfTaxReference}}", supplier.TAXReference + "");
             htmlStr = htmlStr.Replace("{{pdfVatNumber}}", supplier.VATNumber + "");
             htmlStr = htmlStr.Replace("{{pdfAddress1}}", supplier.BusinessAddress + "");
-            htmlStr = htmlStr.Replace("{{pdfAddress2}}", "{{pdfAddress2}}");
+            htmlStr = htmlStr.Replace("{{pdfAddress2}}", "Address");
             htmlStr = htmlStr.Replace("{{pdfHairService}}", invoice.HairService + "");
             htmlStr = htmlStr.Replace("{{pdfBeautyService}}", invoice.BeautyService + "");
             htmlStr = htmlStr.Replace("{{pdfCustom1}}", invoice.Custom1 + "");
@@ -82,6 +97,7 @@ namespace GiellyGreen.Classes
             htmlStr = htmlStr.Replace("{{Custom3_Head}}", monthInvoice.Custom3_Name + "");
             htmlStr = htmlStr.Replace("{{Custom4_Head}}", monthInvoice.Custom4_Name + "");
             htmlStr = htmlStr.Replace("{{Custom5_Head}}", monthInvoice.Custom5_Name + "");
+            #endregion
 
             String cssStr = CommonFunctions.generateCSSpdfString();
 
@@ -90,9 +106,9 @@ namespace GiellyGreen.Classes
                 var document = new Document(PageSize.A4);
                 var writer = PdfWriter.GetInstance(document, memoryStream);
                 document.Open();
-                using (var cssMemoryStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(cssStr)))
+                using (var cssMemoryStream = new MemoryStream(Encoding.UTF8.GetBytes(cssStr)))
                 {
-                    using (var htmlMemoryStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(htmlStr)))
+                    using (var htmlMemoryStream = new MemoryStream(Encoding.UTF8.GetBytes(htmlStr)))
                     {
                         XMLWorkerHelper.GetInstance().ParseXHtml(writer, document, htmlMemoryStream, cssMemoryStream);
                     }

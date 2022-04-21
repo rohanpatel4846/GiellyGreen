@@ -23,12 +23,14 @@ namespace GiellyGreen.Controllers
                 var Invoice = new InvoiceController();
                 var Supplier = new SupplierController();
                 var MonthInvoice = new MonthInvoiceController();
+                var Image = new ImageController();
 
                 foreach(var InvoiceId in InvoiceIds)
                 {
                     dynamic invoice = Invoice.Get(InvoiceId).Result[0];
                     dynamic monthInvoice = MonthInvoice.Get(invoice.MonthId).Result[0];
                     dynamic supplier = Supplier.ALL(invoice.SupplierId).Result[0];
+                    dynamic image = Image.Get(supplier.ImageId).Result[0];
 
                     var RecievingCompany = "Gielly Green Limited";
 
@@ -38,7 +40,7 @@ namespace GiellyGreen.Controllers
                     string subject = "Your invoice for the " + CommonFunctions.MonthNumbertoMonthName(monthInvoice.monthNUM) + ", " + monthInvoice.yearNUM;
                     string body = "Please find attached a self-billed invoice to " + RecievingCompany + ", prepared on your behalf, as per the agreement.\nRegard\nGielly Green Limited";
                     
-                    Byte[] res = CommonFunctions.generatePDF(invoice, monthInvoice, supplier);
+                    Byte[] res = CommonFunctions.generatePDF(invoice, monthInvoice, supplier, image);
 
                     var smtp = new SmtpClient
                     {

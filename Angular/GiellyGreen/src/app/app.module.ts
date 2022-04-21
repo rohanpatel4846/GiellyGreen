@@ -57,7 +57,8 @@ registerLocaleData(en);
     NzDatePickerModule,
     NzCheckboxModule,
     NzInputNumberModule,
-    NzSpinModule
+    NzSpinModule,
+    NzNotificationModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
