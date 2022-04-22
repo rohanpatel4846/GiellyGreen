@@ -61,7 +61,6 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.SessionManagement.updateIsLoggedIn();
-    console.log(SessionManagementService.isLoggedIn);
     if(!SessionManagementService.isLoggedIn){
       this.router.navigate(['login']);
     }
@@ -76,10 +75,8 @@ export class InvoiceComponent implements OnInit {
       this.invoiceReference = invoiceID;
       let LastDateOfMonth = new Date(this.selectedMonth.getUTCFullYear(),this.selectedMonth.getUTCMonth(), this.getLastDate(this.selectedMonth.getUTCFullYear(), this.selectedMonth.getUTCMonth() + 1) + 1);
       this.selectedDate = LastDateOfMonth;
-      console.log(LastDateOfMonth);
       this.MonthInvoice.getAllMonthInvoice()
       .subscribe((data:any) => {
-        console.log(data);
         this.AfterMonthInvoice(data);
       });
     }
@@ -239,7 +236,6 @@ export class InvoiceComponent implements OnInit {
   }
 
   UpdateMonthInvoice(){
-    console.log(this.selectedDate);
     let MonthInvoiceBody = {
       "monthNUM": this.selectedMonth.getUTCMonth() + 1,
       "yearNUM": this.selectedMonth.getUTCFullYear(),
@@ -320,8 +316,6 @@ export class InvoiceComponent implements OnInit {
         toUpdateORAdd.push(invoice);
       }
     });
-
-    console.log(toUpdateORAdd);
 
     let totalApiCalls = toUpdateORAdd.length;
     let completedApis = 0;
@@ -458,7 +452,6 @@ export class InvoiceComponent implements OnInit {
   AfterCombineAPISuccess(data:any){
     let fileContent = data.Result;
     var byteArray = this.base64ToArrayBuffer(fileContent);
-    console.log(byteArray);
     const file = new Blob([byteArray], {type:"application/pdf"});
     FileSaver.saveAs(file, "Combined Invoice.pdf");
     this.FullPageLoading = false;
