@@ -100,7 +100,84 @@ namespace GiellyGreen.Classes
             htmlStr = htmlStr.Replace("{{Custom4_Head}}", monthInvoice.Custom4_Name + "");
             htmlStr = htmlStr.Replace("{{Custom5_Head}}", monthInvoice.Custom5_Name + "");
 
-            if(String.IsNullOrEmpty((supplier.TAXReference) + ""))
+            if(invoice.Custom1 == 0)
+            {
+                htmlStr = htmlStr.Replace("{{Custom1_Comment_S}}", "<!--");
+                htmlStr = htmlStr.Replace("{{Custom1_Comment_E}}", "-->");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{Custom1_Comment_S}}", "");
+                htmlStr = htmlStr.Replace("{{Custom1_Comment_E}}", "");
+            }
+
+            if (invoice.Custom2 == 0)
+            {
+                htmlStr = htmlStr.Replace("{{Custom2_Comment_S}}", "<!--");
+                htmlStr = htmlStr.Replace("{{Custom2_Comment_E}}", "-->");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{Custom2_Comment_S}}", "");
+                htmlStr = htmlStr.Replace("{{Custom2_Comment_E}}", "");
+            }
+
+            if (invoice.Custom3 == 0)
+            {
+                htmlStr = htmlStr.Replace("{{Custom3_Comment_S}}", "<!--");
+                htmlStr = htmlStr.Replace("{{Custom3_Comment_E}}", "-->");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{Custom3_Comment_S}}", "");
+                htmlStr = htmlStr.Replace("{{Custom3_Comment_E}}", "");
+            }
+
+            if (invoice.Custom4 == 0)
+            {
+                htmlStr = htmlStr.Replace("{{Custom4_Comment_S}}", "<!--");
+                htmlStr = htmlStr.Replace("{{Custom4_Comment_E}}", "-->");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{Custom4_Comment_S}}", "");
+                htmlStr = htmlStr.Replace("{{Custom4_Comment_E}}", "");
+            }
+
+            if (invoice.Custom5 == 0)
+            {
+                htmlStr = htmlStr.Replace("{{Custom5_Comment_S}}", "<!--");
+                htmlStr = htmlStr.Replace("{{Custom5_Comment_E}}", "-->");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{Custom5_Comment_S}}", "");
+                htmlStr = htmlStr.Replace("{{Custom5_Comment_E}}", "");
+            }
+
+            if (invoice.HairService == 0)
+            {
+                htmlStr = htmlStr.Replace("{{HairService_Comment_S}}", "<!--");
+                htmlStr = htmlStr.Replace("{{HairService_Comment_E}}", "-->");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{HairService_Comment_S}}", "");
+                htmlStr = htmlStr.Replace("{{HairService_Comment_E}}", "");
+            }
+
+            if (invoice.BeautyService == 0)
+            {
+                htmlStr = htmlStr.Replace("{{BeautyService_Comment_S}}", "<!--");
+                htmlStr = htmlStr.Replace("{{BeautyService_Comment_E}}", "-->");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{BeautyService_Comment_S}}", "");
+                htmlStr = htmlStr.Replace("{{BeautyService_Comment_E}}", "");
+            }
+
+            if (String.IsNullOrEmpty((supplier.TAXReference) + ""))
             {
                 htmlStr = htmlStr.Replace("{{pdfTaxReference}}", "");
             }
