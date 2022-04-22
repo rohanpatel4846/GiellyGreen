@@ -38,6 +38,7 @@ export class InvoiceComponent implements OnInit {
   FullPageLoading = false;
   changedInvoices:any = [];
   dateFormatSelectDate="dd/MM/yyyy";
+  NonDataBaseChanged = false;
 
   listOfInvoices: InvoiceItem[] = [];
   listOfInvoicesBackup: InvoiceItem[] = [];
@@ -356,10 +357,15 @@ export class InvoiceComponent implements OnInit {
           });
       }
     });
+
+    if(toUpdateORAdd.length == 0){
+      this.AfterAllPostPut();
+    }
   }
 
   AfterAllPostPut(){
     this.changedInvoices = [];
+    this.NonDataBaseChanged = false;
     this.GetInvoices();
     this.FullPageLoading = false;
   }
@@ -379,6 +385,9 @@ export class InvoiceComponent implements OnInit {
     if(id != 0){
       this.changedInvoices.push(id);
     }
+    else{
+      this.NonDataBaseChanged= true;
+    }
   }
 
   getCheckedInvoices(){
@@ -392,7 +401,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   approveSelectedClicked(){
-    if(this.changedInvoices.length > 0){
+    if(this.changedInvoices.length > 0 || this.NonDataBaseChanged){
       Swal.fire({
         title:'Error',
         text:'Invoices are not saved!',
@@ -466,7 +475,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   combineAndSave(){
-    if(this.changedInvoices.length > 0){
+    if(this.changedInvoices.length > 0 || this.NonDataBaseChanged){
       Swal.fire({
         title:'Error',
         text:'Invoices are not saved!',
@@ -504,7 +513,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   sendEmailToSelected(){
-    if(this.changedInvoices.length > 0){
+    if(this.changedInvoices.length > 0 || this.NonDataBaseChanged){
       Swal.fire({
         title:'Error',
         text:'Invoices are not saved!',
