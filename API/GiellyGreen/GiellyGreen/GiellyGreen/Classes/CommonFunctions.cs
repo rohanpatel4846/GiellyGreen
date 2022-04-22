@@ -74,10 +74,12 @@ namespace GiellyGreen.Classes
 
             String htmlStr = CommonFunctions.generateHTMLpdfString();
 
+            var invoiceDate = ((monthInvoice.InvoiceDate).ToString()).Split(' ')[0];
+
             #region dynamic values
             imgPath = imgPath.Replace("//", "/");
             htmlStr = htmlStr.Replace("{{pdfLogo_Path}}", imgPath);
-            htmlStr = htmlStr.Replace("{{pdfInvoiceDate}}", monthInvoice.InvoiceDate + "");
+            htmlStr = htmlStr.Replace("{{pdfInvoiceDate}}", invoiceDate + "");
             htmlStr = htmlStr.Replace("{{pdfInvoiceReference}}", monthInvoice.InvoiceReferenceNumber + "");
             htmlStr = htmlStr.Replace("{{pdfAddress1}}", supplier.BusinessAddress + "");
             htmlStr = htmlStr.Replace("{{pdfAddress2}}", "Address");
