@@ -230,18 +230,19 @@ body{
 }
 
 .UploadBTN{
-    width: 100px;
+    width: max-content;
     background: #CFD3D899;
     border-radius: 5px;
     color: #2C2B2966;
     border: 0;
     cursor: pointer;
     height: 35px;
+    padding: 0px 10px;
 }
 
 .uploadIcon{
     font-size: 20px;
-    padding-right: 10px;
+    padding-right: 5px;
 }
 
 .actionIcons{
