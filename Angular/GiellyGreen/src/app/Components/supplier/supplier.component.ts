@@ -7,6 +7,7 @@ import { SessionManagementService } from 'src/app/Services/SessionManagement/ses
 import { SuppliersService } from 'src/app/Services/Suppliers/suppliers.service';
 import Swal from 'sweetalert2';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { ValidationService } from 'src/app/Services/Validations/validation.service';
 
 @Component({
   selector: 'app-supplier',
@@ -60,7 +61,7 @@ export class SupplierComponent implements OnInit {
     this.listOfData = validData;
   }
 
-  constructor(private notification: NzNotificationService, public router:Router, private fb: FormBuilder, public Suppliers: SuppliersService, public ImageUploader: ImageUploaderService, public Image: ImageService, public SessionManagement: SessionManagementService) { }
+  constructor(private Validation:ValidationService, private notification: NzNotificationService, public router:Router, private fb: FormBuilder, public Suppliers: SuppliersService, public ImageUploader: ImageUploaderService, public Image: ImageService, public SessionManagement: SessionManagementService) { }
 
   ngOnInit(): void {
     this.SessionManagement.updateIsLoggedIn();
@@ -293,7 +294,10 @@ export class SupplierComponent implements OnInit {
   }
 
   EmailChanged(event:any){
-    console.log(event.target.value);
+    this.Validation.validatedEmail(event.target.value)
+        .subscribe((data:any) => {
+          console.log(data);
+        }, (error) => { this.serverErrorNotification(error) });
   }
 
   DeleteClicked(row:any){
