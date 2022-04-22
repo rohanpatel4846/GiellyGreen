@@ -22,5 +22,7 @@ namespace DataAccessLayer.Interface
 
         List<GETInvoice_Result> GetInvoice(int id = 0, int monthInvoiceId = 0);
         int PostPutInvoice(Invoice invoice);
+
+        int CheckEmailValid(String email);
     }
 }

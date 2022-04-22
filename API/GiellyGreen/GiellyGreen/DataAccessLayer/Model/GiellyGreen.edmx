@@ -98,6 +98,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CheckEmailValid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="CheckSupplierRefValid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="supplierRef" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="CheckTAXReferenceValid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="taxReference" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="CheckVATNumberValid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="vatNumber" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="DeleteSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="count" Type="int" Mode="In" />
@@ -370,6 +382,18 @@
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="isActive" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <FunctionImport Name="CheckEmailValid" ReturnType="Collection(Int32)">
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CheckSupplierRefValid" ReturnType="Collection(Int32)">
+            <Parameter Name="supplierRef" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CheckTAXReferenceValid" ReturnType="Collection(Int32)">
+            <Parameter Name="taxReference" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CheckVATNumberValid" ReturnType="Collection(Int32)">
+            <Parameter Name="vatNumber" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetImage_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -550,6 +574,10 @@
           <FunctionImportMapping FunctionImportName="InsertUpdateMonthInvoice" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateMonthInvoice" />
           <FunctionImportMapping FunctionImportName="InsertUpdateSupplier" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateSupplier" />
           <FunctionImportMapping FunctionImportName="PatchActiveSupplier" FunctionName="GiellyGreen_RohanModel.Store.PatchActiveSupplier" />
+          <FunctionImportMapping FunctionImportName="CheckEmailValid" FunctionName="GiellyGreen_RohanModel.Store.CheckEmailValid" />
+          <FunctionImportMapping FunctionImportName="CheckSupplierRefValid" FunctionName="GiellyGreen_RohanModel.Store.CheckSupplierRefValid" />
+          <FunctionImportMapping FunctionImportName="CheckTAXReferenceValid" FunctionName="GiellyGreen_RohanModel.Store.CheckTAXReferenceValid" />
+          <FunctionImportMapping FunctionImportName="CheckVATNumberValid" FunctionName="GiellyGreen_RohanModel.Store.CheckVATNumberValid" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

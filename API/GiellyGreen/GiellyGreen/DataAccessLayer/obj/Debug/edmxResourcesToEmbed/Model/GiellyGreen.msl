@@ -129,5 +129,9 @@
     <FunctionImportMapping FunctionImportName="InsertUpdateMonthInvoice" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateMonthInvoice" />
     <FunctionImportMapping FunctionImportName="InsertUpdateSupplier" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateSupplier" />
     <FunctionImportMapping FunctionImportName="PatchActiveSupplier" FunctionName="GiellyGreen_RohanModel.Store.PatchActiveSupplier" />
+    <FunctionImportMapping FunctionImportName="CheckEmailValid" FunctionName="GiellyGreen_RohanModel.Store.CheckEmailValid" />
+    <FunctionImportMapping FunctionImportName="CheckSupplierRefValid" FunctionName="GiellyGreen_RohanModel.Store.CheckSupplierRefValid" />
+    <FunctionImportMapping FunctionImportName="CheckTAXReferenceValid" FunctionName="GiellyGreen_RohanModel.Store.CheckTAXReferenceValid" />
+    <FunctionImportMapping FunctionImportName="CheckVATNumberValid" FunctionName="GiellyGreen_RohanModel.Store.CheckVATNumberValid" />
   </EntityContainerMapping>
 </Mapping>

@@ -183,6 +183,18 @@
       <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="isActive" Mode="In" Type="Boolean" />
     </FunctionImport>
+    <FunctionImport Name="CheckEmailValid" ReturnType="Collection(Int32)">
+      <Parameter Name="email" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="CheckSupplierRefValid" ReturnType="Collection(Int32)">
+      <Parameter Name="supplierRef" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="CheckTAXReferenceValid" ReturnType="Collection(Int32)">
+      <Parameter Name="taxReference" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="CheckVATNumberValid" ReturnType="Collection(Int32)">
+      <Parameter Name="vatNumber" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="GetImage_Result">
     <Property Type="Int32" Name="id" Nullable="false" />

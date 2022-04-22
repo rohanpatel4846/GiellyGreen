@@ -115,5 +115,12 @@ namespace DataAccessLayer.Services
 
             return result;
         }
+
+        public int CheckEmailValid(String email)
+        {
+            var result = giellyGreenDataAccess.CheckEmailValid(email);
+            var r2 = result.ToList();
+            return r2[0] ?? 1;
+        }
     }
 }

@@ -269,5 +269,41 @@ namespace DataAccessLayer.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PatchActiveSupplier", idParameter, isActiveParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> CheckEmailValid(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CheckEmailValid", emailParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> CheckSupplierRefValid(string supplierRef)
+        {
+            var supplierRefParameter = supplierRef != null ?
+                new ObjectParameter("supplierRef", supplierRef) :
+                new ObjectParameter("supplierRef", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CheckSupplierRefValid", supplierRefParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> CheckTAXReferenceValid(string taxReference)
+        {
+            var taxReferenceParameter = taxReference != null ?
+                new ObjectParameter("taxReference", taxReference) :
+                new ObjectParameter("taxReference", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CheckTAXReferenceValid", taxReferenceParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> CheckVATNumberValid(string vatNumber)
+        {
+            var vatNumberParameter = vatNumber != null ?
+                new ObjectParameter("vatNumber", vatNumber) :
+                new ObjectParameter("vatNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CheckVATNumberValid", vatNumberParameter);
+        }
     }
 }
