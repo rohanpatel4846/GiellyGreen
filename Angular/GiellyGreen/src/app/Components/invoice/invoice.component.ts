@@ -74,11 +74,33 @@ export class InvoiceComponent implements OnInit {
       this.selectedMonthYEAR = String(this.selectedMonth.getUTCFullYear());
       let invoiceID = this.getMonthName(this.selectedMonthMONTH) + this.selectedMonthYEAR;
       this.invoiceReference = invoiceID;
-
+      let LastDateOfMonth = new Date(this.selectedMonth.getUTCFullYear(),this.selectedMonth.getUTCMonth(), this.getLastDate(this.selectedMonth.getUTCFullYear(), this.selectedMonth.getUTCMonth() + 1) + 1);
+      this.selectedDate = LastDateOfMonth;
+      console.log(LastDateOfMonth);
       this.MonthInvoice.getAllMonthInvoice()
       .subscribe((data:any) => {
+        console.log(data);
         this.AfterMonthInvoice(data);
       });
+    }
+  }
+
+  getLastDate(year:any, month:any){
+    let isLeap = year % 4 == 0;
+    switch(month){
+      case 1 : return 31;
+      case 2 : return isLeap ? 29 : 28;
+      case 3 : return 31;
+      case 4 : return 30;
+      case 5 : return 31;
+      case 6 : return 30;
+      case 7 : return 31;
+      case 8 : return 31;
+      case 9 : return 30;
+      case 10 : return 31;
+      case 11 : return 30;
+      case 12 : return 31;
+      default: return 0;
     }
   }
 
@@ -217,6 +239,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   UpdateMonthInvoice(){
+    console.log(this.selectedDate);
     let MonthInvoiceBody = {
       "monthNUM": this.selectedMonth.getUTCMonth() + 1,
       "yearNUM": this.selectedMonth.getUTCFullYear(),
