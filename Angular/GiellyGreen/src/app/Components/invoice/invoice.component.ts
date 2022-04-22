@@ -72,13 +72,31 @@ export class InvoiceComponent implements OnInit {
       this.monthSelected = true;
       this.selectedMonthMONTH = String(this.selectedMonth.getUTCMonth() + 1);
       this.selectedMonthYEAR = String(this.selectedMonth.getUTCFullYear());
-      let invoiceID = this.selectedMonthMONTH + this.selectedMonthYEAR;
+      let invoiceID = this.getMonthName(this.selectedMonthMONTH) + this.selectedMonthYEAR;
       this.invoiceReference = invoiceID;
 
       this.MonthInvoice.getAllMonthInvoice()
       .subscribe((data:any) => {
         this.AfterMonthInvoice(data);
       });
+    }
+  }
+
+  getMonthName(monthNum:any){
+    switch(monthNum){
+      case "1" : return "January";
+      case "2" : return "February";
+      case "3" : return "March";
+      case "4" : return "April";
+      case "5" : return "May";
+      case "6" : return "June";
+      case "7" : return "July";
+      case "8" : return "August";
+      case "9" : return "September";
+      case "10" : return "October";
+      case "11" : return "November";
+      case "12" : return "December";
+      default: return "Invalid Month";
     }
   }
 
