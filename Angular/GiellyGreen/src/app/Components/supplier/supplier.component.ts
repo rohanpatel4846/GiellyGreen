@@ -100,6 +100,7 @@ export class SupplierComponent implements OnInit {
       isActive: false,
       id: 0
     })
+    this.SupplierForm.reset();
     this.isImageSelected = false;
     this.UploadedImgInBase64 = null;
     this.SelectedImgType = null;
@@ -230,7 +231,6 @@ export class SupplierComponent implements OnInit {
       this.handleCancelSupplierModal();
       this.Suppliers.putSupplier(SupplierTableOBJ)
         .subscribe((data:any) => {
-          console.log(data);
           this.supplierTableLoading = false;
           this.UpdateSupplierTable();
         });
@@ -294,7 +294,6 @@ export class SupplierComponent implements OnInit {
         this.supplierTableLoading = true;
         this.Suppliers.deleteSupplier(row.id)
           .subscribe((data:any) => {
-            console.log(data);
             this.supplierTableLoading = false;
             if(data.Result == 0){
               Swal.fire({
@@ -343,7 +342,6 @@ export class SupplierComponent implements OnInit {
         reader.onload = (event:any) => {
           var binaryString = event.target.result;
           this.UploadedImgInBase64 = btoa(binaryString);
-          console.log( this.UploadedImgInBase64);
         }
         reader.readAsBinaryString(file);
       }
