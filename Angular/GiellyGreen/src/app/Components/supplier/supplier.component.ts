@@ -84,6 +84,7 @@ export class SupplierComponent implements OnInit {
   }
 
   resetForm(){
+    this.SupplierModalTitle = "Add New Supplier";
     this.SupplierForm.patchValue({
       supplierName: null,
       supplierReference: null,
@@ -244,7 +245,8 @@ export class SupplierComponent implements OnInit {
   }
 
   EditClicked(data:any){
-    console.log(data);
+    this.SupplierModalTitle = "Edit Supplier";
+    
     this.SupplierForm.patchValue({
       supplierName: data.SupplierName,
       supplierReference: data.SupplierReferenceNumber,
