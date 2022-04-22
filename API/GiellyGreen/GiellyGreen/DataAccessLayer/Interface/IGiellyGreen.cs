@@ -24,5 +24,8 @@ namespace DataAccessLayer.Interface
         int PostPutInvoice(Invoice invoice);
 
         int CheckEmailValid(String email);
+        int CheckSupplierRefValid(String SupplierRef);
+        int CheckVATNumberValid(String vatNumber);
+        int CheckTAXReferenceValid(String taxReference);
     }
 }

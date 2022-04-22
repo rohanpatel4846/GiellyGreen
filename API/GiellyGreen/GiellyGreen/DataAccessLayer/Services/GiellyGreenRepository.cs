@@ -122,5 +122,26 @@ namespace DataAccessLayer.Services
             var r2 = result.ToList();
             return r2[0] ?? 1;
         }
+
+        public int CheckSupplierRefValid(String SupplierRef)
+        {
+            var result = giellyGreenDataAccess.CheckSupplierRefValid(SupplierRef);
+            var r2 = result.ToList();
+            return r2[0] ?? 1;
+        }
+
+        public int CheckVATNumberValid(String vatNumber)
+        {
+            var result = giellyGreenDataAccess.CheckVATNumberValid(vatNumber);
+            var r2 = result.ToList();
+            return r2[0] ?? 1;
+        }
+
+        public int CheckTAXReferenceValid(String taxReference)
+        {
+            var result = giellyGreenDataAccess.CheckTAXReferenceValid(taxReference);
+            var r2 = result.ToList();
+            return r2[0] ?? 1;
+        }
     }
 }

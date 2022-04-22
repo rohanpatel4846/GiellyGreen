@@ -17,7 +17,7 @@ namespace GiellyGreen.Controllers
 
         [HttpGet]
         [Route("api/Validate/Email")]
-        public JSONResponse ALL(string email)
+        public JSONResponse Email(string email)
         {
             var response = new JSONResponse();
             try
@@ -25,6 +25,63 @@ namespace GiellyGreen.Controllers
                 response.ResponseStatus = 1;
                 response.Message = "Get Validation from Result";
                 response.Result = giellyGreen.CheckEmailValid(email);
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Result = ex;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("api/Validate/SupplierRef")]
+        public JSONResponse SupplierRef(string supplierRef)
+        {
+            var response = new JSONResponse();
+            try
+            {
+                response.ResponseStatus = 1;
+                response.Message = "Get Validation from Result";
+                response.Result = giellyGreen.CheckSupplierRefValid(supplierRef);
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Result = ex;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("api/Validate/VATNumber")]
+        public JSONResponse VATNumber(string vatNumber)
+        {
+            var response = new JSONResponse();
+            try
+            {
+                response.ResponseStatus = 1;
+                response.Message = "Get Validation from Result";
+                response.Result = giellyGreen.CheckVATNumberValid(vatNumber);
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Result = ex;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("api/Validate/TAXReference")]
+        public JSONResponse TAXReference(string taxReference)
+        {
+            var response = new JSONResponse();
+            try
+            {
+                response.ResponseStatus = 1;
+                response.Message = "Get Validation from Result";
+                response.Result = giellyGreen.CheckTAXReferenceValid(taxReference);
             }
             catch (Exception ex)
             {
