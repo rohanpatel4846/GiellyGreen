@@ -392,27 +392,63 @@ export class InvoiceComponent implements OnInit {
   }
 
   approveSelectedClicked(){
-    let checked:any = this.getCheckedInvoices();
-    this.listOfInvoices.forEach((invoice:any) => {
-      if(checked.findIndex((x:any) => x.SupplierID == invoice.SupplierID) != -1){
-        if(this.getNet(invoice) != 0){
-          invoice.isApproved = true;
-          this.changedInvoices.push(invoice.id);
+    if(this.changedInvoices.length > 0){
+      Swal.fire({
+        title:'Error',
+        text:'Invoices are not saved!',
+        icon:'error'
+      })
+    }
+    else{
+      let checked:any = this.getCheckedInvoices();
+      let SuccessApprove:any = [];
+      let ErorApprove:any = [];
+      this.listOfInvoices.forEach((invoice:any) => {
+        if(checked.findIndex((x:any) => x.SupplierID == invoice.SupplierID) != -1){
+          if(this.getNet(invoice) != 0){
+            invoice.isApproved = true;
+            SuccessApprove.push(invoice);
+            this.changedInvoices.push(invoice.id);
+          }
+          else{
+            ErorApprove.push(invoice);
+          }
         }
-        else{
-          this.notification.create(
-            'error',
-            'Net Cannot Be Zero',
-            'for Supplier - ' + invoice.SupplierName
-          );
-        }
-        
-      }
-    });
+      });
+      this.showApproveSweetAlert(SuccessApprove,ErorApprove);
+      this.allChecked = false;
+      this.allCheckedChanged();
+    } 
+  }
 
-    
-    this.allChecked = false;
-    this.allCheckedChanged();
+  showApproveSweetAlert(SuccessApprove:any,ErorApprove:any){
+    let errorList = " | ";
+    ErorApprove.forEach((invoice:any) => {
+      errorList += invoice.SupplierName + " | "
+    });
+    if(SuccessApprove + ErorApprove != 0){
+      if(ErorApprove.length == 0){
+        Swal.fire({
+          title:'Invoice(s) were approved',
+          icon:'success'
+        })
+      }
+      else if(SuccessApprove.length == 0){
+        Swal.fire({
+          title:'Error',
+          text:'Cannot Approve Invoices with net as 0',
+          icon:'error'
+        })
+      }
+      else{
+        Swal.fire({
+          title: SuccessApprove.length + ' Invoice(s) approved | ' + ErorApprove.length + ' Invoice(s) cannot be approved',
+          text: 'Cannot Approve Invoices with net as 0',
+          icon: 'info',
+          footer: 'Invoices with errors :: ' + errorList,
+        })
+      }
+    }
   }
 
   printClicked(){
@@ -431,11 +467,11 @@ export class InvoiceComponent implements OnInit {
 
   combineAndSave(){
     if(this.changedInvoices.length > 0){
-      Swal.fire(
-        'Error',
-        'Invoices are not saved!',
-        'error'
-      )
+      Swal.fire({
+        title:'Error',
+        text:'Invoices are not saved!',
+        icon:'error'
+      })
     }
     else if(this.getCheckedInvoices().length > 0){
       this.FullPageLoading = true;
@@ -469,11 +505,11 @@ export class InvoiceComponent implements OnInit {
 
   sendEmailToSelected(){
     if(this.changedInvoices.length > 0){
-      Swal.fire(
-        'Error',
-        'Invoices are not saved!',
-        'error'
-      )
+      Swal.fire({
+        title:'Error',
+        text:'Invoices are not saved!',
+        icon:'error'
+      })
     }
     else if(this.getCheckedInvoices().length > 0){
       this.FullPageLoading = true;
