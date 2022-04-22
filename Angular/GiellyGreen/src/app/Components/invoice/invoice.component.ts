@@ -48,6 +48,16 @@ export class InvoiceComponent implements OnInit {
     return total;
   }
 
+  getDue(data:any){
+    let due:any = this.getNet(data) + this.getVAT(this.getNet(data)) - data.AdvancePay
+    due = due.toFixed(2);
+
+    if(due < 0){
+      due = "(" + due + ")";
+    }
+    return due;
+  }
+
   getVAT(total:any){
     return ((total * this.GlobalVAT ) / 100);
   }

@@ -74,7 +74,7 @@
                             <td nzEllipsis >{{ getVAT(getNet(data)) | number : '1.2-2' }}</td>
                             <td nzEllipsis >{{ getNet(data) + getVAT(getNet(data)) | number : '1.2-2' }}</td>
                             <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [nzPrecision]="2" [(ngModel)]="data.AdvancePay" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
-                            <td nzEllipsis >{{ getNet(data) + getVAT(getNet(data)) - data.AdvancePay | number : '1.2-2' }}</td>
+                            <td nzEllipsis >{{ getDue(data) }}</td>
                             <td nzEllipsis  nzRight>
                               <input type="checkbox" disabled [ngModel]="data.isApproved" class="custom_checkbox2">
                               <!-- <label nz-checkbox nzDisabled [ngModel]="data.isApproved"></label> -->
@@ -160,7 +160,7 @@
             <td>{{ getVAT(getNet(data)) | number : '1.2-2' }}</td>
             <td>{{ getNet(data) + getVAT(getNet(data)) | number : '1.2-2' }}</td>
             <td>{{data.AdvancePay | number : '1.2-2'}}</td>
-            <td>{{ getNet(data) + getVAT(getNet(data)) - data.AdvancePay | number : '1.2-2' }}</td>
+            <td>{{ getDue(data) }}</td>
           </tr>
           <tr class="g-bold">
             <td [colSpan]="8">
