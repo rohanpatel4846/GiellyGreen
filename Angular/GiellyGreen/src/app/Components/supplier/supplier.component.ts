@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/app/Services/Image/image.service';
@@ -24,6 +24,7 @@ export class SupplierComponent implements OnInit {
   UploadedImgInBase64:any;
   SelectedImgType:any;
   searchTextBox:any;
+  @ViewChild('logoFile') logoFile:any;
 
   listOfColumn = [
     {
@@ -81,6 +82,7 @@ export class SupplierComponent implements OnInit {
     this.isImageSelected = false;
     this.UploadedImgInBase64 = null;
     this.SelectedImgType = null;
+    this.logoFile.nativeElement.value = "";
   }
 
   resetForm(){
@@ -101,6 +103,7 @@ export class SupplierComponent implements OnInit {
     this.isImageSelected = false;
     this.UploadedImgInBase64 = null;
     this.SelectedImgType = null;
+    this.logoFile.nativeElement.value = "";
   }
 
   UpdateSupplierTable(){
@@ -326,7 +329,6 @@ export class SupplierComponent implements OnInit {
     this.SelectedImgType = type.replace("image/", ".");;
 
     if(type == "image/png" || type == "image/jpeg"){
-
       if(files && file){
         this.isImageSelected = true;
         var reader = new FileReader();
@@ -341,6 +343,7 @@ export class SupplierComponent implements OnInit {
         reader.onload = (event:any) => {
           var binaryString = event.target.result;
           this.UploadedImgInBase64 = btoa(binaryString);
+          console.log( this.UploadedImgInBase64);
         }
         reader.readAsBinaryString(file);
       }
