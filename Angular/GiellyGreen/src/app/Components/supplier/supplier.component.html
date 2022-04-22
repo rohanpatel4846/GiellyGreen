@@ -112,10 +112,11 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="24" nzFor="emailAddress">Email Address</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorEmailAddress">
-                          <input nz-input formControlName="emailAddress" id="emailAddress" />
+                          <input nz-input formControlName="emailAddress" id="emailAddress" (change)="EmailChanged($event)"/>
                           <ng-template #errorEmailAddress let-control>
                             <ng-container *ngIf="control.hasError('email')">Please Enter valid Email Address</ng-container>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Email Address</ng-container>
+                            <ng-container *ngIf="control.hasError('required')">Email Address in use!</ng-container>
                           </ng-template>
                         </nz-form-control>
                     </nz-form-item>

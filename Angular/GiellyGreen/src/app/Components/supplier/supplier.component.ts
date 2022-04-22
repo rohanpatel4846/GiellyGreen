@@ -25,6 +25,12 @@ export class SupplierComponent implements OnInit {
   UploadedImgInBase64:any;
   SelectedImgType:any;
   searchTextBox:any;
+  
+  supplierRefUnique:any = true;
+  supplierEmailUnique:any = true;
+  supplierVatUnique:any = true;
+  supplierTaxUnique:any = true;
+
   @ViewChild('logoFile') logoFile:any;
 
   listOfColumn = [
@@ -106,6 +112,11 @@ export class SupplierComponent implements OnInit {
     this.UploadedImgInBase64 = null;
     this.SelectedImgType = null;
     this.logoFile.nativeElement.value = "";
+
+    this.supplierRefUnique = true;
+    this.supplierEmailUnique = true;
+    this.supplierVatUnique = true;
+    this.supplierTaxUnique = true;
   }
 
   UpdateSupplierTable(){
@@ -279,6 +290,10 @@ export class SupplierComponent implements OnInit {
       }, (error) => { this.serverErrorNotification(error) });
 
     this.showModalSupplier();
+  }
+
+  EmailChanged(event:any){
+    console.log(event.target.value);
   }
 
   DeleteClicked(row:any){
