@@ -79,6 +79,7 @@
                           <input nz-input type="text" formControlName="supplierName" id="supplierName" />
                           <ng-template #errorSupplierName let-control>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Supplier Name</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Supplier Name</ng-container>
                           </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -90,6 +91,7 @@
                           <input nz-input type="text" formControlName="supplierReference" id="supplierReference" />
                           <ng-template #errorSupplierReference let-control>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Supplier Reference</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Supplier Reference</ng-container>
                           </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -101,6 +103,7 @@
                             <textarea rows="3" nz-input formControlName="businessAddress" id="businessAddress"></textarea>
                             <ng-template #errorBusinessAddress let-control>
                                 <ng-container *ngIf="control.hasError('required')">Please Enter Business Address</ng-container>
+                                <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Business Address</ng-container>
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -109,7 +112,7 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="24" nzFor="emailAddress">Email Address</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorEmailAddress">
-                          <input nz-input type="email" formControlName="emailAddress" id="emailAddress" />
+                          <input nz-input formControlName="emailAddress" id="emailAddress" />
                           <ng-template #errorEmailAddress let-control>
                             <ng-container *ngIf="control.hasError('email')">Please Enter valid Email Address</ng-container>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Email Address</ng-container>
@@ -121,9 +124,10 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="24" nzFor="phoneNumber">Phone Number</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorPhoneNumber">
-                          <input nz-input type="tel" formControlName="phoneNumber" id="phoneNumber" />
+                          <input nz-input formControlName="phoneNumber" id="phoneNumber" />
                           <ng-template #errorPhoneNumber let-control>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Phone Number</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Phone Number</ng-container>
                           </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -135,6 +139,7 @@
                           <input nz-input type="email" formControlName="CompanyRegisterNumber" id="companyRegisteedNumber" />
                           <ng-template #errorCompanyRegisteredNumber let-control>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Company Registered Number</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Company Registered Number</ng-container>
                           </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -146,6 +151,7 @@
                           <input nz-input type="tel" formControlName="vatNumber" id="vatNumber" />
                           <ng-template #errorVatNumber let-control>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Vat Number</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Vat Number</ng-container>
                           </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -157,6 +163,7 @@
                           <input nz-input type="tel" formControlName="taxReference" id="taxReference" />
                           <ng-template #errorTaxReference let-control>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Tax Reference</ng-container>
+                            <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Tax Reference</ng-container>
                           </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -168,6 +175,7 @@
                             <textarea rows="3" nz-input formControlName="CompanyRegisteredAddress" id="companyRegisteredAddress"></textarea>
                             <ng-template #errorCompanyRegisteredAddress let-control>
                                 <ng-container *ngIf="control.hasError('required')">Please Enter Company Registered Address</ng-container>
+                                <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Company Registered Address</ng-container>
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>

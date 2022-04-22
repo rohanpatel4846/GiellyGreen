@@ -62,15 +62,15 @@ export class SupplierComponent implements OnInit {
     }
 
     this.SupplierForm = this.fb.group({
-      supplierName: [null, [Validators.required]],
-      supplierReference: [null, [Validators.required]],
-      businessAddress: [null],
+      supplierName: [null, [Validators.required, Validators.pattern(/^[A-Z]+$/i)]],
+      supplierReference: [null, [Validators.required, Validators.pattern(/^([a-zA-Z0-9_-]){0,15}$/)]],
+      businessAddress: [null, [Validators.pattern(/^.{0,150}$/)]],
       emailAddress: [null, [Validators.email,Validators.required]],
-      phoneNumber: [null],
-      CompanyRegisterNumber: [null],
-      vatNumber: [null],
-      taxReference: [null],
-      CompanyRegisteredAddress: [null],
+      phoneNumber: [null, [Validators.pattern(/^[0-9]{0,15}$/)]],
+      CompanyRegisterNumber: [null, [Validators.pattern(/^[0-9]{0,15}$/)]],
+      vatNumber: [null, [Validators.pattern(/^([a-zA-Z0-9_-]){0,15}$/)]],
+      taxReference: [null, [Validators.pattern(/^([a-zA-Z0-9_-]){0,15}$/)]],
+      CompanyRegisteredAddress: [null, [Validators.pattern(/^.{0,150}$/)]],
       isActive: [false],
       id: 0
     });
