@@ -37,6 +37,7 @@ export class InvoiceComponent implements OnInit {
   invoiceTableLoading = false;
   FullPageLoading = false;
   changedInvoices:any = [];
+  dateFormatSelectDate="dd/MM/yyyy";
 
   listOfInvoices: InvoiceItem[] = [];
   listOfInvoicesBackup: InvoiceItem[] = [];
