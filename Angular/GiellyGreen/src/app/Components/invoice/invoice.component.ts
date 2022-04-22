@@ -79,7 +79,8 @@ export class InvoiceComponent implements OnInit {
       this.MonthInvoice.getAllMonthInvoice()
       .subscribe((data:any) => {
         this.AfterMonthInvoice(data);
-      });
+      }
+      , (error) => { this.serverErrorNotification(error) } );
     }
   }
 
@@ -154,7 +155,7 @@ export class InvoiceComponent implements OnInit {
             this.MonthSelectedChanged();
             this.FullPageLoading=false;
           }
-        });
+        }, (error) => { this.serverErrorNotification(error) });
     }
   }
 
@@ -175,7 +176,7 @@ export class InvoiceComponent implements OnInit {
       //---------------------------------
 
       this.GetInvoices();
-    });
+    }, (error) => { this.serverErrorNotification(error) });
   }
 
   GetInvoices(){
@@ -231,9 +232,9 @@ export class InvoiceComponent implements OnInit {
                 }
               });
               this.listOfInvoices = tableData;
-            });
+            }, (error) => { this.serverErrorNotification(error) });
         })
-      });
+      }, (error) => { this.serverErrorNotification(error) });
   }
 
   UpdateMonthInvoice(){
@@ -253,7 +254,7 @@ export class InvoiceComponent implements OnInit {
     this.MonthInvoice.putMonthInvoice(this.currentID, MonthInvoiceBody)
     .subscribe((data:any) => {
       console.log(data);
-    });
+    }, (error) => { this.serverErrorNotification(error) });
   }
 
   totalNet(){
@@ -345,7 +346,7 @@ export class InvoiceComponent implements OnInit {
             if(completedApis >= totalApiCalls){
               this.AfterAllPostPut();
             }
-          });
+          }, (error) => { this.serverErrorNotification(error) });
       }
       else{
         this.Invoice.putInvoice(invoive.id, InvoiceBody)
@@ -354,7 +355,7 @@ export class InvoiceComponent implements OnInit {
             if(completedApis >= totalApiCalls){
               this.AfterAllPostPut();
             }
-          });
+          }, (error) => { this.serverErrorNotification(error) });
       }
     });
 
@@ -490,7 +491,7 @@ export class InvoiceComponent implements OnInit {
       });
   
       this.Pdf.getPDF(body)
-      .subscribe((data:any) => { this.AfterCombineAPISuccess(data) }, (error) => { console.log(error) });
+      .subscribe((data:any) => { this.AfterCombineAPISuccess(data) }, (error) => { this.serverErrorNotification(error) });
     }
   }
 
@@ -528,7 +529,7 @@ export class InvoiceComponent implements OnInit {
       });
 
       this.Email.sendEmail(body)
-      .subscribe((data:any) => { this.EmailSuccess(data) }, (error) => { console.log(error) });
+      .subscribe((data:any) => { this.EmailSuccess(data) }, (error) => { this.serverErrorNotification(error) });
     }
   }
 
@@ -539,6 +540,15 @@ export class InvoiceComponent implements OnInit {
       title: 'Email Sent',
       showConfirmButton: false,
     })
+  }
+
+  serverErrorNotification(DataString:any): void {
+    console.log(DataString);
+    this.notification.create(
+      'error',
+      'Error From Server!',
+      DataString.message
+    );
   }
 }
 

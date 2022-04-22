@@ -6,6 +6,7 @@ import { ImageUploaderService } from 'src/app/Services/ImageUploader/image-uploa
 import { SessionManagementService } from 'src/app/Services/SessionManagement/session-management.service';
 import { SuppliersService } from 'src/app/Services/Suppliers/suppliers.service';
 import Swal from 'sweetalert2';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-supplier',
@@ -53,7 +54,7 @@ export class SupplierComponent implements OnInit {
     this.listOfData = validData;
   }
 
-  constructor(public router:Router, private fb: FormBuilder, public Suppliers: SuppliersService, public ImageUploader: ImageUploaderService, public Image: ImageService, public SessionManagement: SessionManagementService) { }
+  constructor(private notification: NzNotificationService, public router:Router, private fb: FormBuilder, public Suppliers: SuppliersService, public ImageUploader: ImageUploaderService, public Image: ImageService, public SessionManagement: SessionManagementService) { }
 
   ngOnInit(): void {
     this.SessionManagement.updateIsLoggedIn();
@@ -140,7 +141,7 @@ export class SupplierComponent implements OnInit {
           this.supplierTableLoading = false;
         }
         
-      });
+      }, (error) => { this.serverErrorNotification(error) });
   }
 
   showModalSupplier(){
@@ -177,12 +178,12 @@ export class SupplierComponent implements OnInit {
               },
               (error) => {
                 this.supplierTableLoading = false;
-                console.log(error);
+                this.serverErrorNotification(error);
               });
           },
           (error) => {
             this.supplierTableLoading = false;
-            console.log(error);
+            this.serverErrorNotification(error);
           });
       }
       else{
@@ -224,7 +225,7 @@ export class SupplierComponent implements OnInit {
         .subscribe((data:any) => {
           this.supplierTableLoading = false;
           this.UpdateSupplierTable();
-        });
+        }, (error) => { this.serverErrorNotification(error) });
     }
     else{
       this.supplierTableLoading = true;
@@ -233,7 +234,7 @@ export class SupplierComponent implements OnInit {
         .subscribe((data:any) => {
           this.supplierTableLoading = false;
           this.UpdateSupplierTable();
-        });
+        }, (error) => { this.serverErrorNotification(error) });
     }
 
     this.resetForm();
@@ -244,7 +245,7 @@ export class SupplierComponent implements OnInit {
     this.Suppliers.patchIsActive(row.id, row.isActive, row)
       .subscribe((data:any) => {
         this.supplierTableLoading = false;
-      });
+      }, (error) => { this.serverErrorNotification(error) });
   }
 
   EditClicked(data:any){
@@ -275,7 +276,7 @@ export class SupplierComponent implements OnInit {
             this.UploadedImgInBase64 = data.Result;
           })
         }
-      });
+      }, (error) => { this.serverErrorNotification(error) });
 
     this.showModalSupplier();
   }
@@ -313,7 +314,7 @@ export class SupplierComponent implements OnInit {
               Swal.fire('Supplier Deleted', '', 'success');
             }
             this.UpdateSupplierTable();
-          });
+          }, (error) => { this.serverErrorNotification(error) });
       }
     })
   }
@@ -354,6 +355,15 @@ export class SupplierComponent implements OnInit {
       });
     }
     
+  }
+
+  serverErrorNotification(DataString:any): void {
+    console.log(DataString);
+    this.notification.create(
+      'error',
+      'Error From Server!',
+      DataString.message
+    );
   }
 }
 
