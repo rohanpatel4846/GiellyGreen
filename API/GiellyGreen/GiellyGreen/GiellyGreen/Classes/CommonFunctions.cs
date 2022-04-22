@@ -60,10 +60,11 @@ namespace GiellyGreen.Classes
 
             var imageName = image.url;
             string imageBase64 = "";
+            string imgPath = "";
             try
             {
                 String path = HttpContext.Current.Server.MapPath("~/SupplierLogos");
-                string imgPath = Path.Combine(path, imageName);
+                imgPath = Path.Combine(path, imageName);
                 imageBase64 = Convert.ToBase64String(File.ReadAllBytes(imgPath));
             }
             catch (Exception)
@@ -74,7 +75,8 @@ namespace GiellyGreen.Classes
             String htmlStr = CommonFunctions.generateHTMLpdfString();
 
             #region dynamic values
-            htmlStr = htmlStr.Replace("{{pdfLogo}}", imageBase64);
+            imgPath = imgPath.Replace("//", "/");
+            htmlStr = htmlStr.Replace("{{pdfLogo_Path}}", imgPath);
             htmlStr = htmlStr.Replace("{{pdfInvoiceDate}}", monthInvoice.InvoiceDate + "");
             htmlStr = htmlStr.Replace("{{pdfInvoiceReference}}", monthInvoice.InvoiceReferenceNumber + "");
             htmlStr = htmlStr.Replace("{{pdfAddress1}}", supplier.BusinessAddress + "");
