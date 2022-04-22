@@ -297,6 +297,12 @@ export class SupplierComponent implements OnInit {
     this.Validation.validatedEmail(event.target.value)
         .subscribe((data:any) => {
           console.log(data);
+          if(data.Result == 1){
+            this.supplierEmailUnique = false;
+          }
+          else{
+            this.supplierEmailUnique = true;
+          }
         }, (error) => { this.serverErrorNotification(error) });
   }
 
