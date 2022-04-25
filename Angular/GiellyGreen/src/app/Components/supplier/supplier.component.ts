@@ -32,6 +32,8 @@ export class SupplierComponent implements OnInit {
   supplierVatUnique:any = true;
   supplierTaxUnique:any = true;
 
+  EmailBeforeEdit:any = "";
+
   @ViewChild('logoFile') logoFile:any;
 
   listOfColumn = [
@@ -166,7 +168,7 @@ export class SupplierComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (this.SupplierForm.valid) {
+    if (this.SupplierForm.valid && this.supplierEmailUnique) {
 
       if(this.isImageSelected){
         let ImageOBJ = {
@@ -235,6 +237,9 @@ export class SupplierComponent implements OnInit {
       this.handleCancelSupplierModal();
       this.Suppliers.postSupplier(SupplierTableOBJ)
         .subscribe((data:any) => {
+          if(data.ResponseStatus == 0){
+            this.ErrorInAddUpdate(data)
+          }
           this.supplierTableLoading = false;
           this.UpdateSupplierTable();
         }, (error) => { this.serverErrorNotification(error) });
@@ -244,12 +249,19 @@ export class SupplierComponent implements OnInit {
       this.handleCancelSupplierModal();
       this.Suppliers.putSupplier(SupplierTableOBJ)
         .subscribe((data:any) => {
+          if(data.ResponseStatus == 0){
+            this.ErrorInAddUpdate(data)
+          }
           this.supplierTableLoading = false;
           this.UpdateSupplierTable();
         }, (error) => { this.serverErrorNotification(error) });
     }
 
     this.resetForm();
+  }
+
+  ErrorInAddUpdate(data:any){
+    this.serverErrorNotification(data)
   }
 
   SwitchChanged(row:any){
@@ -277,6 +289,8 @@ export class SupplierComponent implements OnInit {
       id: data.id
     })
 
+    this.EmailBeforeEdit = data.EmailAddress;
+
     this.Image.getImage(data.ImageId)
       .subscribe((data:any) => {
         if(data.Result[0].id != 1){
@@ -295,15 +309,19 @@ export class SupplierComponent implements OnInit {
 
   EmailChanged(event:any){
     this.Validation.validatedEmail(event.target.value)
-        .subscribe((data:any) => {
-          console.log(data);
-          if(data.Result == 1){
-            this.supplierEmailUnique = false;
-          }
-          else{
-            this.supplierEmailUnique = true;
-          }
-        }, (error) => { this.serverErrorNotification(error) });
+    .subscribe((data:any) => {
+      console.log(data);
+      if(data.Result == 0){
+        this.supplierEmailUnique = true;
+      }
+      else{
+        this.supplierEmailUnique = false;
+      }
+
+      if(this.SupplierForm.value['emailAddress'] == this.EmailBeforeEdit){
+        this.supplierEmailUnique = true;
+      }
+    }, (error) => { this.serverErrorNotification(error) });
   }
 
   DeleteClicked(row:any){

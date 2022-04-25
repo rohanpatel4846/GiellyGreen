@@ -116,8 +116,8 @@
                           <ng-template #errorEmailAddress let-control>
                             <ng-container *ngIf="control.hasError('email')">Please Enter valid Email Address</ng-container>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Email Address</ng-container>
-                            <span *ngIf="!supplierEmailUnique">Email Address in use!</span>
                           </ng-template>
+                          <span *ngIf="!supplierEmailUnique" class="errorMessage">Email Address in use!</span>
                         </nz-form-control>
                     </nz-form-item>
                 </div>
