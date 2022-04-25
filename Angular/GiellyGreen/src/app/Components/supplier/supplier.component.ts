@@ -177,11 +177,6 @@ export class SupplierComponent implements OnInit {
   }
 
   submitForm(): void {
-    console.log(this.SupplierForm.valid);
-    console.log(this.supplierEmailUnique);
-    console.log(this.supplierRefUnique);
-    console.log(this.supplierVatUnique);
-    console.log(this.supplierTaxUnique);
     if (this.SupplierForm.valid && this.supplierEmailUnique && this.supplierRefUnique && this.supplierVatUnique && this.supplierTaxUnique) {
       if(this.isImageSelected){
         let ImageOBJ = {
