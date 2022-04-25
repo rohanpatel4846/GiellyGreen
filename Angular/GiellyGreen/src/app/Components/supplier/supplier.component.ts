@@ -312,8 +312,8 @@ export class SupplierComponent implements OnInit {
       text: "Once the record is deleted, this process cannot be undone.",
       icon: 'error',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#FF8080',
+      cancelButtonColor: '#CFD3D8',
       confirmButtonText: 'Delete'
     }).then((result) => {
       if (result.isConfirmed) {
