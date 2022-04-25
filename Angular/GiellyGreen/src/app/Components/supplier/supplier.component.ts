@@ -221,6 +221,7 @@ export class SupplierComponent implements OnInit {
   }
 
   saveForm(imageID:any){
+    debugger
     let SupplierTableOBJ = {
       BusinessAddress: this.SupplierForm.value['businessAddress'],
       CompanyRegisterNumber: this.SupplierForm.value['CompanyRegisterNumber'],
@@ -236,7 +237,10 @@ export class SupplierComponent implements OnInit {
       isActive: this.SupplierForm.value['isActive'],
     }
 
-    if(SupplierTableOBJ.id == 0){
+    console.log(SupplierTableOBJ);
+
+    if(SupplierTableOBJ.id == 0 || SupplierTableOBJ.id == null){
+      SupplierTableOBJ.id = 0;
       this.supplierTableLoading = true;
       this.handleCancelSupplierModal();
       this.Suppliers.postSupplier(SupplierTableOBJ)
@@ -347,10 +351,8 @@ export class SupplierComponent implements OnInit {
   }
 
   VatChanged(){
-    console.log(this.SupplierForm.value['vatNumber']);
     this.Validation.validateVat(this.SupplierForm.value['vatNumber'])
     .subscribe((data:any) => {
-      console.log(data);
       if(data.Result == 0){
         this.supplierVatUnique = true;
       }
@@ -365,10 +367,8 @@ export class SupplierComponent implements OnInit {
   }
 
   TaxChanged(){
-    console.log(this.SupplierForm.value['taxReference']);
     this.Validation.validateTax(this.SupplierForm.value['taxReference'])
     .subscribe((data:any) => {
-      console.log(data);
       if(data.Result == 0){
         this.supplierTaxUnique = true;
       }
