@@ -58,6 +58,20 @@ export class SupplierComponent implements OnInit {
   listOfData: SupplierTable[] = [];
   listOfDataBackup: SupplierTable[] = []; 
 
+  logOut(){
+    Swal.fire({
+      title: 'Logout?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.SessionManagement.deleteCurrentuser();
+        this.router.navigate(['login']);
+      }
+    })
+  }
+
   SearchChanged(){
     this.listOfData = this.listOfDataBackup;
     let validData:any = [];

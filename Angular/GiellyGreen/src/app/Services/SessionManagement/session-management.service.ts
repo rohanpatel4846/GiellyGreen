@@ -27,7 +27,6 @@ export class SessionManagementService {
   deleteCurrentuser(){
     sessionStorage.setItem('user', "{}");
     SessionManagementService.isLoggedIn = false;
-
   }
 
   updateIsLoggedIn(){

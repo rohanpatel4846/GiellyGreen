@@ -43,6 +43,20 @@ export class InvoiceComponent implements OnInit {
   listOfInvoices: InvoiceItem[] = [];
   listOfInvoicesBackup: InvoiceItem[] = [];
 
+  logOut(){
+    Swal.fire({
+      title: 'Logout?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.SessionManagement.deleteCurrentuser();
+        this.router.navigate(['login']);
+      }
+    })
+  }
+  
   getNet(data:any){
     let total = data.HairService + data.BeautyService + data.Custom1 + data.Custom2 + data.Custom3 + data.Custom4 + data.Custom5;
     return total;

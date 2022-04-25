@@ -5,7 +5,7 @@
             <div class="nav-mobile-menu">
                 <span class="profileSpan">
                     <a href="/Profile"><i nz-icon nzType="user" nzTheme="outline" class="cursorPointer pr-5"></i></a>
-                    <i nz-icon nzType="logout" nzTheme="outline" class="cursorPointer"></i>
+                    <i nz-icon nzType="logout" nzTheme="outline" (click)="logOut()" class="cursorPointer"></i>
                 </span>
                 
                 <i nz-icon nzType="menu" nzTheme="outline" class="cursorPointer" (click)="menuOpened = !menuOpened"></i>
