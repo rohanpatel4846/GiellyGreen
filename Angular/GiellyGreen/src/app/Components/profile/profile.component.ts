@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
 
   menuOpened = false;
   ProfileForm!: FormGroup;
+  FullPageLoading = false;
   
   constructor(public router:Router,  public SessionManagement: SessionManagementService, private fb: FormBuilder) { }
 
@@ -42,6 +43,6 @@ export class ProfileComponent implements OnInit {
   }
 
   submitForm(){
-    
+    console.log(this.ProfileForm);
   }
 }

@@ -59,8 +59,31 @@
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="country" class="profileLabel">Country</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorCountry">
+                            <input nz-input type="text" formControlName="country" id="country"/>
+                            <ng-template #errorCountry let-control>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="defaultVat" class="profileLabel">Default VAT</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorDefaultVat">
+                            <input nz-input type="text" formControlName="defaultVat" id="defaultVat"/>
+                            <ng-template #errorDefaultVat let-control>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <div class="submitButtonContainer">
+                        <button nz-button nzType="primary" type="submit">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="FullPageLoading" class="loader-container">
+    <nz-spin nzSimple class="loader"></nz-spin>
 </div>
