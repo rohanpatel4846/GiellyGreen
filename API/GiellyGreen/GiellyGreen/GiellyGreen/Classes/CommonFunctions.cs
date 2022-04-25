@@ -50,7 +50,7 @@ namespace GiellyGreen.Classes
             return cssSTR.ToString();
         }
 
-        public static Byte[] generatePDF(dynamic invoice, dynamic monthInvoice, dynamic supplier, dynamic image)
+        public static Byte[] generatePDF(dynamic invoice, dynamic monthInvoice, dynamic supplier, dynamic image, dynamic profile)
         {
             Byte[] res = null;
 
@@ -77,23 +77,24 @@ namespace GiellyGreen.Classes
             var invoiceDate = ((monthInvoice.InvoiceDate).ToString()).Split(' ')[0];
 
             #region dynamic values
+            String AddressSTR = profile.AddressLine + ", " + profile.City + ", " + profile.Country + " - " + profile.ZipCode;
             imgPath = imgPath.Replace("//", "/");
             htmlStr = htmlStr.Replace("{{pdfLogo_Path}}", imgPath);
             htmlStr = htmlStr.Replace("{{pdfInvoiceDate}}", invoiceDate + "");
             htmlStr = htmlStr.Replace("{{pdfInvoiceReference}}", monthInvoice.InvoiceReferenceNumber + "");
             htmlStr = htmlStr.Replace("{{pdfAddress1}}", supplier.BusinessAddress + "");
-            htmlStr = htmlStr.Replace("{{pdfAddress2}}", "Address");
-            htmlStr = htmlStr.Replace("{{pdfHairService}}", invoice.HairService + "");
-            htmlStr = htmlStr.Replace("{{pdfBeautyService}}", invoice.BeautyService + "");
-            htmlStr = htmlStr.Replace("{{pdfCustom1}}", invoice.Custom1 + "");
-            htmlStr = htmlStr.Replace("{{pdfCustom2}}", invoice.Custom2 + "");
-            htmlStr = htmlStr.Replace("{{pdfCustom3}}", invoice.Custom3 + "");
-            htmlStr = htmlStr.Replace("{{pdfCustom4}}", invoice.Custom4 + "");
-            htmlStr = htmlStr.Replace("{{pdfCustom5}}", invoice.Custom5 + "");
-            htmlStr = htmlStr.Replace("{{pdfSubtotal}}", subtotal + "");
-            htmlStr = htmlStr.Replace("{{pdfVatTotal}}", vattotal + "");
-            htmlStr = htmlStr.Replace("{{pdfAdvancePaid}}", invoice.AdvancePay + "");
-            htmlStr = htmlStr.Replace("{{pdfBalanceDue}}", balanceDue + "");
+            htmlStr = htmlStr.Replace("{{pdfAddress2}}", AddressSTR);
+            htmlStr = htmlStr.Replace("{{pdfHairService}}", String.Format("{0:C}", invoice.HairService) + "");
+            htmlStr = htmlStr.Replace("{{pdfBeautyService}}", String.Format("{0:C}", invoice.BeautyService) + "");
+            htmlStr = htmlStr.Replace("{{pdfCustom1}}", String.Format("{0:C}", invoice.Custom1) + "");
+            htmlStr = htmlStr.Replace("{{pdfCustom2}}", String.Format("{0:C}", invoice.Custom2) + "");
+            htmlStr = htmlStr.Replace("{{pdfCustom3}}", String.Format("{0:C}", invoice.Custom3) + "");
+            htmlStr = htmlStr.Replace("{{pdfCustom4}}", String.Format("{0:C}", invoice.Custom4) + "");
+            htmlStr = htmlStr.Replace("{{pdfCustom5}}", String.Format("{0:C}", invoice.Custom5) + "");
+            htmlStr = htmlStr.Replace("{{pdfSubtotal}}", String.Format("{0:C}", subtotal) + "");
+            htmlStr = htmlStr.Replace("{{pdfVatTotal}}", String.Format("{0:C}", vattotal) + "");
+            htmlStr = htmlStr.Replace("{{pdfAdvancePaid}}", String.Format("{0:C}", invoice.AdvancePay) + "");
+            htmlStr = htmlStr.Replace("{{pdfBalanceDue}}", String.Format("{0:C}", balanceDue) + "");
             htmlStr = htmlStr.Replace("{{Custom1_Head}}", monthInvoice.Custom1_Name + "");
             htmlStr = htmlStr.Replace("{{Custom2_Head}}", monthInvoice.Custom2_Name + "");
             htmlStr = htmlStr.Replace("{{Custom3_Head}}", monthInvoice.Custom3_Name + "");

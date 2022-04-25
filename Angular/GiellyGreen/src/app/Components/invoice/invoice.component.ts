@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { PdfService } from 'src/app/Services/PDF/pdf.service';
 import * as FileSaver from 'file-saver';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-invoice',
@@ -82,13 +83,17 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  constructor(private notification: NzNotificationService, public Pdf:PdfService, public Email:EmailService, public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
+  constructor(private message: NzMessageService, private notification: NzNotificationService, public Pdf:PdfService, public Email:EmailService, public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
 
   ngOnInit(): void {
     this.SessionManagement.updateIsLoggedIn();
     if(!SessionManagementService.isLoggedIn){
       this.router.navigate(['login']);
     }
+  }
+
+  showMessage(type:any, msgSTR:any){
+    this.message.create(type, msgSTR);
   }
 
   MonthSelectedChanged(){
@@ -389,6 +394,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   AfterAllPostPut(){
+    this.showMessage("success","Your data has been saved successfully");
     this.changedInvoices = [];
     this.NonDataBaseChanged = false;
     this.GetInvoices();

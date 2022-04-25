@@ -26,6 +26,8 @@ namespace GiellyGreen.Controllers
                 var Supplier = new SupplierController();
                 var MonthInvoice = new MonthInvoiceController();
                 var Image = new ImageController();
+                var Profile = new ProfileController();
+
                 String path = HttpContext.Current.Server.MapPath("~/SupplierLogos");
 
                 List<dynamic> Pdfs = new List<dynamic>();
@@ -36,8 +38,9 @@ namespace GiellyGreen.Controllers
                     dynamic monthInvoice = MonthInvoice.Get(invoice.MonthId).Result[0];
                     dynamic supplier = Supplier.ALL(invoice.SupplierId).Result[0];
                     dynamic image = Image.Get(supplier.ImageId).Result[0];
+                    dynamic profile = Profile.GetProfile().Result;
 
-                    Byte[] res = CommonFunctions.generatePDF(invoice, monthInvoice, supplier, image);
+                    Byte[] res = CommonFunctions.generatePDF(invoice, monthInvoice, supplier, image, profile);
                     Pdfs.Add(res);
                 }
 
