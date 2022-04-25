@@ -48,7 +48,35 @@ export class ProfileComponent implements OnInit {
   }
 
   submitForm(){
-    console.log(this.ProfileID);
+    if (this.ProfileForm.valid){
+      this.FullPageLoading=true;
+      let body = {
+        "id": this.ProfileID,
+        "CompanyName":this.ProfileForm.value['companyName'],
+        "AddressLine": this.ProfileForm.value['addressLine'],
+        "City": this.ProfileForm.value['city'],
+        "ZipCode": this.ProfileForm.value['zipCode'],
+        "Country": this.ProfileForm.value['country'],
+        "DefaultVAT": (this.ProfileForm.value['defaultVat'] == "" || this.ProfileForm.value['defaultVat'] == null ? 0 : this.ProfileForm.value['defaultVat']) + ""
+      }
+
+      this.profile.postSupplier(body)
+      .subscribe((data:any) => {
+        this.FullPageLoading=false;
+        this.UpdateProfileForm();
+      },
+      (error) => {
+        this.FullPageLoading = false;
+        this.serverErrorNotification(error);
+      });
+    }else {
+      Object.values(this.ProfileForm.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+    }
   }
 
   UpdateProfileForm(){

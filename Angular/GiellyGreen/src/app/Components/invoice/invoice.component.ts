@@ -575,9 +575,11 @@ export class InvoiceComponent implements OnInit {
     this.FullPageLoading = false;
     Swal.fire({
       icon: 'success',
-      title: 'Email Sent',
-      showConfirmButton: false,
-    })
+      title: 'Mailed Successfully !',
+      text: "You just sent mail to suppliers.",
+      confirmButtonText: 'OK',
+      confirmButtonColor: "#00C897"
+    });
   }
 
   serverErrorNotification(DataString:any): void {
