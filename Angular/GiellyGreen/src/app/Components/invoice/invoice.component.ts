@@ -497,11 +497,18 @@ export class InvoiceComponent implements OnInit {
       this.FullPageLoading = true;
       let body:any = [];
       this.getCheckedInvoices().forEach((invoice:any) => {
-        body.push(invoice.id);
+        if(invoice.id != 0){
+          body.push(invoice.id);
+        }
       });
   
-      this.Pdf.getPDF(body)
-      .subscribe((data:any) => { this.AfterCombineAPISuccess(data) }, (error) => { this.serverErrorNotification(error) });
+      if(body.length > 0){
+        this.Pdf.getPDF(body)
+        .subscribe((data:any) => { this.AfterCombineAPISuccess(data) }, (error) => { this.serverErrorNotification(error) });
+      }
+      else{
+        this.FullPageLoading = false;
+      }
     }
   }
 
@@ -535,11 +542,18 @@ export class InvoiceComponent implements OnInit {
       this.FullPageLoading = true;
       let body:any = [];
       this.getCheckedInvoices().forEach((invoice:any) => {
-        body.push(invoice.id);
+        if(invoice.id != 0){
+          body.push(invoice.id);
+        }
       });
 
-      this.Email.sendEmail(body)
-      .subscribe((data:any) => { this.EmailSuccess(data) }, (error) => { this.serverErrorNotification(error) });
+      if(body.length > 0){
+        this.Email.sendEmail(body)
+        .subscribe((data:any) => { this.EmailSuccess(data) }, (error) => { this.serverErrorNotification(error) });
+      }else{
+        this.FullPageLoading = false;
+      }
+      
     }
   }
 

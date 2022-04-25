@@ -17,6 +17,7 @@ namespace GiellyGreen.Controllers
         [HttpPost]
         public JSONResponse SendEmail(int[] InvoiceIds)
         {
+            InvoiceIds = InvoiceIds.Where(val => val != 0).ToArray();
             var response = new JSONResponse();
             try
             {

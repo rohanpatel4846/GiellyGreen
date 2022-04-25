@@ -18,6 +18,7 @@ namespace GiellyGreen.Controllers
         [HttpPost]
         public JSONResponse GetPDF(int[] InvoiceIds)
         {
+            InvoiceIds = InvoiceIds.Where(val => val != 0).ToArray();
             var response = new JSONResponse();
             try
             {
