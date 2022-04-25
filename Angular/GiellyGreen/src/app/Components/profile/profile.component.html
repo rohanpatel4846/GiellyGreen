@@ -69,7 +69,7 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="24" nzFor="defaultVat" class="profileLabel">Default VAT</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorDefaultVat">
-                            <input nz-input type="text" formControlName="defaultVat" id="defaultVat"/>
+                            <nz-input-number nz-input formControlName="defaultVat" id="defaultVat" class="w-100" [nzMin]="0" [nzStep]="1"></nz-input-number>
                             <ng-template #errorDefaultVat let-control>
                             </ng-template>
                         </nz-form-control>
