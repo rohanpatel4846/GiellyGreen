@@ -41,7 +41,6 @@ export class SuppliersService {
   }
 
   postSupplier(body:any){
-    console.log(body);
     return this.http.post(this.Supplier, body, this.getOptions());
   }
 
