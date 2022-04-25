@@ -45,6 +45,20 @@
           <Property Name="VAT" Type="int" Nullable="false" />
           <Property Name="InvoiceReferenceNumber" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GiellyGreen_Rohan.dbo.profile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="profile">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="150" />
+          <Property Name="AddressLine" Type="varchar" MaxLength="150" />
+          <Property Name="City" Type="varchar" MaxLength="150" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="150" />
+          <Property Name="Country" Type="varchar" MaxLength="150" />
+          <Property Name="DefaultVAT" Type="varchar" MaxLength="150" />
+        </EntityType>
         <EntityType Name="Suppliers">
           <Key>
             <PropertyRef Name="id" />
@@ -121,6 +135,7 @@
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="MonthInvoiceId" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetLastProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GETMonthInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -159,6 +174,15 @@
           <Parameter Name="VAT" Type="int" Mode="In" />
           <Parameter Name="InvoiceReferenceNumber" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="InsertUpdateProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="CompanyName" Type="varchar" Mode="In" />
+          <Parameter Name="AddressLine" Type="varchar" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+          <Parameter Name="ZipCode" Type="varchar" Mode="In" />
+          <Parameter Name="Country" Type="varchar" Mode="In" />
+          <Parameter Name="DefaultVAT" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="InsertUpdateSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="SupplierName" Type="varchar" Mode="In" />
@@ -182,6 +206,17 @@
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonthInvoice" EntityType="Self.MonthInvoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="profile" EntityType="Self.profile" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [profile].[id] AS [id], 
+    [profile].[CompanyName] AS [CompanyName], 
+    [profile].[AddressLine] AS [AddressLine], 
+    [profile].[City] AS [City], 
+    [profile].[ZipCode] AS [ZipCode], 
+    [profile].[Country] AS [Country], 
+    [profile].[DefaultVAT] AS [DefaultVAT]
+    FROM [dbo].[profile] AS [profile]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__Invoice__MonthId__395884C4" Association="Self.FK__Invoice__MonthId__395884C4">
             <End Role="MonthInvoice" EntitySet="MonthInvoice" />
             <End Role="Invoice" EntitySet="Invoice" />
@@ -383,16 +418,27 @@
             <Parameter Name="isActive" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="CheckEmailValid" ReturnType="Collection(Int32)">
-            <Parameter Name="email" Mode="In" Type="String" />
+          <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CheckSupplierRefValid" ReturnType="Collection(Int32)">
-            <Parameter Name="supplierRef" Mode="In" Type="String" />
+          <Parameter Name="supplierRef" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CheckTAXReferenceValid" ReturnType="Collection(Int32)">
-            <Parameter Name="taxReference" Mode="In" Type="String" />
+          <Parameter Name="taxReference" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CheckVATNumberValid" ReturnType="Collection(Int32)">
-            <Parameter Name="vatNumber" Mode="In" Type="String" />
+          <Parameter Name="vatNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="profiles" EntityType="GiellyGreen_RohanModel.profile" />
+          <FunctionImport Name="GetLastProfile" ReturnType="Collection(GiellyGreen_RohanModel.GetLastProfile_Result)" />
+          <FunctionImport Name="InsertUpdateProfile">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="CompanyName" Mode="In" Type="String" />
+            <Parameter Name="AddressLine" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="ZipCode" Mode="In" Type="String" />
+            <Parameter Name="Country" Mode="In" Type="String" />
+            <Parameter Name="DefaultVAT" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetImage_Result">
@@ -439,6 +485,27 @@
           <Property Type="String" Name="CompanyRegisteredAddress" Nullable="true" MaxLength="150" />
           <Property Type="Boolean" Name="isActive" Nullable="true" />
           <Property Type="Int32" Name="ImageId" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="profile">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultVAT" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="GetLastProfile_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="AddressLine" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="DefaultVAT" Nullable="true" MaxLength="150" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -578,6 +645,33 @@
           <FunctionImportMapping FunctionImportName="CheckSupplierRefValid" FunctionName="GiellyGreen_RohanModel.Store.CheckSupplierRefValid" />
           <FunctionImportMapping FunctionImportName="CheckTAXReferenceValid" FunctionName="GiellyGreen_RohanModel.Store.CheckTAXReferenceValid" />
           <FunctionImportMapping FunctionImportName="CheckVATNumberValid" FunctionName="GiellyGreen_RohanModel.Store.CheckVATNumberValid" />
+          <EntitySetMapping Name="profiles">
+            <EntityTypeMapping TypeName="GiellyGreen_RohanModel.profile">
+              <MappingFragment StoreEntitySet="profile">
+                <ScalarProperty Name="DefaultVAT" ColumnName="DefaultVAT" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetLastProfile" FunctionName="GiellyGreen_RohanModel.Store.GetLastProfile">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GetLastProfile_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="DefaultVAT" ColumnName="DefaultVAT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertUpdateProfile" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateProfile" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

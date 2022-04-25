@@ -195,6 +195,17 @@
     <FunctionImport Name="CheckVATNumberValid" ReturnType="Collection(Int32)">
       <Parameter Name="vatNumber" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="profiles" EntityType="GiellyGreen_RohanModel.profile" />
+    <FunctionImport Name="GetLastProfile" ReturnType="Collection(GiellyGreen_RohanModel.GetLastProfile_Result)" />
+    <FunctionImport Name="InsertUpdateProfile">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="CompanyName" Mode="In" Type="String" />
+      <Parameter Name="AddressLine" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="ZipCode" Mode="In" Type="String" />
+      <Parameter Name="Country" Mode="In" Type="String" />
+      <Parameter Name="DefaultVAT" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="GetImage_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
@@ -240,5 +251,26 @@
     <Property Type="String" Name="CompanyRegisteredAddress" Nullable="true" MaxLength="150" />
     <Property Type="Boolean" Name="isActive" Nullable="true" />
     <Property Type="Int32" Name="ImageId" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="profile">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="AddressLine" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="ZipCode" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Country" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DefaultVAT" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="GetLastProfile_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="AddressLine" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="City" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="Country" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="DefaultVAT" Nullable="true" MaxLength="150" />
   </ComplexType>
 </Schema>

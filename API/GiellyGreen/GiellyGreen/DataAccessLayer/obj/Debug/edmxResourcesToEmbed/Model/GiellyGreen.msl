@@ -133,5 +133,32 @@
     <FunctionImportMapping FunctionImportName="CheckSupplierRefValid" FunctionName="GiellyGreen_RohanModel.Store.CheckSupplierRefValid" />
     <FunctionImportMapping FunctionImportName="CheckTAXReferenceValid" FunctionName="GiellyGreen_RohanModel.Store.CheckTAXReferenceValid" />
     <FunctionImportMapping FunctionImportName="CheckVATNumberValid" FunctionName="GiellyGreen_RohanModel.Store.CheckVATNumberValid" />
+    <EntitySetMapping Name="profiles">
+      <EntityTypeMapping TypeName="GiellyGreen_RohanModel.profile">
+        <MappingFragment StoreEntitySet="profile">
+          <ScalarProperty Name="DefaultVAT" ColumnName="DefaultVAT" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetLastProfile" FunctionName="GiellyGreen_RohanModel.Store.GetLastProfile">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GiellyGreen_RohanModel.GetLastProfile_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="DefaultVAT" ColumnName="DefaultVAT" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InsertUpdateProfile" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateProfile" />
   </EntityContainerMapping>
 </Mapping>

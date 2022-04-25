@@ -57,6 +57,9 @@
     <Compile Include="Model\GETInvoice_Result.cs">
       <DependentUpon>GiellyGreen.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\GetLastProfile_Result.cs">
+      <DependentUpon>GiellyGreen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\GETMonthInvoice_Result.cs">
       <DependentUpon>GiellyGreen.tt</DependentUpon>
     </Compile>
@@ -85,6 +88,9 @@
       <DependentUpon>GiellyGreen.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\MonthInvoice.cs">
+      <DependentUpon>GiellyGreen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\profile.cs">
       <DependentUpon>GiellyGreen.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Supplier.cs">

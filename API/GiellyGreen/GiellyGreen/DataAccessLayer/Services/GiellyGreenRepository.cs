@@ -143,5 +143,25 @@ namespace DataAccessLayer.Services
             var r2 = result.ToList();
             return r2[0] ?? 1;
         }
+
+        public int PostPutProfile(profile pro)
+        {
+            var result = giellyGreenDataAccess.InsertUpdateProfile(
+                id: pro.id,
+                companyName: pro.CompanyName,
+                addressLine: pro.AddressLine,
+                city: pro.City,
+                zipCode: pro.ZipCode,
+                country: pro.Country,
+                defaultVAT: pro.DefaultVAT);
+
+            return result;
+        }
+
+        public GetLastProfile_Result GetLastProfile()
+        {   
+            var result = giellyGreenDataAccess.GetLastProfile().ToList();
+            return result.FirstOrDefault();
+        }
     }
 }

@@ -351,6 +351,7 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\MonthInvoiceController.cs" />
     <Compile Include="Controllers\PDFController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\ValidationsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -365,6 +366,7 @@
     <Compile Include="Models\Invoice\InvoiceViewModel.cs" />
     <Compile Include="Models\JSONResponse.cs" />
     <Compile Include="Models\Month\MonthInvoiceViewModel.cs" />
+    <Compile Include="Models\Profile\ProfileViewModal.cs" />
     <Compile Include="Models\Supplier\SupplierViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />

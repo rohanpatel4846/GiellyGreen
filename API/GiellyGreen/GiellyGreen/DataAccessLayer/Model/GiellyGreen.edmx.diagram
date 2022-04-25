@@ -12,6 +12,7 @@
         <AssociationConnector Association="GiellyGreen_RohanModel.FK__Suppliers__Image__367C1819" ManuallyRouted="false" />
         <AssociationConnector Association="GiellyGreen_RohanModel.FK__Invoice__MonthId__395884C4" ManuallyRouted="false" />
         <AssociationConnector Association="GiellyGreen_RohanModel.FK__Invoice__Supplie__3A4CA8FD" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GiellyGreen_RohanModel.profile" Width="1.5" PointX="7" PointY="5.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

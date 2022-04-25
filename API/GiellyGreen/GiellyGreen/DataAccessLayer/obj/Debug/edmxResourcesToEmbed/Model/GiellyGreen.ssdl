@@ -40,6 +40,20 @@
     <Property Name="VAT" Type="int" Nullable="false" />
     <Property Name="InvoiceReferenceNumber" Type="varchar" MaxLength="15" Nullable="false" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GiellyGreen_Rohan.dbo.profile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="profile">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="150" />
+    <Property Name="AddressLine" Type="varchar" MaxLength="150" />
+    <Property Name="City" Type="varchar" MaxLength="150" />
+    <Property Name="ZipCode" Type="varchar" MaxLength="150" />
+    <Property Name="Country" Type="varchar" MaxLength="150" />
+    <Property Name="DefaultVAT" Type="varchar" MaxLength="150" />
+  </EntityType>
   <EntityType Name="Suppliers">
     <Key>
       <PropertyRef Name="id" />
@@ -116,6 +130,7 @@
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="MonthInvoiceId" Type="int" Mode="In" />
   </Function>
+  <Function Name="GetLastProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="GETMonthInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -154,6 +169,15 @@
     <Parameter Name="VAT" Type="int" Mode="In" />
     <Parameter Name="InvoiceReferenceNumber" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="InsertUpdateProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="CompanyName" Type="varchar" Mode="In" />
+    <Parameter Name="AddressLine" Type="varchar" Mode="In" />
+    <Parameter Name="City" Type="varchar" Mode="In" />
+    <Parameter Name="ZipCode" Type="varchar" Mode="In" />
+    <Parameter Name="Country" Type="varchar" Mode="In" />
+    <Parameter Name="DefaultVAT" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="InsertUpdateSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="SupplierName" Type="varchar" Mode="In" />
@@ -177,6 +201,17 @@
     <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MonthInvoice" EntityType="Self.MonthInvoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="profile" EntityType="Self.profile" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [profile].[id] AS [id], 
+    [profile].[CompanyName] AS [CompanyName], 
+    [profile].[AddressLine] AS [AddressLine], 
+    [profile].[City] AS [City], 
+    [profile].[ZipCode] AS [ZipCode], 
+    [profile].[Country] AS [Country], 
+    [profile].[DefaultVAT] AS [DefaultVAT]
+    FROM [dbo].[profile] AS [profile]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK__Invoice__MonthId__395884C4" Association="Self.FK__Invoice__MonthId__395884C4">
       <End Role="MonthInvoice" EntitySet="MonthInvoice" />
       <End Role="Invoice" EntitySet="Invoice" />

@@ -31,6 +31,7 @@ namespace DataAccessLayer.Model
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<MonthInvoice> MonthInvoices { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<profile> profiles { get; set; }
     
         public virtual int DeleteSupplier(Nullable<int> id, Nullable<int> count)
         {
@@ -304,6 +305,44 @@ namespace DataAccessLayer.Model
                 new ObjectParameter("vatNumber", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CheckVATNumberValid", vatNumberParameter);
+        }
+    
+        public virtual ObjectResult<GetLastProfile_Result> GetLastProfile()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetLastProfile_Result>("GetLastProfile");
+        }
+    
+        public virtual int InsertUpdateProfile(Nullable<int> id, string companyName, string addressLine, string city, string zipCode, string country, string defaultVAT)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("CompanyName", companyName) :
+                new ObjectParameter("CompanyName", typeof(string));
+    
+            var addressLineParameter = addressLine != null ?
+                new ObjectParameter("AddressLine", addressLine) :
+                new ObjectParameter("AddressLine", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var zipCodeParameter = zipCode != null ?
+                new ObjectParameter("ZipCode", zipCode) :
+                new ObjectParameter("ZipCode", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("Country", country) :
+                new ObjectParameter("Country", typeof(string));
+    
+            var defaultVATParameter = defaultVAT != null ?
+                new ObjectParameter("DefaultVAT", defaultVAT) :
+                new ObjectParameter("DefaultVAT", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUpdateProfile", idParameter, companyNameParameter, addressLineParameter, cityParameter, zipCodeParameter, countryParameter, defaultVATParameter);
         }
     }
 }
