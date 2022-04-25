@@ -514,6 +514,14 @@ body{
 	padding: 15px;
 }
 
+.profileHead{
+    font-size: 20px;
+}
+
+.profile-form-container .ant-col-24.ant-form-item-label{
+    padding: 0px !important;
+}
+
 /* -------------------------------------------------------------------- */
 
 .font-24{

@@ -23,7 +23,44 @@
     </div>
     <div class="table-section">
         <div class="content-container">
-            <h1>Profile</h1>
+            <div class="profileHead">Profile</div>
+            <hr>
+            <div class="profile-form-container">
+                <form nz-form [formGroup]="ProfileForm" (ngSubmit)="submitForm()">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="companyName" class="profileLabel">Company Name</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorCompanyName">
+                            <input nz-input type="text" formControlName="companyName" id="companyName"/>
+                            <ng-template #errorCompanyName let-control>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="addressLine" class="profileLabel">Address Line</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorAddressLine">
+                            <textarea rows="4" nz-input formControlName="addressLine" id="addressLine"></textarea>
+                            <ng-template #errorAddressLine let-control>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="city" class="profileLabel">City</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorCity">
+                            <input nz-input type="text" formControlName="city" id="city"/>
+                            <ng-template #errorCity let-control>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="zipCode" class="profileLabel">Zip Code</nz-form-label>
+                        <nz-form-control [nzSpan]="24" [nzErrorTip]="errorZipCode">
+                            <input nz-input type="text" formControlName="zipCode" id="zipCode"/>
+                            <ng-template #errorZipCode let-control>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
         </div>
     </div>
 </div>

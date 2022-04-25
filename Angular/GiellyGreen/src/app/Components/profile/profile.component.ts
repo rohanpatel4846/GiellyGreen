@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SessionManagementService } from 'src/app/Services/SessionManagement/session-management.service';
 import Swal from 'sweetalert2';
@@ -11,10 +12,19 @@ import Swal from 'sweetalert2';
 export class ProfileComponent implements OnInit {
 
   menuOpened = false;
+  ProfileForm!: FormGroup;
   
-  constructor(public router:Router,  public SessionManagement: SessionManagementService) { }
+  constructor(public router:Router,  public SessionManagement: SessionManagementService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.ProfileForm = this.fb.group({
+      companyName: [null],
+      addressLine: [null],
+      city: [null],
+      zipCode: [null],
+      country: [null],
+      defaultVat : [null]
+    });
   }
 
   logOut(){
@@ -29,5 +39,9 @@ export class ProfileComponent implements OnInit {
         this.router.navigate(['login']);
       }
     })
+  }
+
+  submitForm(){
+    
   }
 }
