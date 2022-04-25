@@ -28,6 +28,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { ProfileComponent } from './Components/profile/profile.component';
 //----------------------------------------------
 
 registerLocaleData(en);
@@ -38,6 +39,7 @@ registerLocaleData(en);
     SupplierComponent,
     InvoiceComponent,
     LoginComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

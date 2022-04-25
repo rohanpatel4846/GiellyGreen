@@ -87,6 +87,10 @@ body{
     width: 60%;
 }
 
+.pr-5{
+    padding-right: 5px;
+}
+
 .nav-link{
     font-size: 20px;
     color: #C99D4A;
@@ -170,7 +174,6 @@ body{
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    padding-left: 50px;
 }
 
 .nav-mobile-logo{
@@ -178,14 +181,30 @@ body{
     height: 100%;
 }
 
+.nav-mobile-menu a{
+    color: #C99D4A !important;
+}
+
 .nav-mobile-menu{
-    color: #C99D4A;
+    color: #C99D4A !important;
     position: absolute;
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    right: 50px;
+    right: 0;
+    font-size: 20px;
+}
+
+.nav-section-mobile{
+    padding: 0px 20px;
+}
+
+.cursorPointer{
     cursor: pointer;
+}
+
+.profileSpan{
+    padding-right: 30px;
 }
 
 .openedNavMenu{
@@ -489,6 +508,10 @@ body{
 .modalFormTitle{
     font-size: 25px;
     font-weight: bold;
+}
+
+.ant-modal-body{
+	padding: 15px;
 }
 
 /* -------------------------------------------------------------------- */
