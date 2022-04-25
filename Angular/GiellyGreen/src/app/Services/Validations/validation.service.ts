@@ -22,4 +22,16 @@ export class ValidationService {
   validatedEmail(email:any){
     return this.http.get(this.Validations + "Email?email="+email, this.getOptions());
   }
+
+  validateSupplierReff(supplierReff:any){
+    return this.http.get(this.Validations + "SupplierRef?supplierRef="+supplierReff, this.getOptions());
+  }
+
+  validateVat(vat:any){
+    return this.http.get(this.Validations + "VATNumber?vatNumber="+vat, this.getOptions());
+  }
+
+  validateTax(tax:any){
+    return this.http.get(this.Validations + "TAXReference?taxReference="+tax, this.getOptions());
+  }
 }

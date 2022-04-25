@@ -88,11 +88,12 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="24" nzFor="supplierReference">Supplier Reference</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorSupplierReference">
-                          <input nz-input type="text" formControlName="supplierReference" id="supplierReference" />
+                          <input nz-input type="text" formControlName="supplierReference"  (change)="SupplierReffChanged()" id="supplierReference" />
                           <ng-template #errorSupplierReference let-control>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Supplier Reference</ng-container>
                             <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Supplier Reference</ng-container>
                           </ng-template>
+                          <span *ngIf="!supplierRefUnique" class="errorMessage">Supplier Reference in use!</span>
                         </nz-form-control>
                     </nz-form-item>
                 </div>
@@ -112,7 +113,7 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="24" nzFor="emailAddress">Email Address</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorEmailAddress">
-                          <input nz-input formControlName="emailAddress" id="emailAddress" (change)="EmailChanged($event)"/>
+                          <input nz-input formControlName="emailAddress" id="emailAddress" (change)="EmailChanged()"/>
                           <ng-template #errorEmailAddress let-control>
                             <ng-container *ngIf="control.hasError('email')">Please Enter valid Email Address</ng-container>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Email Address</ng-container>
@@ -149,11 +150,12 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="24" nzFor="vatNumber">Vat Number</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorVatNumber">
-                          <input nz-input type="tel" formControlName="vatNumber" id="vatNumber" />
+                          <input nz-input type="tel" formControlName="vatNumber" id="vatNumber" (change)="VatChanged()"/>
                           <ng-template #errorVatNumber let-control>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Vat Number</ng-container>
                             <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Vat Number</ng-container>
                           </ng-template>
+                          <span *ngIf="!supplierVatUnique" class="errorMessage">Vat Number in use!</span>
                         </nz-form-control>
                     </nz-form-item>
                 </div>
@@ -161,11 +163,12 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="24" nzFor="taxReference">Tax Reference</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorTaxReference">
-                          <input nz-input type="tel" formControlName="taxReference" id="taxReference" />
+                          <input nz-input type="tel" formControlName="taxReference" id="taxReference" (change)="TaxChanged()"/>
                           <ng-template #errorTaxReference let-control>
                             <ng-container *ngIf="control.hasError('required')">Please Enter Tax Reference</ng-container>
                             <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Tax Reference</ng-container>
                           </ng-template>
+                          <span *ngIf="!supplierTaxUnique" class="errorMessage">Tax Reference in use!</span>
                         </nz-form-control>
                     </nz-form-item>
                 </div>

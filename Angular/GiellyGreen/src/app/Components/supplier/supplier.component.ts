@@ -32,7 +32,11 @@ export class SupplierComponent implements OnInit {
   supplierVatUnique:any = true;
   supplierTaxUnique:any = true;
 
+  SupplierReferenceBeforeEdit:any = "";
   EmailBeforeEdit:any = "";
+  VatBeforeEdit:any = "";
+  TaxBeforeEdit:any = "";
+  
 
   @ViewChild('logoFile') logoFile:any;
 
@@ -49,6 +53,8 @@ export class SupplierComponent implements OnInit {
     }
   ];
 
+  constructor(private Validation:ValidationService, private notification: NzNotificationService, public router:Router, private fb: FormBuilder, public Suppliers: SuppliersService, public ImageUploader: ImageUploaderService, public Image: ImageService, public SessionManagement: SessionManagementService) { }
+
   listOfData: SupplierTable[] = [];
   listOfDataBackup: SupplierTable[] = []; 
 
@@ -62,8 +68,6 @@ export class SupplierComponent implements OnInit {
     });
     this.listOfData = validData;
   }
-
-  constructor(private Validation:ValidationService, private notification: NzNotificationService, public router:Router, private fb: FormBuilder, public Suppliers: SuppliersService, public ImageUploader: ImageUploaderService, public Image: ImageService, public SessionManagement: SessionManagementService) { }
 
   ngOnInit(): void {
     this.SessionManagement.updateIsLoggedIn();
@@ -120,6 +124,11 @@ export class SupplierComponent implements OnInit {
     this.supplierEmailUnique = true;
     this.supplierVatUnique = true;
     this.supplierTaxUnique = true;
+
+    this.SupplierReferenceBeforeEdit = "";
+    this.EmailBeforeEdit = "";
+    this.VatBeforeEdit = "";
+    this.TaxBeforeEdit = "";
   }
 
   UpdateSupplierTable(){
@@ -168,14 +177,12 @@ export class SupplierComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (this.SupplierForm.valid && this.supplierEmailUnique) {
-
+    if (this.SupplierForm.valid && this.supplierEmailUnique && this.supplierRefUnique && this.supplierVatUnique && this.TaxBeforeEdit) {
       if(this.isImageSelected){
         let ImageOBJ = {
           "Image64STR": this.UploadedImgInBase64,
           "ImageType": this.SelectedImgType
         }
-
         this.supplierTableLoading = true;
         this.ImageUploader.postImage(ImageOBJ)
           .subscribe((data:any) => {
@@ -203,9 +210,6 @@ export class SupplierComponent implements OnInit {
       else{
         this.saveForm(1);
       }
-      
-
-      
     } else {
       Object.values(this.SupplierForm.controls).forEach(control => {
         if (control.invalid) {
@@ -290,6 +294,9 @@ export class SupplierComponent implements OnInit {
     })
 
     this.EmailBeforeEdit = data.EmailAddress;
+    this.SupplierReferenceBeforeEdit = data.SupplierReferenceNumber;
+    this.VatBeforeEdit = data.VATNumber;
+    this.TaxBeforeEdit = data.TAXReference;
 
     this.Image.getImage(data.ImageId)
       .subscribe((data:any) => {
@@ -307,10 +314,9 @@ export class SupplierComponent implements OnInit {
     this.showModalSupplier();
   }
 
-  EmailChanged(event:any){
-    this.Validation.validatedEmail(event.target.value)
+  EmailChanged(){
+    this.Validation.validatedEmail(this.SupplierForm.value['emailAddress'])
     .subscribe((data:any) => {
-      console.log(data);
       if(data.Result == 0){
         this.supplierEmailUnique = true;
       }
@@ -320,6 +326,58 @@ export class SupplierComponent implements OnInit {
 
       if(this.SupplierForm.value['emailAddress'] == this.EmailBeforeEdit){
         this.supplierEmailUnique = true;
+      }
+    }, (error) => { this.serverErrorNotification(error) });
+  }
+
+  SupplierReffChanged(){
+    this.Validation.validateSupplierReff(this.SupplierForm.value['supplierReference'])
+    .subscribe((data:any) => {
+      if(data.Result == 0){
+        this.supplierRefUnique = true;
+      }
+      else{
+        this.supplierRefUnique = false;
+      }
+
+      if(this.SupplierForm.value['supplierReference'] == this.SupplierReferenceBeforeEdit){
+        this.supplierRefUnique = true;
+      }
+    }, (error) => { this.serverErrorNotification(error) });
+  }
+
+  VatChanged(){
+    console.log(this.SupplierForm.value['vatNumber']);
+    this.Validation.validateVat(this.SupplierForm.value['vatNumber'])
+    .subscribe((data:any) => {
+      console.log(data);
+      if(data.Result == 0){
+        this.supplierVatUnique = true;
+      }
+      else{
+        this.supplierVatUnique = false;
+      }
+
+      if(this.SupplierForm.value['vatNumber'] == this.VatBeforeEdit){
+        this.supplierVatUnique = true;
+      }
+    }, (error) => { this.serverErrorNotification(error) });
+  }
+
+  TaxChanged(){
+    console.log(this.SupplierForm.value['taxReference']);
+    this.Validation.validateTax(this.SupplierForm.value['taxReference'])
+    .subscribe((data:any) => {
+      console.log(data);
+      if(data.Result == 0){
+        this.supplierTaxUnique = true;
+      }
+      else{
+        this.supplierTaxUnique = false;
+      }
+
+      if(this.SupplierForm.value['taxReference'] == this.TaxBeforeEdit){
+        this.supplierTaxUnique = true;
       }
     }, (error) => { this.serverErrorNotification(error) });
   }
