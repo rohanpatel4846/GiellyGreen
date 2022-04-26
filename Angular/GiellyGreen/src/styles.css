@@ -727,6 +727,10 @@ body{
         width: 100%;
     }
 
+    .profile-submit-btn{
+        width: 100%;
+    }
+
     .nav-section{
         display: block;
         position: fixed;

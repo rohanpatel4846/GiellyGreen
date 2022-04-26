@@ -40,7 +40,7 @@
             </div>
 
             <div class="table-container" *ngIf="monthSelected">
-                <nz-table [nzLoading]="invoiceTableLoading" #sortTable nzOuterBordered [nzScroll]="{ x: '1620px'}" [nzData]="listOfInvoices" nzTableLayout="fixed" class="supplierTable invoiceTable">
+                <nz-table [nzPageSize]="100" [nzLoading]="invoiceTableLoading" #sortTable nzOuterBordered [nzScroll]="{ x: '1620px'}" [nzData]="listOfInvoices" nzTableLayout="fixed" class="supplierTable invoiceTable">
                     <thead>
                         <tr class="supplierHeader invoiceExtra">
                             <th nzLeft width="50px">
@@ -56,7 +56,7 @@
                             <th width="120px"><input nz-input [(ngModel)]="Custom4Head" (change)="UpdateMonthInvoice()" type="text"/></th>
                             <th width="120px"><input nz-input [(ngModel)]="Custom5Head" (change)="UpdateMonthInvoice()" type="text"/></th>
                             <th width="80px">NET</th>
-                            <th width="80px">VAT</th>
+                            <th width="100px">VAT ({{GlobalVAT}}%)</th>
                             <th width="80px">Gross</th>
                             <th width="120px">Advance Paid</th>
                             <th width="120px">Balance Due</th>

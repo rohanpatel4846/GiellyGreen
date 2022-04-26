@@ -201,8 +201,6 @@ export class InvoiceComponent implements OnInit {
         "InvoiceReferenceNumber": this.invoiceReference
       }
 
-      console.log(MonthInvoiceBody);
-
       this.FullPageLoading=true;
       this.MonthInvoice.postMonthInvoice(MonthInvoiceBody)
         .subscribe((data:any) => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ProfileService } from 'src/app/Services/Profile/profile.service';
 import { SessionManagementService } from 'src/app/Services/SessionManagement/session-management.service';
@@ -18,7 +19,7 @@ export class ProfileComponent implements OnInit {
   FullPageLoading = false;
   ProfileID:any = 0;
   
-  constructor(private notification: NzNotificationService, public profile: ProfileService, public router:Router,  public SessionManagement: SessionManagementService, private fb: FormBuilder) { }
+  constructor(private message: NzMessageService,private notification: NzNotificationService, public profile: ProfileService, public router:Router,  public SessionManagement: SessionManagementService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.ProfileForm = this.fb.group({
@@ -47,23 +48,28 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  showMessage(type:any, msgSTR:any){
+    this.message.create(type, msgSTR);
+  }
+
+
   submitForm(){
     if (this.ProfileForm.valid){
-      console.log(this.ProfileForm);
       this.FullPageLoading=true;
+
       let body = {
         "id": this.ProfileID,
-        "CompanyName":this.ProfileForm.value['companyName'][0],
-        "AddressLine": this.ProfileForm.value['addressLine'][0],
-        "City": this.ProfileForm.value['city'][0],
-        "ZipCode": this.ProfileForm.value['zipCode'][0],
-        "Country": this.ProfileForm.value['country'][0],
+        "CompanyName": (this.ProfileForm.controls['companyName'].value),
+        "AddressLine": (this.ProfileForm.controls['addressLine'].value),
+        "City": (this.ProfileForm.controls['city'].value),
+        "ZipCode": (this.ProfileForm.controls['zipCode'].value),
+        "Country": (this.ProfileForm.controls['country'].value),
         "DefaultVAT": (this.ProfileForm.value['defaultVat'] == "" || this.ProfileForm.value['defaultVat'] == null ? 0 : this.ProfileForm.value['defaultVat']) + ""
       }
-      console.log(body);
+      
       this.profile.postProfile(body)
       .subscribe((data:any) => {
-        console.log(data);
+        this.showMessage("success", "Profile Saved!")
         this.FullPageLoading=false;
         this.UpdateProfileForm();
       },
@@ -96,12 +102,12 @@ export class ProfileComponent implements OnInit {
         }
         catch(ex){}
         this.ProfileForm.patchValue({
-          companyName: [data.Result.CompanyName],
-          addressLine: [data.Result.AddressLine],
-          city: [data.Result.City],
-          zipCode: [data.Result.ZipCode],
-          country: [data.Result.Country],
-          defaultVat : [vat]
+          companyName: data.Result.CompanyName,
+          addressLine: data.Result.AddressLine,
+          city: data.Result.City,
+          zipCode: data.Result.ZipCode,
+          country: data.Result.Country,
+          defaultVat : vat
         });
       }
     },
