@@ -31,6 +31,7 @@
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorCompanyName">
                             <input nz-input type="text" formControlName="companyName" id="companyName"/>
                             <ng-template #errorCompanyName let-control>
+                                <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Company Name</ng-container>
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -39,6 +40,7 @@
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorAddressLine">
                             <textarea rows="4" nz-input formControlName="addressLine" id="addressLine"></textarea>
                             <ng-template #errorAddressLine let-control>
+                                <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Address Line</ng-container>
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -47,6 +49,7 @@
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorCity">
                             <input nz-input type="text" formControlName="city" id="city"/>
                             <ng-template #errorCity let-control>
+                                <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid City</ng-container>
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -55,6 +58,7 @@
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorZipCode">
                             <input nz-input type="text" formControlName="zipCode" id="zipCode"/>
                             <ng-template #errorZipCode let-control>
+                                <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Zip Code</ng-container>
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -63,6 +67,7 @@
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorCountry">
                             <input nz-input type="text" formControlName="country" id="country"/>
                             <ng-template #errorCountry let-control>
+                                <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Country</ng-container>
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -71,6 +76,7 @@
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorDefaultVat">
                             <nz-input-number nz-input formControlName="defaultVat" id="defaultVat" class="w-100" [nzMin]="0" [nzMax]="100" [nzStep]="1"></nz-input-number>
                             <ng-template #errorDefaultVat let-control>
+                                <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Default VAT</ng-container>
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>

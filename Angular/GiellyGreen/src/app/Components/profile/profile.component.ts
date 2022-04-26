@@ -22,11 +22,11 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.ProfileForm = this.fb.group({
-      companyName: [null],
-      addressLine: [null],
-      city: [null],
-      zipCode: [null],
-      country: [null],
+      companyName: [null, [Validators.pattern(/^.{0,150}$/i)]],
+      addressLine: [null, [Validators.pattern(/^.{0,150}$/i)]],
+      city: [null, [Validators.pattern(/^[A-Z ]{0,150}$/i)]],
+      zipCode: [null, [Validators.pattern(/^[a-zA-Z 0-9_.-]{0,15}$/i)]],
+      country: [null, [Validators.pattern(/^[A-Z ]{0,150}$/i)]],
       defaultVat : [null]
     });
 
