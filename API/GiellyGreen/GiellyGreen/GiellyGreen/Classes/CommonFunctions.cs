@@ -55,7 +55,7 @@ namespace GiellyGreen.Classes
             Byte[] res = null;
 
             decimal subtotal = invoice.HairService + invoice.BeautyService + invoice.Custom1 + invoice.Custom2 + invoice.Custom3 + invoice.Custom4 + invoice.Custom5;
-            decimal vattotal = (subtotal * 20) / 100;
+            decimal vattotal = (subtotal * monthInvoice.VAT) / 100;
             decimal balanceDue = (subtotal + vattotal) - invoice.AdvancePay;
 
             var imageName = image.url;
