@@ -49,19 +49,21 @@ export class ProfileComponent implements OnInit {
 
   submitForm(){
     if (this.ProfileForm.valid){
+      console.log(this.ProfileForm);
       this.FullPageLoading=true;
       let body = {
         "id": this.ProfileID,
-        "CompanyName":this.ProfileForm.value['companyName'],
-        "AddressLine": this.ProfileForm.value['addressLine'],
-        "City": this.ProfileForm.value['city'],
-        "ZipCode": this.ProfileForm.value['zipCode'],
-        "Country": this.ProfileForm.value['country'],
+        "CompanyName":this.ProfileForm.value['companyName'][0],
+        "AddressLine": this.ProfileForm.value['addressLine'][0],
+        "City": this.ProfileForm.value['city'][0],
+        "ZipCode": this.ProfileForm.value['zipCode'][0],
+        "Country": this.ProfileForm.value['country'][0],
         "DefaultVAT": (this.ProfileForm.value['defaultVat'] == "" || this.ProfileForm.value['defaultVat'] == null ? 0 : this.ProfileForm.value['defaultVat']) + ""
       }
-
-      this.profile.postSupplier(body)
+      console.log(body);
+      this.profile.postProfile(body)
       .subscribe((data:any) => {
+        console.log(data);
         this.FullPageLoading=false;
         this.UpdateProfileForm();
       },

@@ -11,6 +11,7 @@ import { PdfService } from 'src/app/Services/PDF/pdf.service';
 import * as FileSaver from 'file-saver';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { ProfileService } from 'src/app/Services/Profile/profile.service';
 
 @Component({
   selector: 'app-invoice',
@@ -33,13 +34,14 @@ export class InvoiceComponent implements OnInit {
   Custom4Head = "Custom 4";
   Custom5Head = "Custom 5";
   monthSelected:boolean = false;
-  GlobalVAT = 20;
+  GlobalVAT:number = 20;
   currentID = 0;
   invoiceTableLoading = false;
   FullPageLoading = false;
   changedInvoices:any = [];
   dateFormatSelectDate="dd/MM/yyyy";
   NonDataBaseChanged = false;
+  profileData:any = {};
 
   listOfInvoices: InvoiceItem[] = [];
   listOfInvoicesBackup: InvoiceItem[] = [];
@@ -83,13 +85,28 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  constructor(private message: NzMessageService, private notification: NzNotificationService, public Pdf:PdfService, public Email:EmailService, public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
+  constructor(public profile: ProfileService, private message: NzMessageService, private notification: NzNotificationService, public Pdf:PdfService, public Email:EmailService, public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
 
   ngOnInit(): void {
     this.SessionManagement.updateIsLoggedIn();
     if(!SessionManagementService.isLoggedIn){
       this.router.navigate(['login']);
     }
+    this.getProfileData();
+  }
+
+  getProfileData(){
+    this.FullPageLoading = true;
+    this.profile.getLastProfile()
+    .subscribe((data:any) => {
+      this.FullPageLoading = false;
+      this.GlobalVAT = data.Result.DefaultVAT;
+      this.profileData = data.Result;
+    },
+    (error) => {
+      this.FullPageLoading = false;
+      this.serverErrorNotification(error);
+    });
   }
 
   showMessage(type:any, msgSTR:any){
@@ -98,6 +115,7 @@ export class InvoiceComponent implements OnInit {
 
   MonthSelectedChanged(){
     if(this.selectedMonth != null){
+      this.getProfileData();
       this.monthSelected = true;
       this.selectedMonthMONTH = String(this.selectedMonth.getUTCMonth() + 1);
       this.selectedMonthYEAR = String(this.selectedMonth.getUTCFullYear());
@@ -110,6 +128,9 @@ export class InvoiceComponent implements OnInit {
         this.AfterMonthInvoice(data);
       }
       , (error) => { this.serverErrorNotification(error) } );
+    }
+    else{
+      this.monthSelected = false;
     }
   }
 
@@ -157,6 +178,9 @@ export class InvoiceComponent implements OnInit {
       if(monthINV.monthNUM == this.selectedMonth.getUTCMonth() + 1 && monthINV.yearNUM == this.selectedMonth.getUTCFullYear()){
         exists = true;
         this.currentID = monthINV.id;
+        this.GlobalVAT = +monthINV.VAT;
+        console.log(this.profileData);
+        console.log(monthINV);
       }
     });
 
@@ -176,6 +200,8 @@ export class InvoiceComponent implements OnInit {
         "VAT": this.GlobalVAT,
         "InvoiceReferenceNumber": this.invoiceReference
       }
+
+      console.log(MonthInvoiceBody);
 
       this.FullPageLoading=true;
       this.MonthInvoice.postMonthInvoice(MonthInvoiceBody)
@@ -202,8 +228,6 @@ export class InvoiceComponent implements OnInit {
       this.GlobalVAT = result.VAT;
       this.invoiceReference = result.InvoiceReferenceNumber;
       this.FullPageLoading=false;
-      //---------------------------------
-
       this.GetInvoices();
     }, (error) => { this.serverErrorNotification(error) });
   }
@@ -282,7 +306,7 @@ export class InvoiceComponent implements OnInit {
 
     this.MonthInvoice.putMonthInvoice(this.currentID, MonthInvoiceBody)
     .subscribe((data:any) => {
-      console.log(data);
+      this.showMessage("success","Month Changes Saved");
     }, (error) => { this.serverErrorNotification(error) });
   }
 

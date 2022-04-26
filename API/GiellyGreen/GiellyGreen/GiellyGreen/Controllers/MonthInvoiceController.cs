@@ -41,7 +41,6 @@ namespace GiellyGreen.Controllers
                 if (ModelState.IsValid)
                 {
                     Mapper mapper = new Mapper(new MapperConfiguration(cfg => cfg.CreateMap<MonthInvoiceViewModel, MonthInvoice>()));
-                    model.VAT = Convert.ToInt32(ConfigurationManager.AppSettings["vatTax"]);
                     var MonthInvoiceObj = mapper.Map<MonthInvoiceViewModel, MonthInvoice>(model);
                     var result = giellyGreen.PostPutMonthInvoice(MonthInvoiceObj);
                     if (result == 1)

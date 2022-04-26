@@ -335,6 +335,7 @@ body{
     font-size: 20px;
     font-weight: bold;
     padding: 5px 10px;
+    width: 90px;
 }
 
 .saveBTN:hover{
@@ -530,6 +531,15 @@ body{
     text-align: right;
     padding-top: 10px;
 }
+
+.ant-table-column-sorter-down.active, .ant-table-column-sorter-up.active {
+    color: #ffffff;
+}
+
+.nav-link:hover{
+    color: #ffa600 !important;
+}
+
 /* -------------------------------------------------------------------- */
 
 .font-24{

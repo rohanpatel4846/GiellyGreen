@@ -23,7 +23,7 @@ export class ProfileService {
     return this.http.get(this.Profile, this.getOptions());
   }
 
-  postSupplier(body:any){
+  postProfile(body:any){
     return this.http.post(this.Profile, body, this.getOptions());
   }
 }
