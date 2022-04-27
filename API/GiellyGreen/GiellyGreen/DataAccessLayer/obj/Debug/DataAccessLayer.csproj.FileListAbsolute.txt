@@ -70,3 +70,15 @@ D:\Git Hub\Work\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debu
 D:\Git Hub\Work\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
 D:\Git Hub\Work\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 D:\Git Hub\Work\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\bin\Debug\DataAccessLayer.dll.config
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\bin\Debug\EntityFramework.dll
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\bin\Debug\EntityFramework.xml
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

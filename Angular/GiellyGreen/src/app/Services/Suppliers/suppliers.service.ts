@@ -32,8 +32,8 @@ export class SuppliersService {
   }
 
   patchIsActive(id:any, isActive:any, body:any){
-    //return this.http.patch(this.Supplier + `/`+id+`?isActive=`+isActive, this.getOptions());
-    return this.http.put(this.Supplier + "/"+body.id, body, this.getOptions());
+    return this.http.patch(this.Supplier + `/`+id+`?isActive=`+isActive, {}, this.getOptions());
+    //return this.http.put(this.Supplier + "/"+body.id, body, this.getOptions());
   }
 
   deleteSupplier(id:any){

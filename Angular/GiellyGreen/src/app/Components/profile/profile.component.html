@@ -31,7 +31,8 @@
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorCompanyName">
                             <input nz-input formControlName="companyName" id="companyName"/>
                             <ng-template #errorCompanyName let-control>
-                                <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Company Name</ng-container>
+                              <ng-container *ngIf="control.hasError('pattern')">Please Enter Valid Company Name</ng-container>
+                              <ng-container *ngIf="control.hasError('required')">Please Enter Company Name</ng-container>
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>

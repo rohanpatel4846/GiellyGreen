@@ -18,12 +18,12 @@ export class ProfileComponent implements OnInit {
   ProfileForm!: FormGroup;
   FullPageLoading = false;
   ProfileID:any = 0;
-  
+
   constructor(private message: NzMessageService,private notification: NzNotificationService, public profile: ProfileService, public router:Router,  public SessionManagement: SessionManagementService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.ProfileForm = this.fb.group({
-      companyName: [null, [Validators.pattern(/^.{0,150}$/i)]],
+      companyName: [null, [Validators.required, Validators.pattern(/^.{0,150}$/i)]],
       addressLine: [null, [Validators.pattern(/^.{0,150}$/i)]],
       city: [null, [Validators.pattern(/^[A-Z ]{0,150}$/i)]],
       zipCode: [null, [Validators.pattern(/^[a-zA-Z 0-9_.-]{0,15}$/i)]],
@@ -66,7 +66,7 @@ export class ProfileComponent implements OnInit {
         "Country": (this.ProfileForm.controls['country'].value),
         "DefaultVAT": (this.ProfileForm.value['defaultVat'] == "" || this.ProfileForm.value['defaultVat'] == null ? 0 : this.ProfileForm.value['defaultVat']) + ""
       }
-      
+
       this.profile.postProfile(body)
       .subscribe((data:any) => {
         this.showMessage("success", "Profile Saved!")
