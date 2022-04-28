@@ -426,15 +426,16 @@ export class InvoiceComponent implements OnInit {
   valueChanged(id:any, event:any){
     let invoiceArray = this.listOfInvoices;
     let index = invoiceArray.findIndex(x=>x.id == id);
-    invoiceArray[index].HairService = invoiceArray[index].HairService <= 0 ? 0 : invoiceArray[index].HairService;
-    invoiceArray[index].BeautyService = invoiceArray[index].BeautyService <= 0 ? 0 : invoiceArray[index].BeautyService;
-    invoiceArray[index].Custom1 = invoiceArray[index].Custom1 <= 0 ? 0 : invoiceArray[index].Custom1;
-    invoiceArray[index].Custom2 = invoiceArray[index].Custom2 <= 0 ? 0 : invoiceArray[index].Custom2;
-    invoiceArray[index].Custom3 = invoiceArray[index].Custom3 <= 0 ? 0 : invoiceArray[index].Custom3;
-    invoiceArray[index].Custom4 = invoiceArray[index].Custom4 <= 0 ? 0 : invoiceArray[index].Custom4;
-    invoiceArray[index].Custom5 = invoiceArray[index].Custom5 <= 0 ? 0 : invoiceArray[index].Custom5;
-    invoiceArray[index].AdvancePay = invoiceArray[index].AdvancePay <= 0 ? 0 : invoiceArray[index].AdvancePay;
+    invoiceArray[index].HairService = invoiceArray[index].HairService <= 0 || (typeof(invoiceArray[index].HairService) + "" == "string") ? 0 : invoiceArray[index].HairService;
+    invoiceArray[index].BeautyService = invoiceArray[index].BeautyService <= 0 || (typeof(invoiceArray[index].BeautyService) + "" == "string")  ? 0 : invoiceArray[index].BeautyService;
+    invoiceArray[index].Custom1 = invoiceArray[index].Custom1 <= 0 || (typeof(invoiceArray[index].Custom1) + "" == "string")  ? 0 : invoiceArray[index].Custom1;
+    invoiceArray[index].Custom2 = invoiceArray[index].Custom2 <= 0 || (typeof(invoiceArray[index].Custom2) + "" == "string")  ? 0 : invoiceArray[index].Custom2;
+    invoiceArray[index].Custom3 = invoiceArray[index].Custom3 <= 0 || (typeof(invoiceArray[index].Custom3) + "" == "string")  ? 0 : invoiceArray[index].Custom3;
+    invoiceArray[index].Custom4 = invoiceArray[index].Custom4 <= 0 || (typeof(invoiceArray[index].Custom4) + "" == "string")  ? 0 : invoiceArray[index].Custom4;
+    invoiceArray[index].Custom5 = invoiceArray[index].Custom5 <= 0 || (typeof(invoiceArray[index].Custom5) + "" == "string")  ? 0 : invoiceArray[index].Custom5;
+    invoiceArray[index].AdvancePay = invoiceArray[index].AdvancePay <= 0 || (typeof(invoiceArray[index].AdvancePay) + "" == "string") ? 0 : invoiceArray[index].AdvancePay;
     this.listOfInvoices = invoiceArray;
+    console.log(invoiceArray[index]);
     if(id != 0){
       this.changedInvoices.push(id);
     }
@@ -527,6 +528,15 @@ export class InvoiceComponent implements OnInit {
     }, 500);
   }
 
+  validValue(value:any){
+    console.log("here");
+    if(value >= 0){
+      return value;
+    }
+    else{
+      return 0;
+    }
+  }
   combineAndSave(){
     if(this.changedInvoices.length > 0 || this.NonDataBaseChanged){
       Swal.fire({

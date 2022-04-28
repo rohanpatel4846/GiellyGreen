@@ -542,11 +542,11 @@ body{
 }
 
 .ant-table-column-sorter-down.active, .ant-table-column-sorter-up.active {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .nav-link:hover{
-    color: #ffa600 !important;
+  color: #ffa600 !important;
 }
 
 .headerIcons:hover{
