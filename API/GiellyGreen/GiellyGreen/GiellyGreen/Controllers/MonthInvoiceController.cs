@@ -78,6 +78,7 @@ namespace GiellyGreen.Controllers
                 {
                     Mapper mapper = new Mapper(new MapperConfiguration(cfg => cfg.CreateMap<MonthInvoiceViewModel, MonthInvoice>()));
                     model.id = id;
+                    model.InvoiceDate = model.InvoiceDate.AddDays(1);
                     var MonthInvoiceObj = mapper.Map<MonthInvoiceViewModel, MonthInvoice>(model);
                     var result = giellyGreen.PostPutMonthInvoice(MonthInvoiceObj);
                     if (result == 1)

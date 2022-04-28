@@ -59,7 +59,7 @@ export class InvoiceComponent implements OnInit {
       }
     })
   }
-  
+
   getNet(data:any){
     let total = data.HairService + data.BeautyService + data.Custom1 + data.Custom2 + data.Custom3 + data.Custom4 + data.Custom5;
     return total;
@@ -256,7 +256,7 @@ export class InvoiceComponent implements OnInit {
             }
             tableData.push(invoiceOBJ);
           });
-          
+
           this.invoiceTableLoading = true;
           this.Suppliers.getActiveSupplier()
             .subscribe((data:any) => {
@@ -277,7 +277,7 @@ export class InvoiceComponent implements OnInit {
                   isApproved: false,
                   SupplierID: supplier.id
                 }
-  
+
                 if(tableData.findIndex( x => x.SupplierID == supplier.id) == -1){
                   tableData.push(invoiceOBJ);
                 }
@@ -480,7 +480,7 @@ export class InvoiceComponent implements OnInit {
       this.showApproveSweetAlert(SuccessApprove,ErorApprove);
       this.allChecked = false;
       this.allCheckedChanged();
-    } 
+    }
   }
 
   showApproveSweetAlert(SuccessApprove:any,ErorApprove:any){
@@ -520,11 +520,11 @@ export class InvoiceComponent implements OnInit {
     newWin.document.write(`<link rel="stylesheet" href="styles.css">`);
     newWin.document.write('</head><body>');
     newWin.document.write(divToPrint.outerHTML);
-    newWin.document.write('</body></html>'); 
+    newWin.document.write('</body></html>');
     setTimeout(function(){
       newWin.print();
       newWin.close();
-    }, 100);
+    }, 500);
   }
 
   combineAndSave(){
@@ -543,7 +543,7 @@ export class InvoiceComponent implements OnInit {
           body.push(invoice.id);
         }
       });
-  
+
       if(body.length > 0){
         this.Pdf.getPDF(body)
         .subscribe((data:any) => { this.AfterCombineAPISuccess(data) }, (error) => { this.serverErrorNotification(error) });
@@ -595,7 +595,7 @@ export class InvoiceComponent implements OnInit {
       }else{
         this.FullPageLoading = false;
       }
-      
+
     }
   }
 
