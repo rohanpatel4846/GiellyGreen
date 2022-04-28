@@ -30,6 +30,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NavigationMenuComponent } from './Components/navigation-menu/navigation-menu.component';
 //----------------------------------------------
 
 registerLocaleData(en);
@@ -41,6 +42,7 @@ registerLocaleData(en);
     InvoiceComponent,
     LoginComponent,
     ProfileComponent,
+    NavigationMenuComponent,
   ],
   imports: [
     BrowserModule,

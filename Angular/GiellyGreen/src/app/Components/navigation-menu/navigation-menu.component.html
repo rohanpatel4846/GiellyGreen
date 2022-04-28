@@ -1,0 +1,22 @@
+<div class="nav-section-mobile">
+  <div class="nav-mobile-logo">
+      <img src="../assets/images/giellyGreenLogoGold.png" class="nav-mobile-logo-image">
+      <div class="nav-mobile-menu">
+          <span class="profileSpan">
+              <a href="/Profile"><i nz-icon nzType="user" nzTheme="outline" class="cursorPointer pr-5"></i></a>
+              <i nz-icon nzType="logout" nzTheme="outline" (click)="logOut()" class="cursorPointer"></i>
+          </span>
+
+          <i nz-icon nzType="menu" nzTheme="outline" class="cursorPointer" (click)="menuOpened = !menuOpened"></i>
+      </div>
+  </div>
+</div>
+<div class="nav-section" [ngClass]="{'openedNavMenu': menuOpened}">
+  <div class="nav-logo">
+      <img src="../assets/images/giellyGreenLogoGold.png" class="nav-logo-image">
+  </div>
+  <div class="nav-links">
+      <a class="nav-link" href="/Invoice">MONTHLY INVOICE</a>
+      <a class="nav-link" href="/Supplier">SUPPLIERS LIST</a>
+  </div>
+</div>

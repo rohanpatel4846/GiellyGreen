@@ -26,7 +26,7 @@ export class SupplierComponent implements OnInit {
   UploadedImgInBase64:any;
   SelectedImgType:any;
   searchTextBox:any;
-  
+
   supplierRefUnique:any = true;
   supplierEmailUnique:any = true;
   supplierVatUnique:any = true;
@@ -36,7 +36,7 @@ export class SupplierComponent implements OnInit {
   EmailBeforeEdit:any = "";
   VatBeforeEdit:any = "";
   TaxBeforeEdit:any = "";
-  
+
 
   @ViewChild('logoFile') logoFile:any;
 
@@ -56,7 +56,7 @@ export class SupplierComponent implements OnInit {
   constructor(private Validation:ValidationService, private notification: NzNotificationService, public router:Router, private fb: FormBuilder, public Suppliers: SuppliersService, public ImageUploader: ImageUploaderService, public Image: ImageService, public SessionManagement: SessionManagementService) { }
 
   listOfData: SupplierTable[] = [];
-  listOfDataBackup: SupplierTable[] = []; 
+  listOfDataBackup: SupplierTable[] = [];
 
   logOut(){
     Swal.fire({
@@ -90,7 +90,7 @@ export class SupplierComponent implements OnInit {
     }
 
     this.SupplierForm = this.fb.group({
-      supplierName: [null, [Validators.required, Validators.pattern(/^[A-Z]+$/i)]],
+      supplierName: [null, [Validators.required, Validators.pattern("^[a-zA-Z]+[ ]?[a-zA-Z]{1,40}$")]],
       supplierReference: [null, [Validators.required, Validators.pattern(/^([a-zA-Z0-9_-]){0,15}$/)]],
       businessAddress: [null, [Validators.pattern(/^.{0,150}$/)]],
       emailAddress: [null, [Validators.email,Validators.required]],
@@ -177,7 +177,7 @@ export class SupplierComponent implements OnInit {
           console.log(ex);
           this.supplierTableLoading = false;
         }
-        
+
       }, (error) => { this.serverErrorNotification(error) });
   }
 
@@ -296,7 +296,7 @@ export class SupplierComponent implements OnInit {
 
   EditClicked(data:any){
     this.SupplierModalTitle = "Edit Supplier";
-    
+
     this.SupplierForm.patchValue({
       supplierName: data.SupplierName,
       supplierReference: data.SupplierReferenceNumber,
@@ -437,10 +437,10 @@ export class SupplierComponent implements OnInit {
   uploadedFileChanged(event:any){
     var files = event.target.files;
     var file = files[0];
-  
+
     let type = file.type;
     let size = file.size;
-    
+
     this.SelectedImgType = type.replace("image/", ".");;
 
     if(type == "image/png" || type == "image/jpeg"){
@@ -469,7 +469,7 @@ export class SupplierComponent implements OnInit {
         icon: 'error',
       });
     }
-    
+
   }
 
   serverErrorNotification(DataString:any): void {

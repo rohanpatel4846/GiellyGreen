@@ -69,7 +69,7 @@ namespace GiellyGreen.Classes
             }
             catch (Exception)
             {
-                imageBase64 = "";
+                imgPath = HttpContext.Current.Server.MapPath(@"~\Content\Images\ImageNotFound.png");
             }
 
             String htmlStr = CommonFunctions.generateHTMLpdfString();
@@ -79,22 +79,24 @@ namespace GiellyGreen.Classes
             #region dynamic values
             String AddressSTR = profile.AddressLine + ", " + profile.City + ", " + profile.Country + " - " + profile.ZipCode;
             imgPath = imgPath.Replace("//", "/");
+            htmlStr = htmlStr.Replace("{{pdfCompanyName}}", profile.CompanyName);
+            htmlStr = htmlStr.Replace("{{pdfSupplierName}}", supplier.SupplierName);
             htmlStr = htmlStr.Replace("{{pdfLogo_Path}}", imgPath);
-            htmlStr = htmlStr.Replace("{{pdfInvoiceDate}}", invoiceDate + "");
+            htmlStr = htmlStr.Replace("{{pdfInvoiceDate}}", (Convert.ToDateTime(invoiceDate)).ToString("dd/MM/yyyy") + "");
             htmlStr = htmlStr.Replace("{{pdfInvoiceReference}}", monthInvoice.InvoiceReferenceNumber + "");
             htmlStr = htmlStr.Replace("{{pdfAddress1}}", supplier.BusinessAddress + "");
             htmlStr = htmlStr.Replace("{{pdfAddress2}}", AddressSTR);
-            htmlStr = htmlStr.Replace("{{pdfHairService}}", String.Format("{0:C}", invoice.HairService) + "");
-            htmlStr = htmlStr.Replace("{{pdfBeautyService}}", String.Format("{0:C}", invoice.BeautyService) + "");
-            htmlStr = htmlStr.Replace("{{pdfCustom1}}", String.Format("{0:C}", invoice.Custom1) + "");
-            htmlStr = htmlStr.Replace("{{pdfCustom2}}", String.Format("{0:C}", invoice.Custom2) + "");
-            htmlStr = htmlStr.Replace("{{pdfCustom3}}", String.Format("{0:C}", invoice.Custom3) + "");
-            htmlStr = htmlStr.Replace("{{pdfCustom4}}", String.Format("{0:C}", invoice.Custom4) + "");
-            htmlStr = htmlStr.Replace("{{pdfCustom5}}", String.Format("{0:C}", invoice.Custom5) + "");
-            htmlStr = htmlStr.Replace("{{pdfSubtotal}}", String.Format("{0:C}", subtotal) + "");
-            htmlStr = htmlStr.Replace("{{pdfVatTotal}}", String.Format("{0:C}", vattotal) + "");
-            htmlStr = htmlStr.Replace("{{pdfAdvancePaid}}", String.Format("{0:C}", invoice.AdvancePay) + "");
-            htmlStr = htmlStr.Replace("{{pdfBalanceDue}}", String.Format("{0:C}", balanceDue) + "");
+            htmlStr = htmlStr.Replace("{{pdfHairService}}", String.Format("{0:n}", invoice.HairService) + "");
+            htmlStr = htmlStr.Replace("{{pdfBeautyService}}", String.Format("{0:n}", invoice.BeautyService) + "");
+            htmlStr = htmlStr.Replace("{{pdfCustom1}}", String.Format("{0:n}", invoice.Custom1) + "");
+            htmlStr = htmlStr.Replace("{{pdfCustom2}}", String.Format("{0:n}", invoice.Custom2) + "");
+            htmlStr = htmlStr.Replace("{{pdfCustom3}}", String.Format("{0:n}", invoice.Custom3) + "");
+            htmlStr = htmlStr.Replace("{{pdfCustom4}}", String.Format("{0:n}", invoice.Custom4) + "");
+            htmlStr = htmlStr.Replace("{{pdfCustom5}}", String.Format("{0:n}", invoice.Custom5) + "");
+            htmlStr = htmlStr.Replace("{{pdfSubtotal}}", String.Format("{0:n}", subtotal) + "");
+            htmlStr = htmlStr.Replace("{{pdfVatTotal}}", String.Format("{0:n}", vattotal) + "");
+            htmlStr = htmlStr.Replace("{{pdfAdvancePaid}}", String.Format("{0:n}", invoice.AdvancePay) + "");
+            htmlStr = htmlStr.Replace("{{pdfBalanceDue}}", String.Format("{0:n}", balanceDue) + "");
             htmlStr = htmlStr.Replace("{{Custom1_Head}}", monthInvoice.Custom1_Name + "");
             htmlStr = htmlStr.Replace("{{Custom2_Head}}", monthInvoice.Custom2_Name + "");
             htmlStr = htmlStr.Replace("{{Custom3_Head}}", monthInvoice.Custom3_Name + "");
@@ -194,6 +196,24 @@ namespace GiellyGreen.Classes
             else
             {
                 htmlStr = htmlStr.Replace("{{pdfVatNumber}}", "VAT Number : " + supplier.VATNumber + "");
+            }
+
+            if (String.IsNullOrEmpty((supplier.CompanyRegisterNumber) + ""))
+            {
+                htmlStr = htmlStr.Replace("{{companyRegNo}}", "");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{companyRegNo}}", "Company Reg No : " + supplier.CompanyRegisterNumber + "");
+            }
+
+            if (String.IsNullOrEmpty((supplier.CompanyRegisteredAddress) + ""))
+            {
+                htmlStr = htmlStr.Replace("{{companyRegisteredAddress}}", "");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{companyRegisteredAddress}}", "Registered Address : " + supplier.CompanyRegisteredAddress + "");
             }
             #endregion
 

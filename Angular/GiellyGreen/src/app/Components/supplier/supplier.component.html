@@ -1,26 +1,5 @@
 <div class="supplierContainer">
-    <div class="nav-section-mobile">
-        <div class="nav-mobile-logo">
-            <img src="../assets/images/giellyGreenLogoGold.png" class="nav-mobile-logo-image">
-            <div class="nav-mobile-menu">
-                <span class="profileSpan">
-                    <a href="/Profile"><i nz-icon nzType="user" nzTheme="outline" class="cursorPointer pr-5"></i></a>
-                    <i nz-icon nzType="logout" nzTheme="outline" (click)="logOut()" class="cursorPointer"></i>
-                </span>
-                
-                <i nz-icon nzType="menu" nzTheme="outline" class="cursorPointer" (click)="menuOpened = !menuOpened"></i>
-            </div>
-        </div>
-    </div>
-    <div class="nav-section" [ngClass]="{'openedNavMenu': menuOpened}">
-        <div class="nav-logo">
-            <img src="../assets/images/giellyGreenLogoGold.png" class="nav-logo-image">
-        </div>
-        <div class="nav-links">
-            <a class="nav-link" href="/Invoice">MONTHLY INVOICE</a>
-            <a class="nav-link" href="/Supplier">SUPPLIERS LIST</a>
-        </div>
-    </div>
+    <app-navigation-menu></app-navigation-menu>
     <div class="table-section">
         <div class="content-container">
             <div nz-row nzAlign="middle">
@@ -81,7 +60,7 @@
             <div nz-row class="form-container">
                 <div nz-col nzSpan="24" nzSm="12" nzMd="12" nzLg="12" nzXl="12" class="form-input-container">
                     <nz-form-item>
-                        <nz-form-label [nzSpan]="24" nzFor="supplierName">Supplier Name</nz-form-label>
+                        <nz-form-label nzRequired [nzSpan]="24" nzFor="supplierName">Supplier Name</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorSupplierName">
                           <input nz-input type="text" formControlName="supplierName" id="supplierName" />
                           <ng-template #errorSupplierName let-control>
@@ -93,7 +72,7 @@
                 </div>
                 <div nz-col nzSpan="24" nzSm="12" nzMd="12" nzLg="12" nzXl="12" class="form-input-container">
                     <nz-form-item>
-                        <nz-form-label [nzSpan]="24" nzFor="supplierReference">Supplier Reference</nz-form-label>
+                        <nz-form-label nzRequired [nzSpan]="24" nzFor="supplierReference">Supplier Reference</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorSupplierReference">
                           <input nz-input type="text" formControlName="supplierReference"  (change)="SupplierReffChanged()" id="supplierReference" />
                           <ng-template #errorSupplierReference let-control>
@@ -118,7 +97,7 @@
                 </div>
                 <div nz-col nzSpan="24" nzSm="12" nzMd="12" nzLg="12" nzXl="12" class="form-input-container">
                     <nz-form-item>
-                        <nz-form-label [nzSpan]="24" nzFor="emailAddress">Email Address</nz-form-label>
+                        <nz-form-label nzRequired [nzSpan]="24" nzFor="emailAddress">Email Address</nz-form-label>
                         <nz-form-control [nzSpan]="24" [nzErrorTip]="errorEmailAddress">
                           <input nz-input formControlName="emailAddress" id="emailAddress" (change)="EmailChanged()"/>
                           <ng-template #errorEmailAddress let-control>
@@ -195,7 +174,7 @@
                     <div>Upload invoice logo</div>
                     <div>
                         <button class="UploadBTN"  (click)="logoFile.click()">
-                            <i nz-icon nzType="upload" nzTheme="outline" class="uploadIcon"></i> 
+                            <i nz-icon nzType="upload" nzTheme="outline" class="uploadIcon"></i>
                             Upload here
                         </button>
                     </div>

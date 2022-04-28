@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   loginPassword:any;
   loginForm!: FormGroup;
   invalidLogin = false;
+  loadingLogin = false;
 
   constructor(private notification: NzNotificationService, public router:Router, public Login: LoginService, public SessionManagement: SessionManagementService, private fb: FormBuilder) { }
 
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
   LoginClicked(){
     if (this.loginForm.valid) {
       this.invalidLogin = false;
+      this.loadingLogin = true;
       this.Login.LoginUser(this.loginForm.value["emailLogin"], this.loginForm.value["passwordLogin"])
       .subscribe((data:any) => { this.AfterLogin(data) }, (error) => {this.HandleLoginError(error)});
     } else {
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   HandleLoginError(error:any){
+    this.loadingLogin = false;
     if(error.error.error_description == "The user name or password is incorrect."){
       this.invalidLogin = true;
     }
@@ -64,6 +67,7 @@ export class LoginComponent implements OnInit {
   }
 
   AfterLogin(data:any){
+    this.loadingLogin = false;
     this.SessionManagement.putCurrentuser(data.userName, data.access_token);
     this.router.navigate(['Invoice']);
   }

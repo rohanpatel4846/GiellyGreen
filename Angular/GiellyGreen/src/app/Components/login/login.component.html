@@ -55,7 +55,7 @@
         </div>
         <div nz-row class="mart-65">
           <div nz-col nzSpan="24">
-            <button class="loginButton" (click)="LoginClicked()">LOG IN</button>
+            <button class="loginButton" (click)="LoginClicked()">LOG IN<i *ngIf="loadingLogin" class="loginButtonLoader" nz-icon [nzType]="'loading'"></i></button>
           </div>
         </div>
       </div>

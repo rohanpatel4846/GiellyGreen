@@ -12,6 +12,13 @@ body{
     src: url(./assets/font/Dax.ttf);
 }
 
+.loginButtonLoader{
+  right: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
 .bg-red{
     background-color: red;
 }
@@ -161,7 +168,7 @@ body{
 
 .nav-section-mobile{
     display: none;
-    height: 50px;
+    height: 70px;
     width: 100%;
     background-color: #2C2B29;
     position: -webkit-sticky;
@@ -551,11 +558,11 @@ body{
 }
 
 .printMonth{
-    padding-left: 90px;   
+    padding-left: 90px;
 }
 
 .printInvoiceReference{
-    padding-left: 90px;   
+    padding-left: 90px;
 }
 
 .PrintingDIV{
@@ -673,7 +680,7 @@ body{
 }
 
 .TableConatiner{
-    margin-top: 30px; 
+    margin-top: 30px;
     width: 100%;
 }
 
@@ -820,7 +827,7 @@ body{
 }
 
 .ant-table-container, .ant-table-container table>thead>tr:last-child th:last-child {
-    
+
     border-top-right-radius: 10px;
 }
 
