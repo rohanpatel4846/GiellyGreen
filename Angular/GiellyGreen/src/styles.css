@@ -173,6 +173,8 @@ body{
     background-color: #2C2B29;
     position: -webkit-sticky;
     position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .nav-mobile-logo-image{
@@ -547,6 +549,24 @@ body{
     color: #ffa600 !important;
 }
 
+.headerIcons:hover{
+  color: #ffa600 !important;
+}
+
+.nav-section-offclick{
+  background-color: #0000007a;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 9;
+  opacity: 0;
+  transition: 0.5s ease;
+}
+
+.opp-100{
+  opacity: 100 !important;
+}
 /* -------------------------------------------------------------------- */
 
 .font-24{
@@ -739,13 +759,13 @@ body{
     }
 
     .nav-section{
-        display: block;
-        position: fixed;
-        right: 0;
-        transform: translateX(300px);
-        z-index: 10;
-        transition: transform 0.5s ease;
-        width: 300px;
+      display: block;
+      position: fixed;
+      right: 0;
+      transform: translateX(300px);
+      z-index: 10;
+      transition: transform 0.5s ease;
+      width: 300px;
     }
 
     .nav-logo-image{
