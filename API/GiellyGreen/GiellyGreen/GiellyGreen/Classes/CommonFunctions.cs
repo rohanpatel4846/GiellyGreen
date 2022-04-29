@@ -69,7 +69,8 @@ namespace GiellyGreen.Classes
             }
             catch (Exception)
             {
-                imgPath = HttpContext.Current.Server.MapPath(@"~\Content\Images\ImageNotFound.png");
+                if(imageName != "empty.png")
+                    imgPath = HttpContext.Current.Server.MapPath(@"~\Content\Images\ImageNotFound.png");
             }
 
             String htmlStr = CommonFunctions.generateHTMLpdfString();
@@ -77,6 +78,23 @@ namespace GiellyGreen.Classes
             var invoiceDate = ((monthInvoice.InvoiceDate).ToString()).Split(' ')[0];
 
             #region dynamic values
+            if(imageName == "empty.png")
+            {
+                htmlStr = htmlStr.Replace("{{NoLogo_Comment_S}}", "<!--");
+                htmlStr = htmlStr.Replace("{{NoLogo_Comment_E}}", "-->");
+
+                htmlStr = htmlStr.Replace("{{Logo_Comment_S}}", "");
+                htmlStr = htmlStr.Replace("{{Logo_Comment_E}}", "");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{Logo_Comment_S}}", "<!--");
+                htmlStr = htmlStr.Replace("{{Logo_Comment_E}}", "-->");
+
+                htmlStr = htmlStr.Replace("{{NoLogo_Comment_S}}", "");
+                htmlStr = htmlStr.Replace("{{NoLogo_Comment_E}}", "");
+            }
+
             String AddressSTR = profile.AddressLine + ", " + profile.City + ", " + profile.Country + " - " + profile.ZipCode;
             imgPath = imgPath.Replace("//", "/");
             htmlStr = htmlStr.Replace("{{pdfCompanyName}}", profile.CompanyName);

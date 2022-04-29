@@ -17,6 +17,18 @@
     padding-top: 8px;
 }
 
+.verti-top{
+    vertical-align: top;
+}
+
+.pd-bt-5{
+    padding-bottom: 5px;
+}
+
+.f-30 {
+    font-size: 30px;
+}
+
 .pt-5 {
     padding-top: 5px;
 }

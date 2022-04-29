@@ -49,7 +49,7 @@ body{
 }
 
 .supplierContainer{
-    height: calc(100vh - 50px);
+    height: calc(100vh - 70px);
     width: 100%;
     display: flex;
 }

@@ -16,14 +16,29 @@
             </tr>
         </thead>
         <tbody>
+            {{Logo_Comment_S}}
+            <tr class="verti-top">
+                <td rowspan="6" class="f-20 pd-5 verti-top">
+                    <div class="pd-bt-5"><b>{{pdfSupplierName}}</b></div>
+                    {{pdfAddress1}}
+                </td>
+                <td class="f-30 textRight pd-5">Self-Billed Invoice</td>
+            </tr>
             <tr>
-                <!--<td><img src="data:image/png;base64, {{pdfLogo}}" src="{{pdfLogo_Path}}" width="200" height="200" /></td>-->
-                <td><img src="{{pdfLogo_Path}}" width="200" height="200"/></td>
-                <td class="f-25 textRight">Self-Billed Invoice</td>
+                <td class="f-20 textRight pd-5">Invoice Date : {{pdfInvoiceDate}}</td>
+            </tr>
+            <tr>
+                <td class="f-20 textRight pd-5">Invoice Reference : {{pdfInvoiceReference}}</td>
+            </tr>
+            {{Logo_Comment_E}}
+            {{NoLogo_Comment_S}}
+            <tr>
+                <td><img src="{{pdfLogo_Path}}" width="200" height="200" /></td>
+                <td class="f-30 textRight pd-5">Self-Billed Invoice</td>
             </tr>
             <tr>
                 <td rowspan="5" class="f-20 pd-5 verti-bottom">
-                    <div>{{pdfSupplierName}}</div>
+                    <div><b>{{pdfSupplierName}}</b></div>
                     {{pdfAddress1}}
                 </td>
                 <td class="f-20 textRight pd-5">Invoice Date : {{pdfInvoiceDate}}</td>
@@ -31,6 +46,7 @@
             <tr>
                 <td class="f-20 textRight pd-5">Invoice Reference : {{pdfInvoiceReference}}</td>
             </tr>
+            {{NoLogo_Comment_E}}
             <tr>
                 <td class="pd-5"><br /><br /></td>
             </tr>

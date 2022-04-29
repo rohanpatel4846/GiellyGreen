@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
   AfterLogin(data:any){
     this.loadingLogin = false;
     this.SessionManagement.putCurrentuser(data.userName, data.access_token);
-    this.router.navigate(['Invoice']);
+    this.router.navigate(['Supplier']);
   }
 
 }
