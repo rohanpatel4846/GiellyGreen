@@ -14,7 +14,7 @@
                     <span class="invoiceLabels">Date</span><nz-date-picker [nzFormat]="dateFormatSelectDate" [(ngModel)]="selectedDate" (ngModelChange)="UpdateMonthInvoice()"></nz-date-picker>
                 </div>
                 <div nz-col nzSpan="24" nzxs="24" nzSm="12" nzMd="18" class="p-y-5" *ngIf="monthSelected">
-                    <span class="invoiceLabels">Invoice Reference</span><input [(ngModel)]="invoiceReference" (change)="UpdateMonthInvoice()" class=invoiceReferenceInput/>
+                    <span class="invoiceLabels">Invoice Reference</span><input [(ngModel)]="invoiceReference" (change)="invoiceRefChanged()" class=invoiceReferenceInput/>
                 </div>
             </div>
 

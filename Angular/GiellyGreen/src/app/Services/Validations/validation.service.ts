@@ -34,4 +34,8 @@ export class ValidationService {
   validateTax(tax:any){
     return this.http.get(this.Validations + "TAXReference?taxReference="+tax, this.getOptions());
   }
+
+  validateInvoiceRef(invoiceRef:any){
+    return this.http.get(this.Validations + "InvoiceReference?invoiceRef="+invoiceRef, this.getOptions());
+  }
 }

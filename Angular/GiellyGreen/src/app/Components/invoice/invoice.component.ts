@@ -12,6 +12,7 @@ import * as FileSaver from 'file-saver';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ProfileService } from 'src/app/Services/Profile/profile.service';
+import { ValidationService } from 'src/app/Services/Validations/validation.service';
 
 @Component({
   selector: 'app-invoice',
@@ -42,6 +43,7 @@ export class InvoiceComponent implements OnInit {
   dateFormatSelectDate="dd/MM/yyyy";
   NonDataBaseChanged = false;
   profileData:any = {};
+  lastValidInvoiceRef:any = "";
 
   listOfInvoices: InvoiceItem[] = [];
   listOfInvoicesBackup: InvoiceItem[] = [];
@@ -85,7 +87,7 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  constructor(public profile: ProfileService, private message: NzMessageService, private notification: NzNotificationService, public Pdf:PdfService, public Email:EmailService, public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
+  constructor(public Validation:ValidationService,public profile: ProfileService, private message: NzMessageService, private notification: NzNotificationService, public Pdf:PdfService, public Email:EmailService, public Suppliers:SuppliersService,public Invoice:InvoiceService, public router:Router, public SessionManagement: SessionManagementService, public MonthInvoice:MonthInvoiceService) { }
 
   ngOnInit(): void {
     this.SessionManagement.updateIsLoggedIn();
@@ -226,6 +228,7 @@ export class InvoiceComponent implements OnInit {
       this.GlobalVAT = result.VAT;
       this.invoiceReference = result.InvoiceReferenceNumber;
       this.FullPageLoading=false;
+      this.lastValidInvoiceRef = this.invoiceReference;
       this.GetInvoices();
     }, (error) => { this.serverErrorNotification(error) });
   }
@@ -289,8 +292,6 @@ export class InvoiceComponent implements OnInit {
   }
 
   UpdateMonthInvoice(){
-
-
     let MonthInvoiceBody = {
       "monthNUM": this.selectedMonth.getUTCMonth() + 1,
       "yearNUM": this.selectedMonth.getUTCFullYear(),
@@ -308,6 +309,20 @@ export class InvoiceComponent implements OnInit {
     .subscribe((data:any) => {
       this.showMessage("success","Month Changes Saved");
     }, (error) => { this.serverErrorNotification(error) });
+  }
+
+  invoiceRefChanged(){
+    this.Validation.validateInvoiceRef(this.invoiceReference)
+      .subscribe((data:any) => {
+        if(data.Result == 1){
+          this.showMessage("error","Month invoice already exist");
+          this.invoiceReference = this.lastValidInvoiceRef;
+        }
+        else{
+          this.lastValidInvoiceRef = this.invoiceReference;
+          this.UpdateMonthInvoice();
+        }
+      }, (error) => { this.serverErrorNotification(error) });
   }
 
   totalNet(){
