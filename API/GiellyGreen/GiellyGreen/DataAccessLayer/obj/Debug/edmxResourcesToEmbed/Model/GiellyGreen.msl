@@ -160,5 +160,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="InsertUpdateProfile" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateProfile" />
+    <FunctionImportMapping FunctionImportName="CheckInvoiceReferenceValid" FunctionName="GiellyGreen_RohanModel.Store.CheckInvoiceReferenceValid" />
   </EntityContainerMapping>
 </Mapping>

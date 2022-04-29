@@ -83,7 +83,7 @@ namespace GiellyGreen.Classes
             htmlStr = htmlStr.Replace("{{pdfSupplierName}}", supplier.SupplierName);
             htmlStr = htmlStr.Replace("{{pdfLogo_Path}}", imgPath);
             htmlStr = htmlStr.Replace("{{pdfInvoiceDate}}", (Convert.ToDateTime(invoiceDate)).ToString("dd/MM/yyyy") + "");
-            htmlStr = htmlStr.Replace("{{pdfInvoiceReference}}", monthInvoice.InvoiceReferenceNumber + "");
+            htmlStr = htmlStr.Replace("{{pdfInvoiceReference}}", supplier.SupplierReferenceNumber + "-" + monthInvoice.InvoiceReferenceNumber + "");
             htmlStr = htmlStr.Replace("{{pdfAddress1}}", supplier.BusinessAddress + "");
             htmlStr = htmlStr.Replace("{{pdfAddress2}}", AddressSTR);
             htmlStr = htmlStr.Replace("{{pdfHairService}}", String.Format("{0:n}", invoice.HairService) + "");
@@ -96,12 +96,22 @@ namespace GiellyGreen.Classes
             htmlStr = htmlStr.Replace("{{pdfSubtotal}}", String.Format("{0:n}", subtotal) + "");
             htmlStr = htmlStr.Replace("{{pdfVatTotal}}", String.Format("{0:n}", vattotal) + "");
             htmlStr = htmlStr.Replace("{{pdfAdvancePaid}}", String.Format("{0:n}", invoice.AdvancePay) + "");
-            htmlStr = htmlStr.Replace("{{pdfBalanceDue}}", String.Format("{0:n}", balanceDue) + "");
-            htmlStr = htmlStr.Replace("{{Custom1_Head}}", monthInvoice.Custom1_Name + "");
-            htmlStr = htmlStr.Replace("{{Custom2_Head}}", monthInvoice.Custom2_Name + "");
-            htmlStr = htmlStr.Replace("{{Custom3_Head}}", monthInvoice.Custom3_Name + "");
-            htmlStr = htmlStr.Replace("{{Custom4_Head}}", monthInvoice.Custom4_Name + "");
-            htmlStr = htmlStr.Replace("{{Custom5_Head}}", monthInvoice.Custom5_Name + "");
+
+            if(balanceDue >= 0)
+            {
+                htmlStr = htmlStr.Replace("{{pdfBalanceDue}}", String.Format("{0:n}", balanceDue) + "");
+            }
+            else
+            {
+                htmlStr = htmlStr.Replace("{{pdfBalanceDue}}", "(" + String.Format("{0:n}", balanceDue) + ")");
+            }
+
+            
+            htmlStr = htmlStr.Replace("{{Custom1_Head}}", String.IsNullOrEmpty((monthInvoice.Custom1_Name).ToString()) ? "Custom 1" : (monthInvoice.Custom1_Name).ToString());
+            htmlStr = htmlStr.Replace("{{Custom2_Head}}", String.IsNullOrEmpty((monthInvoice.Custom2_Name).ToString()) ? "Custom 2" : (monthInvoice.Custom2_Name).ToString());
+            htmlStr = htmlStr.Replace("{{Custom3_Head}}", String.IsNullOrEmpty((monthInvoice.Custom3_Name).ToString()) ? "Custom 3" : (monthInvoice.Custom3_Name).ToString());
+            htmlStr = htmlStr.Replace("{{Custom4_Head}}", String.IsNullOrEmpty((monthInvoice.Custom4_Name).ToString()) ? "Custom 4" : (monthInvoice.Custom4_Name).ToString());
+            htmlStr = htmlStr.Replace("{{Custom5_Head}}", String.IsNullOrEmpty((monthInvoice.Custom5_Name).ToString()) ? "Custom 5" : (monthInvoice.Custom5_Name).ToString());
 
             if(invoice.Custom1 == 0)
             {

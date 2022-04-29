@@ -115,6 +115,9 @@ warning 6002: The table/view 'GiellyGreen_Rohan.dbo.profile' does not have a pri
         <Function Name="CheckEmailValid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="CheckInvoiceReferenceValid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="invoiceRef" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="CheckSupplierRefValid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="supplierRef" Type="varchar" Mode="In" />
         </Function>
@@ -440,6 +443,9 @@ warning 6002: The table/view 'GiellyGreen_Rohan.dbo.profile' does not have a pri
             <Parameter Name="Country" Mode="In" Type="String" />
             <Parameter Name="DefaultVAT" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="CheckInvoiceReferenceValid" ReturnType="Collection(Int32)">
+            <Parameter Name="invoiceRef" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetImage_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -672,6 +678,7 @@ warning 6002: The table/view 'GiellyGreen_Rohan.dbo.profile' does not have a pri
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InsertUpdateProfile" FunctionName="GiellyGreen_RohanModel.Store.InsertUpdateProfile" />
+          <FunctionImportMapping FunctionImportName="CheckInvoiceReferenceValid" FunctionName="GiellyGreen_RohanModel.Store.CheckInvoiceReferenceValid" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

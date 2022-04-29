@@ -144,6 +144,13 @@ namespace DataAccessLayer.Services
             return r2[0] ?? 1;
         }
 
+        public int CheckInvoiceReferenceNumberValid(String invoiceRef)
+        {
+            var result = giellyGreenDataAccess.CheckInvoiceReferenceValid(invoiceRef);
+            var r2 = result.ToList();
+            return r2[0] ?? 1;
+        }
+
         public int PostPutProfile(profile pro)
         {
             var result = giellyGreenDataAccess.InsertUpdateProfile(
@@ -157,6 +164,7 @@ namespace DataAccessLayer.Services
 
             return result;
         }
+
 
         public GetLastProfile_Result GetLastProfile()
         {   

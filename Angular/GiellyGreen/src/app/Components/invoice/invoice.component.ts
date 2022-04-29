@@ -289,6 +289,8 @@ export class InvoiceComponent implements OnInit {
   }
 
   UpdateMonthInvoice(){
+
+
     let MonthInvoiceBody = {
       "monthNUM": this.selectedMonth.getUTCMonth() + 1,
       "yearNUM": this.selectedMonth.getUTCFullYear(),

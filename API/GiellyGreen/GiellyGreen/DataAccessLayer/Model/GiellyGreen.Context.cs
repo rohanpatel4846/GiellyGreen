@@ -344,5 +344,14 @@ namespace DataAccessLayer.Model
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUpdateProfile", idParameter, companyNameParameter, addressLineParameter, cityParameter, zipCodeParameter, countryParameter, defaultVATParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> CheckInvoiceReferenceValid(string invoiceRef)
+        {
+            var invoiceRefParameter = invoiceRef != null ?
+                new ObjectParameter("invoiceRef", invoiceRef) :
+                new ObjectParameter("invoiceRef", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CheckInvoiceReferenceValid", invoiceRefParameter);
+        }
     }
 }

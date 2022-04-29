@@ -110,6 +110,9 @@ warning 6002: The table/view 'GiellyGreen_Rohan.dbo.profile' does not have a pri
   <Function Name="CheckEmailValid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="email" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="CheckInvoiceReferenceValid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="invoiceRef" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="CheckSupplierRefValid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="supplierRef" Type="varchar" Mode="In" />
   </Function>

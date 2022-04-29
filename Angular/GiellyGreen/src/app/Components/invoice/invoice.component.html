@@ -145,7 +145,7 @@
             <td>{{ getNet(data) | number : '1.2-2' }}</td>
             <td>{{ getVAT(getNet(data)) | number : '1.2-2' }}</td>
             <td>{{ getNet(data) + getVAT(getNet(data)) | number : '1.2-2' }}</td>
-            <td>{{data.AdvancePay | number : '1.2-2'}}</td>
+            <td>({{data.AdvancePay | number : '1.2-2'}})</td>
             <td>{{ getDue(data) }}</td>
           </tr>
           <tr class="g-bold">

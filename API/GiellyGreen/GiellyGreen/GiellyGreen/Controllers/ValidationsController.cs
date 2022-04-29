@@ -90,5 +90,24 @@ namespace GiellyGreen.Controllers
             }
             return response;
         }
+
+        [HttpGet]
+        [Route("api/Validate/InvoiceReference")]
+        public JSONResponse InvoiceReference(string invoiceRef)
+        {
+            var response = new JSONResponse();
+            try
+            {
+                response.ResponseStatus = 1;
+                response.Message = "Get Validation from Result";
+                response.Result = giellyGreen.CheckInvoiceReferenceNumberValid(invoiceRef);
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Result = ex;
+            }
+            return response;
+        }
     }
 }

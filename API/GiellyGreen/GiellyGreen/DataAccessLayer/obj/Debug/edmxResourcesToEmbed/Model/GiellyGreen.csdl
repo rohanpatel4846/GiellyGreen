@@ -206,6 +206,9 @@
       <Parameter Name="Country" Mode="In" Type="String" />
       <Parameter Name="DefaultVAT" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="CheckInvoiceReferenceValid" ReturnType="Collection(Int32)">
+      <Parameter Name="invoiceRef" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="GetImage_Result">
     <Property Type="Int32" Name="id" Nullable="false" />

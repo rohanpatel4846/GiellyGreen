@@ -27,6 +27,7 @@ namespace DataAccessLayer.Interface
         int CheckSupplierRefValid(String SupplierRef);
         int CheckVATNumberValid(String vatNumber);
         int CheckTAXReferenceValid(String taxReference);
+        int CheckInvoiceReferenceNumberValid(String invoiceRef);
 
         int PostPutProfile(profile pro);
         GetLastProfile_Result GetLastProfile();
