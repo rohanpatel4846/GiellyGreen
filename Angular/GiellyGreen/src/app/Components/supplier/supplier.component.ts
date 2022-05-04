@@ -398,9 +398,7 @@ export class SupplierComponent implements OnInit {
 
   DeleteClicked(row:any){
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Once the record is deleted, this process cannot be undone.",
-      icon: 'error',
+      title: 'Are you sure, you want to delete?',
       showCancelButton: true,
       confirmButtonColor: '#FF8080',
       cancelButtonColor: '#CFD3D8',
@@ -421,7 +419,7 @@ export class SupplierComponent implements OnInit {
             else if(data.Result == -1){
               Swal.fire({
                 title: 'Supplier Not Deleted',
-                text: "Supplier cannot be deleted as supplier record exist in invoices",
+                text: "You can't delete the supplier because supplier has invoice.",
                 icon: 'error',
               });
             }

@@ -1,11 +1,10 @@
 ﻿body {
-    font-family: Monospace !important;
+    font-family: daxFontCustom !important;
 }
 
 @font-face {
     font-family: "daxFontCustom";
-    src: url("//db.onlinewebfonts.com/t/a75a9217d6bb6ee44e664cc2912f2b7b.eot");
-    src: url("//db.onlinewebfonts.com/t/a75a9217d6bb6ee44e664cc2912f2b7b.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/a75a9217d6bb6ee44e664cc2912f2b7b.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/a75a9217d6bb6ee44e664cc2912f2b7b.woff") format("woff"), url("//db.onlinewebfonts.com/t/a75a9217d6bb6ee44e664cc2912f2b7b.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/a75a9217d6bb6ee44e664cc2912f2b7b.svg#Dax") format("svg");
+    src: url(Dax.ttf);
 }
 
 .lool {

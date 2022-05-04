@@ -48,6 +48,9 @@ export class InvoiceComponent implements OnInit {
   listOfInvoices: InvoiceItem[] = [];
   listOfInvoicesBackup: InvoiceItem[] = [];
 
+  AdvancePayFormatter = (value: number): string => `(${value})`;
+  AdvancePayParser = (value: string): string => value.replace('(', '');
+
   logOut(){
     Swal.fire({
       title: 'Logout?',
@@ -68,7 +71,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   getDue(data:any){
-    let due:any = this.getNet(data) + this.getVAT(this.getNet(data)) - data.AdvancePay
+    let due:any = this.getNet(data) + this.getVAT(data) - data.AdvancePay
     due = due.toFixed(2);
 
     if(due < 0){
@@ -77,8 +80,13 @@ export class InvoiceComponent implements OnInit {
     return due;
   }
 
-  getVAT(total:any){
-    return ((total * this.GlobalVAT ) / 100);
+  getVAT(data:any){
+    if(data.SupplierVAT == 0 || data.SupplierVAT == null || data.SupplierVAT == undefined){
+      return 0;
+    }
+    else{
+      return ((this.getNet(data) * this.GlobalVAT ) / 100);
+    }
   }
 
   allCheckedChanged(){
@@ -245,6 +253,7 @@ export class InvoiceComponent implements OnInit {
             let invoiceOBJ:InvoiceItem = {
               id: invoice.id,
               SupplierName: AllSuppliers.Result.find((x:any) => x.id == invoice.SupplierId).SupplierName,
+              SupplierVAT: AllSuppliers.Result.find((x:any) => x.id == invoice.SupplierId).VATNumber,
               HairService: invoice.HairService,
               BeautyService: invoice.BeautyService,
               Custom1: invoice.Custom1,
@@ -263,11 +272,13 @@ export class InvoiceComponent implements OnInit {
           this.invoiceTableLoading = true;
           this.Suppliers.getActiveSupplier()
             .subscribe((data:any) => {
+              console.log(data)
               this.invoiceTableLoading = false;
               data.Result.forEach((supplier:any) => {
                 let invoiceOBJ:InvoiceItem = {
                   id: 0,
                   SupplierName: supplier.SupplierName,
+                  SupplierVAT: supplier.VATNumber,
                   HairService: 0,
                   BeautyService: 0,
                   Custom1: 0,
@@ -661,5 +672,6 @@ interface InvoiceItem {
   AdvancePay: number;
   isChecked: boolean;
   isApproved: boolean;
+  SupplierVAT:string;
 }
 

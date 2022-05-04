@@ -24,7 +24,7 @@ namespace GiellyGreen.Controllers
             var response = new JSONResponse();
             try
             {
-                var supplierList = giellyGreen.GetLastProfile();
+                var supplierList = giellyGreen.GetProfile();
                 response.ResponseStatus = 1;
                 response.Message = "Record Found";
                 response.Result = supplierList;
@@ -45,9 +45,7 @@ namespace GiellyGreen.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Mapper mapper = new Mapper(new MapperConfiguration(cfg => cfg.CreateMap<ProfileViewModal, profile>()));
-                    var ProfileObj = mapper.Map<ProfileViewModal, profile>(model);
-                    var result = giellyGreen.PostPutProfile(ProfileObj);
+                    var result = giellyGreen.PostPutProfile(model);
                     if(result == 1)
                     {
                         response.ResponseStatus = 1;

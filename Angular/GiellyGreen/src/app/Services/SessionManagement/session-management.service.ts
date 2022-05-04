@@ -11,7 +11,7 @@ export class SessionManagementService {
   }
 
   getCurrentUser(){
-    let user = JSON.parse(sessionStorage.getItem('user') || "{}");
+    let user = JSON.parse(localStorage.getItem('user') || "{}");
     return user;
   }
 
@@ -20,12 +20,12 @@ export class SessionManagementService {
       email: email,
       token: token
     }
-    sessionStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user));
     SessionManagementService.isLoggedIn = false;
   }
 
   deleteCurrentuser(){
-    sessionStorage.setItem('user', "{}");
+    localStorage.setItem('user', "{}");
     SessionManagementService.isLoggedIn = false;
   }
 

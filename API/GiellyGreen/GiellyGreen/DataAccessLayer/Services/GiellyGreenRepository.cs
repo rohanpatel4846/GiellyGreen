@@ -1,5 +1,10 @@
-﻿using DataAccessLayer.Interface;
+﻿using DataAccessLayer.Classes;
+using DataAccessLayer.Interface;
 using DataAccessLayer.Model;
+using GiellyGreen.Models.Invoice;
+using GiellyGreen.Models.Month;
+using GiellyGreen.Models.Profile;
+using GiellyGreen.Models.Supplier;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +39,10 @@ namespace DataAccessLayer.Services
             return result;
         }
 
-        public int PostPutSuppliers(Supplier supplier)
+        public int PostPutSuppliers(SupplierViewModel supplierVm)
         {
+            var supplier = FixingModels.FixUp(supplierVm);
+
             var result = giellyGreenDataAccess.InsertUpdateSupplier(
                 id: supplier.id,
                 supplierName: supplier.SupplierName,
@@ -71,8 +78,9 @@ namespace DataAccessLayer.Services
             return monthInvoiceList;
         }
 
-        public int PostPutMonthInvoice(MonthInvoice monthInvoiceOBJ)
+        public int PostPutMonthInvoice(MonthInvoiceViewModel objMonthInvoice)
         {
+            var monthInvoiceOBJ = FixingModels.FixUp(objMonthInvoice);
             var result = giellyGreenDataAccess.InsertUpdateMonthInvoice(
                 id: monthInvoiceOBJ.id,
                 monthNUM: monthInvoiceOBJ.monthNUM,
@@ -96,8 +104,9 @@ namespace DataAccessLayer.Services
             return invoiceList;
         }
 
-        public int PostPutInvoice(Invoice invoice)
+        public int PostPutInvoice(InvoiceViewModel objInvoice)
         {
+            var invoice = FixingModels.FixUp(objInvoice);
             var result = giellyGreenDataAccess.InsertUpdateInvoice(
                 id: invoice.id,
                 monthId: invoice.MonthId,
@@ -151,8 +160,9 @@ namespace DataAccessLayer.Services
             return r2[0] ?? 1;
         }
 
-        public int PostPutProfile(profile pro)
+        public int PostPutProfile(ProfileViewModal objProfile)
         {
+            var pro = FixingModels.FixUp(objProfile);
             var result = giellyGreenDataAccess.InsertUpdateProfile(
                 id: pro.id,
                 companyName: pro.CompanyName,
@@ -166,7 +176,7 @@ namespace DataAccessLayer.Services
         }
 
 
-        public GetLastProfile_Result GetLastProfile()
+        public GetLastProfile_Result GetProfile()
         {   
             var result = giellyGreenDataAccess.GetLastProfile().ToList();
             return result.FirstOrDefault();

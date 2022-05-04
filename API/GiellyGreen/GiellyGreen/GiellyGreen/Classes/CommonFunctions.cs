@@ -10,6 +10,8 @@ using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
 
+using IronPdf;
+
 namespace GiellyGreen.Classes
 {
     public class CommonFunctions
@@ -55,7 +57,17 @@ namespace GiellyGreen.Classes
             Byte[] res = null;
 
             decimal subtotal = invoice.HairService + invoice.BeautyService + invoice.Custom1 + invoice.Custom2 + invoice.Custom3 + invoice.Custom4 + invoice.Custom5;
-            decimal vattotal = (subtotal * monthInvoice.VAT) / 100;
+            decimal vattotal = (subtotal * monthInvoice.VAT) / 100; ;
+
+            if (String.IsNullOrEmpty((supplier.VATNumber + "").ToString()))
+            {
+                vattotal = 0;
+            }
+            else
+            {
+                vattotal = (subtotal * monthInvoice.VAT) / 100;
+            }
+
             decimal balanceDue = (subtotal + vattotal) - invoice.AdvancePay;
 
             var imageName = image.url;
@@ -246,6 +258,8 @@ namespace GiellyGreen.Classes
             #endregion
 
             String cssStr = CommonFunctions.generateCSSpdfString();
+            var x = HttpContext.Current.Server.MapPath("fonts");
+            FontFactory.RegisterDirectory(x);
 
             using (var memoryStream = new MemoryStream())
             {
@@ -256,7 +270,7 @@ namespace GiellyGreen.Classes
                 {
                     using (var htmlMemoryStream = new MemoryStream(Encoding.UTF8.GetBytes(htmlStr)))
                     {
-                        XMLWorkerHelper.GetInstance().ParseXHtml(writer, document, htmlMemoryStream, cssMemoryStream);
+                        XMLWorkerHelper.GetInstance().ParseXHtml(writer, document, htmlMemoryStream, cssMemoryStream, Encoding.UTF8, FontFactory.FontImp);
                     }
                 }
                 document.Close();

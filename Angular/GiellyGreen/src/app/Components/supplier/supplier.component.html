@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="table-container">
-                <nz-table [nzPageSize]="100" [nzLoading]="supplierTableLoading" #sortTable nzOuterBordered [nzData]="listOfData" nzTableLayout="fixed" class="supplierTable">
+                <nz-table [nzPageSize]="10" [nzLoading]="supplierTableLoading" #sortTable nzOuterBordered [nzData]="listOfData" nzTableLayout="fixed" class="supplierTable">
                     <thead>
                         <tr class="supplierHeader">
                             <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">

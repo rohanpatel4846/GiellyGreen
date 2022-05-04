@@ -1,4 +1,6 @@
-﻿using GiellyGreen.Classes;
+﻿using DataAccessLayer.Interface;
+using DataAccessLayer.Services;
+using GiellyGreen.Classes;
 using GiellyGreen.Models;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -13,8 +15,10 @@ using System.Web.Http;
 
 namespace GiellyGreen.Controllers
 {
+    [Authorize]
     public class PDFController : ApiController
     {
+        private readonly IGiellyGreen giellyGreen = new GiellyGreenRepository();
         [HttpPost]
         public JSONResponse GetPDF(int[] InvoiceIds)
         {
@@ -22,23 +26,17 @@ namespace GiellyGreen.Controllers
             var response = new JSONResponse();
             try
             {
-                var Invoice = new InvoiceController();
-                var Supplier = new SupplierController();
-                var MonthInvoice = new MonthInvoiceController();
-                var Image = new ImageController();
-                var Profile = new ProfileController();
-
                 String path = HttpContext.Current.Server.MapPath("~/SupplierLogos");
 
                 List<dynamic> Pdfs = new List<dynamic>();
 
                 foreach (var InvoiceId in InvoiceIds)
                 {
-                    dynamic invoice = Invoice.Get(InvoiceId).Result[0];
-                    dynamic monthInvoice = MonthInvoice.Get(invoice.MonthId).Result[0];
-                    dynamic supplier = Supplier.ALL(invoice.SupplierId).Result[0];
-                    dynamic image = Image.Get(supplier.ImageId).Result[0];
-                    dynamic profile = Profile.GetProfile().Result;
+                    dynamic invoice = giellyGreen.GetInvoice(InvoiceId)[0];
+                    dynamic monthInvoice = giellyGreen.GetMonthInvoice(invoice.MonthId)[0];
+                    dynamic supplier = giellyGreen.GetSuppliers(invoice.SupplierId)[0];
+                    dynamic image = giellyGreen.GetImages(supplier.ImageId)[0];
+                    dynamic profile = giellyGreen.GetProfile();
 
                     Byte[] res = CommonFunctions.generatePDF(invoice, monthInvoice, supplier, image, profile);
                     Pdfs.Add(res);
@@ -72,6 +70,7 @@ namespace GiellyGreen.Controllers
             }
             catch(Exception ex)
             {
+                response.ResponseStatus = 0;
                 response.Message = ex.Message;
                 response.Result = ex;
             }

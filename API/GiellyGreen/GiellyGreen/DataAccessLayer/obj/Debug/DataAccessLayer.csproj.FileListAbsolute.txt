@@ -82,3 +82,5 @@ D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\Data
 D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
 D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\bin\Debug\AutoMapper.dll
+D:\GitHub\GiellyGreen\API\GiellyGreen\GiellyGreen\DataAccessLayer\bin\Debug\AutoMapper.xml

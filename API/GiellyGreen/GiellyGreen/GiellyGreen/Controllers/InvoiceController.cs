@@ -42,9 +42,7 @@ namespace GiellyGreen.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Mapper mapper = new Mapper(new MapperConfiguration(cfg => cfg.CreateMap<InvoiceViewModel, Invoice>()));
-                    var InvoiceObj = mapper.Map<InvoiceViewModel, Invoice>(model);
-                    var result = giellyGreen.PostPutInvoice(InvoiceObj);
+                    var result = giellyGreen.PostPutInvoice(model);
                     if (result == 1)
                     {
                         response.ResponseStatus = 1;
@@ -78,10 +76,8 @@ namespace GiellyGreen.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Mapper mapper = new Mapper(new MapperConfiguration(cfg => cfg.CreateMap<InvoiceViewModel, Invoice>()));
                     model.id = id;
-                    var InvoiceObj = mapper.Map<InvoiceViewModel, Invoice>(model);
-                    var result = giellyGreen.PostPutInvoice(InvoiceObj);
+                    var result = giellyGreen.PostPutInvoice(model);
                     if (result == 1)
                     {
                         response.ResponseStatus = 1;

@@ -22,6 +22,8 @@ export class NavigationMenuComponent implements OnInit {
       title: 'Logout?',
       showCancelButton: true,
       confirmButtonText: 'Yes',
+      confirmButtonColor: '#C99D4A',
+      cancelButtonColor: 'grey',
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {

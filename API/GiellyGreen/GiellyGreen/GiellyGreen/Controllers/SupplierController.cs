@@ -66,9 +66,7 @@ namespace GiellyGreen.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Mapper mapper = new Mapper(new MapperConfiguration(cfg => cfg.CreateMap<SupplierViewModel, Supplier>()));
-                    var SupplierObj = mapper.Map<SupplierViewModel, Supplier>(model);
-                    var result = giellyGreen.PostPutSuppliers(SupplierObj);
+                    var result = giellyGreen.PostPutSuppliers(model);
                     response.ResponseStatus = 1;
                     response.Message = "Records Added";
                     response.Result = result;
@@ -96,10 +94,8 @@ namespace GiellyGreen.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Mapper mapper = new Mapper(new MapperConfiguration(cfg => cfg.CreateMap<SupplierViewModel, Supplier>()));
                     model.id = id;
-                    var SupplierObj = mapper.Map<SupplierViewModel, Supplier>(model);
-                    var result = giellyGreen.PostPutSuppliers(SupplierObj);
+                    var result = giellyGreen.PostPutSuppliers(model);
                     response.ResponseStatus = 1;
                     response.Message = "Records Updated";
                     response.Result = result;

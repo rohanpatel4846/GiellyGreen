@@ -19,7 +19,7 @@
             </div>
 
             <div class="table-container" *ngIf="monthSelected">
-                <nz-table [nzPageSize]="100" [nzLoading]="invoiceTableLoading" #sortTable nzOuterBordered [nzScroll]="{ x: '1620px'}" [nzData]="listOfInvoices" nzTableLayout="fixed" class="supplierTable invoiceTable">
+                <nz-table [nzPageSize]="10" [nzLoading]="invoiceTableLoading" #sortTable nzOuterBordered [nzScroll]="{ x: '1620px'}" [nzData]="listOfInvoices" nzTableLayout="fixed" class="supplierTable invoiceTable">
                     <thead>
                         <tr class="supplierHeader invoiceExtra">
                             <th nzLeft width="50px">
@@ -57,9 +57,9 @@
                             <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [nzPrecision]="2" [(ngModel)]="data.Custom4" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
                             <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [nzPrecision]="2" [(ngModel)]="data.Custom5" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
                             <td nzEllipsis >{{ getNet(data) | number : '1.2-2' }}</td>
-                            <td nzEllipsis >{{ getVAT(getNet(data)) | number : '1.2-2' }}</td>
-                            <td nzEllipsis >{{ getNet(data) + getVAT(getNet(data)) | number : '1.2-2' }}</td>
-                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [nzPrecision]="2" [(ngModel)]="data.AdvancePay" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
+                            <td nzEllipsis >{{ getVAT(data) | number : '1.2-2' }}</td>
+                            <td nzEllipsis >{{ getNet(data) + getVAT(data) | number : '1.2-2' }}</td>
+                            <td nzEllipsis ><nz-input-number [nzDisabled]="data.isApproved" class="tableInInput" [nzPrecision]="2" [nzFormatter]="AdvancePayFormatter" [nzParser]="AdvancePayParser" [(ngModel)]="data.AdvancePay" [nzMin]="0" [nzStep]="1" (ngModelChange)="valueChanged(data.id,$event)"></nz-input-number></td>
                             <td nzEllipsis >{{ getDue(data) }}</td>
                             <td nzEllipsis  nzRight>
                               <input type="checkbox" disabled [ngModel]="data.isApproved" class="custom_checkbox2">
@@ -84,13 +84,13 @@
                 <div class="buttons-invoice-container">
                   <div class="button-group-black">
                     <div class="btnContainerBlack">
-                      <button class="blackBDBTN" (click)="approveSelectedClicked()"><img src="./../../../assets/SVGs/tickIcon.svg" class="btnIconsInvoice">APPROVE SELECTED INVOICES</button>
+                      <button nz-button [disabled]="changedInvoices.length > 0" class="blackBDBTN" (click)="approveSelectedClicked()"><img src="./../../../assets/SVGs/tickIcon.svg" class="btnIconsInvoice">APPROVE SELECTED INVOICES</button>
                     </div>
                     <div class="btnContainerBlack">
-                      <button class="blackBDBTN" (click)="combineAndSave()"><img src="./../../../assets/SVGs/pdfIcon.svg" class="btnIconsInvoice">COMBINE & DOWNLOAD SELECTED INVOICES</button>
+                      <button nz-button [disabled]="changedInvoices.length > 0" class="blackBDBTN" (click)="combineAndSave()"><img src="./../../../assets/SVGs/pdfIcon.svg" class="btnIconsInvoice">COMBINE & DOWNLOAD SELECTED INVOICES</button>
                     </div>
                     <div class="btnContainerBlack">
-                      <button class="blackBDBTN" (click)="sendEmailToSelected()"><img src="./../../../assets/SVGs/atIcon.svg" class="btnIconsInvoice">EMAIL SELECTED INVOICES</button>
+                      <button nz-button [disabled]="changedInvoices.length > 0" class="blackBDBTN" (click)="sendEmailToSelected()"><img src="./../../../assets/SVGs/atIcon.svg" class="btnIconsInvoice">EMAIL SELECTED INVOICES</button>
                     </div>
                   </div>
 
@@ -143,8 +143,8 @@
             <td>{{data.Custom4 | number : '1.2-2'}}</td>
             <td>{{data.Custom5 | number : '1.2-2'}}</td>
             <td>{{ getNet(data) | number : '1.2-2' }}</td>
-            <td>{{ getVAT(getNet(data)) | number : '1.2-2' }}</td>
-            <td>{{ getNet(data) + getVAT(getNet(data)) | number : '1.2-2' }}</td>
+            <td>{{ getVAT(data) | number : '1.2-2' }}</td>
+            <td>{{ getNet(data) + getVAT(data) | number : '1.2-2' }}</td>
             <td>({{data.AdvancePay | number : '1.2-2'}})</td>
             <td>{{ getDue(data) }}</td>
           </tr>
